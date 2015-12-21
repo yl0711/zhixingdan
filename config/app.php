@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 'SomeRandomString'),
+    'key' => env('APP_KEY', 'WOPwYbaTgy4N0We0UiU2OsezcC4XD41P'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -145,6 +145,15 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * Laravel Debugbar
+         */
+        Barryvdh\Debugbar\ServiceProvider::class,
+        /**
+         * laravel-ide-helper
+         */
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
     ],
 
     /*
@@ -192,6 +201,11 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+
+        /**
+         * Laravel Debugbar
+         */
+        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
 
     ],
 
