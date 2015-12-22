@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>牛社管理后台</title>
+	<link rel="stylesheet" href = "{{ asset('css/admin/bootstrap.min.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/admin/common.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/admin/style.css') }}">
+</head>
+<body >
+<div id="header">
+	<div class="logo"> <h1>NB</h1> </div>
+@if (isset($admin_user))
+	<div class="header-r fr">
+		<a style="color: #FFFFFF;" href="{{ url('logout') }}">安全退出</a>
+	</div>
+	<div class="header-r fr">
+		{{ $admin_user['uname'] }}，欢迎您！
+	</div>
+@endif
+</div>
+@if(Session::has('message'))
+<p class="alert">{{ Session::get('message') }}</p>
+@endif

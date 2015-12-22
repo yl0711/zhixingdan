@@ -1,3 +1,18 @@
 Homestead.yaml
 Homestead.json
 .env
+
+# Mac:
+.DS_Store
+
+# Windows:
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# All:
+/nbproject/
+.idea/
+.project
+.settings
+_ide_helper.php

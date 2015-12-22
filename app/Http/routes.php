@@ -10,7 +10,21 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
+
+$httpHost = config('global.HTTP_HOST');
+
+$domain = config('global.DOMAIN');
+
+switch ($httpHost) {
+    case $domain['ADMIN']:
+        require app_path('Http/adminroutes.php');
+        break;
+    default:
+        # code...
+        break;
+}
