@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="Default.js"></script>
+    <style type="text/css">
+        body{ font-size:12px; font-family:微软雅黑;}
+        .up_tit{ width:620px; line-height:30px; display:table; height:30px; background-color:#ccc;}
+        .up_ddl{ float:left;}
+        .up_ddl div{ display:inline-block;}
+        .up_sy{ float:right;}
+        #updisable{ color:#666;}
+        #upload {
+            cursor: pointer;
+            float: right;
+            height: 30px;
+            margin: 3px 6px 0 0;
+            width: 100px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="wrapper">
+    <div id="imageTab">
+        <div id="tabHeads" class="tabhead">
+            <span tabSrc="local"><var id="lang_tab_local"></var></span>
+        </div>
+        <div id="tabBodys" class="tabbody">
+            <!--隐藏域，用来保存Flash中选择的文件个数，从而判定上传按钮是否可用--->
+            <input id="curCount" name="curCount" type="hidden" value="0" />
+            <div class="panel" id="local" style="z-index: 200;">
+                <div id="flashContainer">
+                    <object width="608" height="272" align="middle" id="flash"
+                            codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"
+                            classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
+                        <param value="window" name="wmode">
+                        <param value="imageUploader.swf" name="movie">
+                        <!--<param value="container=flashContainer&url=/imageUp.jsp&ext=%7B%22fileNameFormat%22%3A%22%7Btime%7D%7Brand%3A6%7D%22%7D&fileType=%7B%22description%22%3A%22%E5%9B%BE%E7%89%87%22%2C%20%22extension%22%3A%22*.gif%3B*.jpeg%3B*.png%3B*.jpg%22%7D&flashUrl=imageUploader.swf&width=608&height=272&gridWidth=121&gridHeight=120&picWidth=100&picHeight=100&uploadDataFieldName=upfile&picDescFieldName=pictitle&maxSize=4&compressSize=2&maxNum=32&compressSide=0&compressLength=900"
+                               name="flashvars">-->
+                           <param value="container=flashContainer&url=/goods/editoruploadfile?multi=1&ext=%7B%22fileNameFormat%22%3A%22%7Btime%7D%7Brand%3A6%7D%22%7D&fileType=%7B%22description%22%3A%22%E5%9B%BE%E7%89%87%22%2C%20%22extension%22%3A%22*.gif%3B*.jpeg%3B*.png%3B*.jpg%22%7D&flashUrl=imageUploader.swf&width=608&height=272&gridWidth=121&gridHeight=120&picWidth=100&picHeight=100&uploadDataFieldName=upfile&picDescFieldName=pictitle&maxSize=4&compressSize=2&maxNum=32&compressSide=0&compressLength=900"
+                               name="flashvars" id = "param_flashvars">
+                        <embed width="608" height="272" align="middle"
+                               pluginspage="http://www.macromedia.com/go/getflashplayer"
+                               type="application/x-shockwave-flash" name="flash" src="imageUploader.swf"
+                               flashvars="container=flashContainer&url=/goods/editoruploadfile?multi=1&ext=%7B%22fileNameFormat%22%3A%22%7Btime%7D%7Brand%3A6%7D%22%7D&fileType=%7B%22description%22%3A%22%E5%9B%BE%E7%89%87%22%2C%20%22extension%22%3A%22*.gif%3B*.jpeg%3B*.png%3B*.jpg%22%7D&flashUrl=imageUploader.swf&width=608&height=272&gridWidth=121&gridHeight=120&picWidth=100&picHeight=100&uploadDataFieldName=upfile&picDescFieldName=pictitle&maxSize=4&compressSize=2&maxNum=32&compressSide=0&compressLength=900"
+                               ver="10.0.0" wmode="window" errormessage="Flash插件初始化失败，请更新您的FlashPlayer版本之后重试！">
+                    </object>
+                </div>
+                <div><div style="background: url('images/upload.png') repeat scroll 0% 0% transparent;" id="upload"></div><div id="duiqi" style="background: url('images/imglabel.png') no-repeat scroll -12px 2px transparent;"></div><div id="localFloat"></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+
+        var ci = "#localFloat";
+        var floatContainer = $(ci),
+                nameMaps = {"none":"默认", "left":"左浮动", "right":"右浮动", "center":"居中"};
+        for (var j in nameMaps) {
+            var div = document.createElement("div");
+            div.setAttribute("name", j);
+            if (j == "none") div.className = "focus";
+
+            div.style.cssText = "background:url(images/" + j + "_focus.jpg);";
+            div.setAttribute("title", nameMaps[j]);
+            floatContainer.append(div);
+        }
+        switchSelect(ci);
+    });
+    /**
+     * 选择切换，传入一个container的ID
+     * @param selectParentId
+     */
+    function switchSelect(selectParentId) {
+        var select = $(selectParentId);
+        select.on("click", function (evt) {
+            var tar = evt.srcElement || evt.target;
+            select.children().attr("class","");
+            tar.className = "focus";
+            parent.duiqi = tar.getAttribute("name");
+        });
+    }
+</script>
+</body>
+
+</html>

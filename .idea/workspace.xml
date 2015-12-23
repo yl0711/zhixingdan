@@ -2,11 +2,48 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9c2e4c6-5970-4a71-800c-a818b05b986f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/.bowerrc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/bower.json" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/FontAwesome.otf" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/FontAwesome.otf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.eot" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.eot" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.ttf" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.ttf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.woff" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.woff" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.woff2" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.woff2" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Kernel.php" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_ide_helper.php" afterPath="$PROJECT_DIR$/_ide_helper.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/database.php" afterPath="$PROJECT_DIR$/config/database.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar/composer.json" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar/composer.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar/config/debugbar.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar/config/debugbar.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar/src/DataCollector/AuthCollector.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar/src/DataCollector/AuthCollector.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar/src/DataCollector/IlluminateRouteCollector.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar/src/DataCollector/IlluminateRouteCollector.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar/src/LaravelDebugbar.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar/src/LaravelDebugbar.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar/src/Resources/vendor/font-awesome/style.css" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar/src/Resources/vendor/font-awesome/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/composer.json" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/composer.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/config/ide-helper.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/config/ide-helper.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/readme.md" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/readme.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Console/MetaCommand.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Console/MetaCommand.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Console/ModelsCommand.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Console/ModelsCommand.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Generator.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Generator.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Method.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Method.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/composer/autoload_namespaces.php" afterPath="$PROJECT_DIR$/vendor/composer/autoload_namespaces.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" afterPath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/composer/installed.json" afterPath="$PROJECT_DIR$/vendor/composer/installed.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/composer.json" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/composer.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Bridge/Twig/TraceableTwigEnvironment.php" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Bridge/Twig/TraceableTwigEnvironment.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/DataCollector/MessagesCollector.php" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/DataCollector/MessagesCollector.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/debugbar.css" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/debugbar.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/debugbar.js" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/debugbar.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/openhandler.js" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/openhandler.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/css/font-awesome.min.css" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/css/font-awesome.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.svg" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/fontawesome-webfont.svg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/jquery/dist/jquery.min.js" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/jquery/dist/jquery.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets.css" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets.js" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets/sqlqueries/widget.css" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets/sqlqueries/widget.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets/sqlqueries/widget.js" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets/sqlqueries/widget.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets/templates/widget.css" afterPath="$PROJECT_DIR$/vendor/maximebf/debugbar/src/DebugBar/Resources/widgets/templates/widget.css" />
     </list>
     <ignored path="zhixingdan.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,7 +68,7 @@
       <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.0">
+            <state vertical-scroll-proportion="-0.0">
               <caret line="24" column="42" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="42" />
               <folding>
                 <element signature="e#7#392#0#PHP" expanded="true" />
@@ -43,7 +80,7 @@
       <file leaf-file-name="app.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/app.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.875">
+            <state vertical-scroll-proportion="0.0">
               <caret line="80" column="61" selection-start-line="80" selection-start-column="61" selection-end-line="80" selection-end-column="61" />
               <folding />
             </state>
@@ -53,7 +90,7 @@
       <file leaf-file-name="Kernel.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Kernel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.375">
+            <state vertical-scroll-proportion="0.0">
               <caret line="31" column="55" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
               <folding />
             </state>
@@ -63,8 +100,18 @@
       <file leaf-file-name="AdminAuthenticate.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Middleware/AdminAuthenticate.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.6857143">
+              <caret line="39" column="7" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="auth.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/auth.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-16.25">
+              <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -73,7 +120,7 @@
       <file leaf-file-name="adminroutes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/adminroutes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.625">
+            <state vertical-scroll-proportion="0.0">
               <caret line="17" column="2" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
               <folding>
                 <element signature="e#6#88#0#PHP" expanded="true" />
@@ -98,6 +145,7 @@
         <option value="$PROJECT_DIR$/app/Http/routes.php" />
         <option value="$PROJECT_DIR$/app/Http/adminroutes.php" />
         <option value="$PROJECT_DIR$/app/Http/Kernel.php" />
+        <option value="$PROJECT_DIR$/config/database.php" />
       </list>
     </option>
   </component>
@@ -115,7 +163,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="817" />
+    <option name="height" value="821" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -143,6 +191,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -192,16 +241,18 @@
               <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -215,15 +266,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
+              <option name="myItemId" value="h5" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -237,7 +288,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -252,6 +321,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Jobs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -291,13 +378,30 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Middleware" />
+              <option name="myItemId" value="Model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Exceptions" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -307,8 +411,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Http/Controllers/Admin" />
+      <recent name="$PROJECT_DIR$/app/Http/Controllers" />
+      <recent name="$PROJECT_DIR$/config" />
+      <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/resources/views/admin/static" />
-      <recent name="$PROJECT_DIR$/app/Http/Middleware" />
     </key>
   </component>
   <component name="RunManager">
@@ -355,11 +462,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="817" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="23" width="1440" height="821" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -387,6 +494,50 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="42" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="42" />
+          <folding>
+            <element signature="e#7#392#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="80" column="61" selection-start-line="80" selection-start-column="61" selection-end-line="80" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Kernel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="55" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/AdminAuthenticate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/adminroutes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="2" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
+          <folding>
+            <element signature="e#6#88#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -399,7 +550,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -415,7 +565,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -423,7 +572,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -439,7 +587,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -455,7 +602,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -463,7 +609,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -471,7 +616,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.86206895">
           <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -486,7 +630,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -494,7 +637,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.54741377">
           <caret line="45" column="54" selection-start-line="45" selection-start-column="54" selection-end-line="45" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -502,9 +644,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.38793105">
           <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
-          <folding>
-            <element signature="e#6#88#0#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -518,7 +657,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.0">
+        <state vertical-scroll-proportion="0.0">
           <caret line="24" column="42" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="42" />
           <folding>
             <element signature="e#7#392#0#PHP" expanded="true" />
@@ -528,7 +667,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/adminroutes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.625">
+        <state vertical-scroll-proportion="0.0">
           <caret line="17" column="2" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
           <folding>
             <element signature="e#6#88#0#PHP" expanded="true" />
@@ -538,7 +677,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/app.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.875">
+        <state vertical-scroll-proportion="0.0">
           <caret line="80" column="61" selection-start-line="80" selection-start-column="61" selection-end-line="80" selection-end-column="61" />
           <folding />
         </state>
@@ -546,7 +685,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Kernel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.375">
+        <state vertical-scroll-proportion="0.0">
           <caret line="31" column="55" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
           <folding />
         </state>
@@ -556,14 +695,45 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/auth.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.25">
+          <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.08381503">
+          <caret line="57" column="58" selection-start-line="57" selection-start-column="58" selection-end-line="57" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/h5/common.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Jobs/Job.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Middleware/AdminAuthenticate.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.6857143">
+          <caret line="39" column="7" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
           <folding />
         </state>
       </provider>

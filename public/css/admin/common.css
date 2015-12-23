@@ -1,0 +1,93 @@
+/*  
+*@Description: 后台基础样式
+*@Author:      Riven  
+*@Update:      Riven(2015-09-08)  
+*/  
+
+/*=S HTML5 */
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {display:block;}
+audio, canvas, video {display:inline-block;*display:inline;*zoom:1;}
+audio:not([controls]) {display:none;}
+[hidden] {display:none;}
+/*=E HTML5 */
+
+/*=S 初始 */
+/*
+html {overflow-y:scroll;filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);-webkit-filter: grayscale(100%);}
+*/
+html,body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,fieldset,legend,input,label,textarea,p,blockquote,th,td {margin:0;padding:0;}
+body {background-color:#fff;}
+body,textarea {font:400 12px/1.5em Simsun,Microsoft Yahei,Arial;color:#333;}
+a,a:visited {text-decoration:none;color:#333;cursor:pointer;}
+a:hover {text-decoration:underline;color:#0657B2;}
+em,i {font-style:normal;}
+h1,h2,h3,h4,h5,h6,strong {font-weight:700;font-size:100%;}
+label, input, select {vertical-align:middle;}
+img, button {background:none;border:0 none;vertical-align:middle;}
+ol,ul {list-style:none;}
+table,th,td,fieldset,legend {font-weight:400;border:0 none;border-collapse:collapse}
+pre {white-space:pre-wrap;}
+/*=E 初始 */
+
+/*=S 布局 */
+.layout {margin:0 auto;width:980px;}
+.iblock {display:inline-block;*display:inline;zoom:1;vertical-align:middle;}
+.clearall {zoom:1;}
+.clearall:after {content:".";display:block;clear:both;height:0;visibility:hidden;}
+.pipe {padding:0 5px;font-style:normal;color:#d5d5d5;}
+.vm {vertical-align:middle;}
+.fl {float:left;}
+.fr {float:right;}
+.tl {text-align:left;}
+.tr {text-align:right;}
+.tc {text-align:center;}
+.mt10 {margin-top:10px !important;}
+.mb10 {margin-bottom:10px;}
+.fix-ie6 {position:absolute;top:0;left:0;width:999px;height:999px;z-index:-1;background:none;border:0 none;_filter:Alpha(opacity=0);}
+/*=E 布局 */
+
+/*=S 文字 */
+.color1 {color:#334F67;} /* 深蓝 */
+.color2 {color:#8CA226;} /* 绿色 */
+.color3 {color:#FC6D02;} /* 橙色 */
+
+.color6 {color:#666;} /* 灰色 */
+.color9 {color:#999;} /* 浅灰 */
+.placeholder {color:#999 !important;} /* 输入框默认颜色 */
+:-moz-placeholder {color:#999 !important;}
+::-webkit-input-placeholder {color:#999 !important;} 
+
+.yahei {font:700 16px/1.5 "Microsoft YaHei";}
+.arial {font-family:Arial;}
+.f12 {font-size:12px;}
+.f14 {font-size:14px;}
+.f16 {font-size:16px;}
+.fb {font-weight:700;}
+/*=E 文字 */
+
+/*=S 链接 */
+.link0 a, .link0 a:visited {color:#0657B2;} /* 蓝色 -> 橙色 */
+.link0 a:hover {color:#FC6D02;}
+
+.link1 a, .link1 a:visited, .link1 a:hover {color:#334F67;} /* 深蓝 -> 深蓝 */
+.link2 a, .link2 a:visited, .link2 a:hover {color:#8CA226;} /* 绿色 -> 绿色 */
+.link3 a, .link3 a:visited {color:#FC6D02;} /* 橙色 -> 蓝色 */
+.link3 a:hover {color:#0657B2;}
+
+.link6 a, .link6 a:visited {color:#666;} /* 灰色 -> 灰色 */
+.link6 a:hover {color:#0657B2;}
+.link9 a, .link9 a:visited {color:#999;} /* 浅灰 -> 浅灰 */
+.link9 a:hover {color:#0657B2;}
+/*=E 链接 */
+
+/*=S 表单 */
+.txt,.txtarea {padding:3px;outline:none;font-size:12px;line-height:14px;color:#333;border:1px solid #ddd;border-radius:3px;}
+.txt {height:14px;}
+.txt-large, .txt-middle {font-size:14px;}
+.txt-large {height:22px;line-height:22px;}
+.txt-middle {height:18px;line-height:18px;}
+.txt:hover, .txt:focus, .txtarea:hover, .txtarea:focus {border-color:#7DBDE2;box-shadow:0 0 5px #7DBDE2;}
+.error, .error:hover, .error:focus {border-color:#FFABAB;box-shadow: 0 0 5px #FFABAB;}
+.checkbox, .radio {width:13px;height:13px;}
+/*=E 表单 */
+

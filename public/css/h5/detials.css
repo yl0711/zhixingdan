@@ -1,0 +1,79 @@
+html{
+    -webkit-text-size-adjust: 100%;-webkit-tap-highlight-color: transparent;
+}
+body{ font-family: "\9ED1\4F53"; background: #000; min-width: 320px; max-width: 720px; margin: 0 auto;}
+
+/*活动详情页*/
+.active-top{ position: relative; z-index: 10;}
+	.cover{ position: relative; z-index: 10;}
+		.opacity{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: -webkit-gradient(linear, 0% 50%, 0 100%,from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.75))); height: 100%; z-index: 12;}
+		.cover img{ width: 100%; height: 100%; position: relative; z-index: 11;}
+	.active-title{ position: absolute; bottom: 0; left: 0; width: 100%; /*height: 52px;*/ z-index: 11;}
+		.active-title h2{ padding: 0 5px 5px; font-size: 18px; color: #fff; overflow: hidden; text-overflow:ellipsis; white-space:nowrap;}
+		.active-title dl{ /*float: left; width: 55%;*/ overflow: hidden;}
+		.active-title dt{ float: left; width: 30px; height: 30px; border-radius: 15px; overflow: hidden;}
+			.active-title dt img{ width: 100%;}
+		.active-title dd{ margin: 0 0 0 35px; line-height: 30px; color: #fff; overflow: hidden; text-overflow:ellipsis; white-space: nowrap;}
+		/*.time{ float: right; color: #fff; margin: 8px 10px 0 0;}*/
+
+.wraper{ width: 100%; height: 100%;}
+	.join-btn{ width: 50%; margin: 12px auto 5px; color: #dcfff6; font-size: 18px; line-height: 24px; border: 2px solid #dcfff6; text-align: center; border-radius: 15px;}
+	.introduce{ margin: 0 15px; overflow: hidden;}
+		.introduce dl{ width:100%; font-size: 15px; border-bottom: 2px solid #fff; padding: 5px 0; overflow: hidden;}
+		.introduce dt{ float: left; color: #666;}
+		.introduce dd{ margin-left: 75px; color: #fff;}
+		.act-intr{ margin-top: 5px; font-size: 14px; overflow: hidden;}
+		.act-intr span{ display: block; color: #666;}
+		.act-intr p{ padding-top: 2px; color: #fff; line-height: 22.5px; /*word-break:break-all;*/}
+
+/*出售详情*/
+.sellimg-box{ margin-top: 10px; overflow: hidden;}
+	.sell-top{ position: relative; margin-bottom: 14px; height: 175px; overflow: hidden;}
+	.sell-top dl{ position: relative; float: left;}
+	.sell-top dt{ height: 175px; width: 174px; overflow: hidden;}
+	.sell-top dt img{ width: 100%; height: 100%;}
+	.sell-top dd{ position: absolute; width: 100%; bottom: 0; left: 0; overflow: hidden;z-index: 12;}
+	.sell-top dd p{ color: #fff; padding: 0 4px 0 9px; height: 18px;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+	.sell-btn{ position: absolute; bottom: 0; right: 30px; padding: 0 20px; border: 2px solid #fff; color:#fff; height: 26px; line-height: 26px; text-align: center; border-radius: 20px; font-size: 16px;}
+	.sell-btn span{ padding: 0 2px;}
+	.words{ padding: 0 15px; overflow: hidden;}
+		.words p{ color: #fff; line-height: 22.5px; font-size: 15px;}
+		.words p img{ width: 100%; height: 100%;}
+	/*.imgbox{ margin-top: 12px; width: 100%;}
+	.imgbox img{ width: 100%; height: 100%;}*/
+
+/*爆料详情*/
+.keywords{ padding: 14px 14px 5px; overflow: hidden;}
+	.keywords ul{}
+	.keywords li{ float: left; padding: 0 14px; margin: 0 28px 13px 0; border: 2px solid #dcfff6; color: #cdfff6; font-size: 14px; line-height: 24px; border-radius: 40px;}
+
+/*时光机详情*/
+.mixed{ color: #fff; font-weight: 700;}
+	.mixed p{  padding: 12px 15px 0; line-height: 22.5px; font-size: 15px; color: #fff; text-align: justify;}
+	.mixed img{ display: block; padding-top: 12px; width: 100%;}
+.detailed-parameters{ padding-top: 10px; overflow: hidden;}
+	.detailed-parameters span{ display: block; position: relative; margin: 0 auto; width: 69px; height: 18px; text-align: center; color: #dcfff6;}
+	.detailed-parameters span:before{content:""; position: absolute; left: 0; top: 0; width: 9px; height: 18px; background: url("../../../images/h5/up.png") no-repeat; background-size: cover;}
+	.detailed-parameters span:after{content:""; position: absolute; right: 0; top: 0; width: 9px; height: 18px; background: url("../../../images/h5/up.png") no-repeat; background-size: cover;}
+	.con{ display: none; padding: 12px 0 10px; z-index: 15;}
+	.con table{ width: 100%; background: #fff;}
+	.con table td{ padding: 8px 8px 5px; vertical-align: top; font-size: 13px; border-bottom: 1px solid #eee; line-height: 22px; border-right: 1px solid #eee; color: #666;}
+	.con table td:nth-child(2n-1){ width: 30%; padding: 8px 8px 5px;}
+	.con table td:nth-child(2n){ color: #000;}
+.listbox{ padding-top: 15px;}
+	.listbox ul{} 
+	.listbox li{ margin-bottom: 17px; overflow: hidden;}
+	.listbox li dl{ overflow: hidden;}
+	.listbox li dt{ float: left; position: relative;}
+		.listbox li dt .f-img{ width: 135px; height: 135px; overflow: hidden;}
+		.listbox li dt .f-img img{ width: 100%; height: 100%;}
+		.listbox li dt .f-box{ position: absolute; bottom: 0; left: 0; width: 100%; z-index: 12;}
+		.listbox li dt .headbox{ float: left; width: 30px; height: 30px; border-radius: 20px; overflow: hidden;}
+		.listbox li dt .headbox img{ width: 100%; height: 100%;}
+		.listbox li dt .f-box span{ display: block; margin: 0 0 0 38px;  height: 30px; line-height: 30px; font-size: 13px; color: #fff; overflow: hidden; text-overflow:ellipsis; white-space:nowrap;}
+	.listbox li dd{ margin-left: 143px; padding-bottom: 18px; min-height: 130px; position: relative; color: #fff;}
+		.listbox li dd .tit-top{ margin-bottom: 8px;}
+		.listbox li dd .tit-top h3{ font-size: 18px; height: 36px; line-height: 36px; overflow: hidden; text-overflow:ellipsis; white-space:nowrap;}
+		.listbox li dd .tit-top span{ display: block;}
+		.listbox li dd p{ padding-right: 12px; line-height: 20px; text-overflow: -o-ellipsis-lastline;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
+		.listbox li dd em{ position: absolute; bottom: 0; right: 30px; color: #dcfff6;}
