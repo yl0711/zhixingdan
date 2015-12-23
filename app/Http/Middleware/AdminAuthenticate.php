@@ -28,7 +28,7 @@ class AdminAuthenticate
      */
     public function __construct()
     {
-        $this->adminAuth = Auth::admin();
+        $this->adminAuth = Auth;
     }
 
     /**
@@ -109,7 +109,7 @@ class AdminAuthenticate
 
     private function responseErr($request, $msg='', $logout=true)
     {
-        $logout && Auth::admin()->logout();
+        $logout && $this->adminAuth->logout();
         if ($request->ajax()) {
             !$msg && $msg = 'Unauthorized';
             return response(json_encode(['status'=>'error', 'info'=>$msg]));

@@ -15,7 +15,7 @@ return [
     |
     */
 
-    //'driver' => 'eloquent',
+    'driver' => 'eloquent',
 
     /*
     |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ return [
     |
     */
 
-    //'model' => App\User::class,
+    'model' => App\Http\Model\liuchengdan\UserModel::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -57,14 +57,14 @@ return [
     | they have less time to be guessed. You may change this as needed.
     |
     */
-
+/*
     'multi' => [
         'admin' => [
             'driver' => 'eloquent',
             'model'  => App\Http\Model\liuchengdan\UserModel::class
         ],
     ],
-
+*/
     'password' => [
         'email'  => 'emails.password',
         'table'  => 'password_resets',

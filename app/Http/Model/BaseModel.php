@@ -10,7 +10,7 @@ namespace App\Http\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-abstract class AdminBaseModel extends Model
+abstract class BaseModel extends Model
 {
 
     protected $guarded = [];

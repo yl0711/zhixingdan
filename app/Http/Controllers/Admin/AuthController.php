@@ -34,7 +34,7 @@ class AuthController extends AdminBaseController
 
     public function login()
     {
-        if (Auth::admin()->guest()) {
+        if (Auth::guest()) {
             return view('admin.login');
         } else {
             return redirect()->to('/');
@@ -51,7 +51,7 @@ class AuthController extends AdminBaseController
             return redirect()->back()->with('loginerr', implode(' ', $errors))->withInput();
         }
 
-        if (Auth::admin()->attempt(['uname'=>$data['uname'], 'password'=>$data['password']], true)){
+        if (Auth::attempt(['uname'=>$data['uname'], 'password'=>$data['password']], true)){
             if (!empty($data['backurl'])) {
                 return Redirect()->to($data['backurl'])->with('message', '成功登录');
             } else {
@@ -64,7 +64,7 @@ class AuthController extends AdminBaseController
 
     public function logout()
     {
-        Auth::admin()->logout();
+        Auth::logout();
 
         return redirect()->to('login')->with('message', '你已经退出登录');
     }

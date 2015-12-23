@@ -8,21 +8,21 @@
 
 namespace App\Http\Manage;
 
-use App\Http\Model\NiusheAdmin\AuthorityModel;
-use App\Http\Model\NiusheAdmin\UserGroupModel;
-use App\Http\Model\NiusheAdmin\UserModel;
+use App\Http\Model\liuchengdan\AuthorityModel;
+use App\Http\Model\liuchengdan\GroupModel;
+use App\Http\Model\liuchengdan\UserModel;
 
 class AdminUserManage
 {
     public $error = [];
 
     private $userModel = null;
-    private $userGroupModel = null;
+    private $groupModel = null;
 
     public function __construct()
     {
         $this->userModel = new UserModel();
-        $this->userGroupModel = new UserGroupModel();
+        $this->groupModel = new GroupModel();
     }
 
     /**
@@ -55,7 +55,7 @@ class AdminUserManage
             $groupids[$value['gid']] = $value['gid'];
         }
         if ($groupids) {
-            $data = $this->userGroupModel->getByGid($groupids)->toarray();
+            $data = $this->groupModel->getByGid($groupids)->toarray();
             foreach ($data as $value) {
                 $userGroup[$value['gid']] = $value;
             }
@@ -83,7 +83,7 @@ class AdminUserManage
         if (!isset($request['gid']) || empty($request['gid'])) {
             throw new \Exception('请选择管理员所属用户组');
         }
-        $userGroup = $this->userGroupModel->getByGid($request['gid'])->toarray();
+        $userGroup = $this->groupModel->getByGid($request['gid'])->toarray();
         if (empty($userGroup)) {
             throw new \Exception('选择的管理员组不存在');
         }
@@ -147,7 +147,7 @@ class AdminUserManage
     public function getUserGroup($gid)
     {
         try {
-            return $this->userGroupModel->getByGid($gid);
+            return $this->groupModel->getByGid($gid);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
@@ -162,7 +162,7 @@ class AdminUserManage
      */
     public function getUserGroupList($name=null, $parentid=null, $status=null)
     {
-        return $this->userGroupModel->getList($name, $parentid, $status);
+        return $this->groupModel->getList($name, $parentid, $status);
     }
 
     /**
@@ -171,7 +171,7 @@ class AdminUserManage
      */
     public function getUserGroupAll()
     {
-        return $this->userGroupModel->getAll();
+        return $this->groupModel->getAll();
     }
 
     /**
@@ -185,14 +185,14 @@ class AdminUserManage
         if (!isset($request['gname']) || empty($request['gname'])) {
             throw new \Exception('请填写管理组名称');
         }
-        if (!empty($this->userGroupModel->getByGname($request['gname']))) {
+        if (!empty($this->groupModel->getByGname($request['gname']))) {
             throw new \Exception('管理组 ' . $request['gname'] . ' 已经存在');
         }
         if (!isset($request['article_check'])) {
             $request['article_check'] = 1;
         }
 
-        return $this->userGroupModel->add($request);
+        return $this->groupModel->add($request);
     }
 
     /**
@@ -203,7 +203,7 @@ class AdminUserManage
     public function modifyUserGroup(Array $request)
     {
         try {
-            $this->userGroupModel->getByGid($request['gid']);
+            $this->groupModel->getByGid($request['gid']);
             $gid = $request['gid'];
 
         } catch (\Exception $e) {
@@ -213,7 +213,7 @@ class AdminUserManage
         if (!isset($request['gname']) || empty($request['gname'])) {
             throw new \Exception('请填写管理组名');
         }
-        if ($request['gname'] != $request['oldgname'] && !empty($this->userGroupModel->getByGname($request['gname']))) {
+        if ($request['gname'] != $request['oldgname'] && !empty($this->groupModel->getByGname($request['gname']))) {
             throw new \Exception('管理组 ' . $request['gname'] . ' 已经存在');
         }
         if (!isset($request['article_check'])) {
@@ -222,7 +222,7 @@ class AdminUserManage
         unset($request['gid']);
         unset($request['oldgname']);
 
-        $this->userGroupModel->modify($gid, $request);
+        $this->groupModel->modify($gid, $request);
     }
 
     /**
