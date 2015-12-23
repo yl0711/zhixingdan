@@ -15,8 +15,8 @@ return [
     'IMG_DIR'=> dirname(__DIR__) . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'image',
     'LOGS_DIR'=>dirname(__DIR__) . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'logs',
     'DOMAIN' => [
-        'ADMIN' => 'admin.test.com',
-        'IMAGE' => 'image.test.com',
+        'ADMIN' => 'admin.limeng.com',
+        'IMAGE' => 'image.limeng.com',
     ],
     'PAGE_SIZE'=>10,
     'API_LIMIT'=>2,

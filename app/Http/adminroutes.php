@@ -6,6 +6,7 @@
  * Time: 下午1:18
  */
 
+
 //登录和退登
 Route::get('login', ['as'=>'login', 'uses'=>'Admin\AuthController@login']);
 Route::post('login', ['as'=>'login', 'uses'=>'Admin\AuthController@dologin']);
