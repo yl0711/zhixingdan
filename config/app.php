@@ -153,6 +153,10 @@ return [
          * laravel-ide-helper
          */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        /**
+         * laravel-dompdf
+         */
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -206,7 +210,10 @@ return [
          * Laravel Debugbar
          */
         'Debugbar'  => Barryvdh\Debugbar\Facade::class,
-
+        /**
+         * laravel-dompdf
+         */
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];
