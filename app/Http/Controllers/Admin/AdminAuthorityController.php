@@ -20,10 +20,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
 /**
- * Class AuthorityController
+ * Class AdminAuthorityController
  * @package App\Http\Controllers\Admin
  * @Authorization 权限管理::权限管理
- * @beforeAuthorization AdminUserController
  */
 class AdminAuthorityController extends AdminBaseController
 {

@@ -28,7 +28,7 @@ class AdminAuthenticate
      */
     public function __construct()
     {
-        $this->adminAuth = Auth;
+        $this->adminAuth = auth::class;
     }
 
     /**

@@ -29,7 +29,7 @@ return array(
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
     'App\\Http\\Middleware\\RedirectIfAuthenticated' => $baseDir . '/app/Http/Middleware/RedirectIfAuthenticated.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
-    'App\\Http\\Model\\AdminBaseModel' => $baseDir . '/app/Http/Model/BaseModel.php',
+    'App\\Http\\Model\\BaseModel' => $baseDir . '/app/Http/Model/BaseModel.php',
     'App\\Http\\Model\\liuchengdan\\AuthorityListModel' => $baseDir . '/app/Http/Model/liuchengdan/AuthorityListModel.php',
     'App\\Http\\Model\\liuchengdan\\GroupModel' => $baseDir . '/app/Http/Model/liuchengdan/GroupModel.php',
     'App\\Http\\Model\\liuchengdan\\UserModel' => $baseDir . '/app/Http/Model/liuchengdan/UserModel.php',

@@ -12,7 +12,7 @@
 				<input type="hidden" name="backurl" value="" />
 				<dl class="form-box">
 					<dt></dt>
-					<dd><input type="text" name="uname" id="uname" placeholder="账号"></dd>
+					<dd><input type="text" name="name" id="name" placeholder="账号"></dd>
 				</dl>
 				<dl class="form-box">
 					<dt></dt>
@@ -36,7 +36,7 @@ $(function() {
 });
 
 functon checkFormData() {
-	if (0 == $('#uname').val().trim().length) {
+	if (0 == $('#name').val().trim().length) {
 		alert('请填写你的管理员账号');
 		return false;
 	}

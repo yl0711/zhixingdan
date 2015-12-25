@@ -13,10 +13,9 @@ use Illuminate\Http\Request;
 use Route;
 
 /**
- * Class UserController
+ * Class AdminUserController
  * @package App\Http\Controllers\Admin
  * @Authorization 权限管理::管理员管理
- * @beforeAuthorization AdminUserGroupController
  */
 class AdminUserController extends AdminBaseController
 {
@@ -26,6 +25,7 @@ class AdminUserController extends AdminBaseController
         $data = $this->adminUserManage->getUserList();
         $userGroup = $data['userGroup'];
         $userList = $data['userList']['data'];
+        /*
         foreach ($userList as &$value) {
             if (-1 == $value['article_check']) {
                 $value['article_check'] = $this->adminUserManage->getArticleCheck($userGroup[$value['gid']]['article_check']);
@@ -38,6 +38,7 @@ class AdminUserController extends AdminBaseController
                 $value['article_view'] = $this->adminUserManage->getArticleView($value['article_view']);
             }
         }
+        */
 
         return view('admin.admin_user_list', compact('userList', 'userGroup'));
     }
@@ -77,7 +78,7 @@ class AdminUserController extends AdminBaseController
             } catch (\Exception $e) {
                 echo $e->getMessage();exit;
             }
-
+            /*
             $user['article_check_0'] = $user['article_check_1'] = '';
             if (-1 != $user['article_check']) {
                 $user['article_check_' . $user['article_check']] = 'checked="checked"';
@@ -87,7 +88,7 @@ class AdminUserController extends AdminBaseController
             if (-1 != $user['article_view']) {
                 $user['article_view_' . $user['article_view']] = 'checked="checked"';
             }
-
+            */
             $group = $this->adminUserManage->getUserGroupAll()->toarray();
             foreach ($group as &$value) {
                 if ($value['gid'] == $user['gid']) {

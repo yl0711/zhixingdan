@@ -40,16 +40,16 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
      * @param int    $state
      * @return mixed
      */
-	public function getList($name=null, $gid=null, $state=null)
+	public function getList($name=null, $group_id=null, $status=null)
     {
         if (!is_null($name)) {
-            self::where('uname', 'like', '%'.$name.'%');
+            self::where('name', 'like', '%'.$name.'%');
         }
-        if (!is_null($gid)) {
-            self::where('gid', $gid);
+        if (!is_null($group_id)) {
+            self::where('group_id', $group_id);
         }
-        if (!is_null($state)) {
-            self::where('state', $state);
+        if (!is_null($status)) {
+            self::where('status', $status);
         }
 
         return self::orderBy('created_at', 'desc')->paginate(config('global.PAGE_SIZE'));
@@ -76,9 +76,9 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
         return $data;
     }
 
-    public function getByUname($uname)
+    public function getByUname($name)
     {
-        return self::where('uname', $uname)->get()->toarray();
+        return self::where('name', $name)->get()->toarray();
     }
 
     public function add(Array $data)

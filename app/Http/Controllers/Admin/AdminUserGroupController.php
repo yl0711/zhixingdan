@@ -13,7 +13,7 @@ use App\Http\Manage\AdminUserManage;
 use Illuminate\Http\Request;
 
 /**
- * Class UsergroupController
+ * Class AdminUserGroupController
  * @package App\Http\Controllers\Admin
  * @Authorization 权限管理::管理组管理
  */

@@ -30,6 +30,7 @@ class AuthController extends AdminBaseController
                 exit;
             }
         }
+        return view('welcome');
     }
 
     public function login()
@@ -51,7 +52,7 @@ class AuthController extends AdminBaseController
             return redirect()->back()->with('loginerr', implode(' ', $errors))->withInput();
         }
 
-        if (Auth::attempt(['uname'=>$data['uname'], 'password'=>$data['password']], true)){
+        if (Auth::attempt(['name'=>$data['name'], 'password'=>$data['password']], true)){
             if (!empty($data['backurl'])) {
                 return Redirect()->to($data['backurl'])->with('message', '成功登录');
             } else {
@@ -72,7 +73,7 @@ class AuthController extends AdminBaseController
     public function validator(array $data)
     {
         return Validator::make($data, [
-            'uname' => 'required|max:255',
+            'name' => 'required|max:255',
             'password' => 'required|min:6',
         ]);
     }
