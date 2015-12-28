@@ -42,17 +42,19 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
      */
 	public function getList($name=null, $group_id=null, $status=null)
     {
+        $query = self::where('superadmin', '!=', 1);
+
         if (!is_null($name)) {
-            self::where('name', 'like', '%'.$name.'%');
+            $query = $query->where('name', 'like', '%'.$name.'%');
         }
         if (!is_null($group_id)) {
-            self::where('group_id', $group_id);
+            $query = $query->where('group_id', $group_id);
         }
         if (!is_null($status)) {
-            self::where('status', $status);
+            $query = $query->where('status', $status);
         }
 
-        return self::orderBy('created_at', 'desc')->paginate(config('global.PAGE_SIZE'));
+        return $query->orderBy('created_at', 'desc')->paginate(config('global.PAGE_SIZE'));
 	}
 
     /**

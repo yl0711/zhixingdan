@@ -31,30 +31,9 @@ abstract class AdminBaseController extends Controller
     {
 		$this->adminUserManage = new AdminUserManage();
 
-		return;
-
 		$this->admin_user = config('global.CONSTANTS_ADMIN_USER');
 		$this->admin_user_group = config('global.CONSTANTS_ADMIN_USER_GROUP');
 		$this->admin_user_authority = config('global.CONSTANTS_ADMIN_USER_AUTHORITY');
-
-		if ($this->admin_user) {
-			if (1 == $this->admin_user['article_check']) {
-				Config::set('global.ARTICLE_STATUS', 1);
-			}
-
-			switch ($this->admin_user['article_view']) {
-				case 0:
-					$this->article_view_uid = 0;
-					break;
-				case 1:
-
-					break;
-				case 2:
-				default:
-					$this->article_view_uid = $this->admin_user['uid'];
-					break;
-			}
-		}
 
 		if (config('global.CONSTANTS_ADMIN_CURRENT_AUTHORITY')) {
 			$parentid = config('global.CONSTANTS_ADMIN_CURRENT_AUTHORITY')[0]['parentid'];
@@ -88,7 +67,6 @@ abstract class AdminBaseController extends Controller
 			}
 			view()->share('admin_current_authority', $this->admin_current_authority);
 		}
-
 
 		$this->pageSize = Request::input('pageSize', config('global.PAGE_SIZE'));
 		view()->share('pageSize', $this->pageSize);

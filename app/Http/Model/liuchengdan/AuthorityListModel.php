@@ -13,7 +13,7 @@ use App\Http\Model\BaseModel;
 class AuthorityListModel extends BaseModel
 {
 
-    protected $table = 'authority_list';
+    protected $table = 'admin_authority_list';
 
 
     public function get_all()
@@ -46,13 +46,13 @@ class AuthorityListModel extends BaseModel
         }
         $parent = [];
 
-        $list = AuthorityListModel::whereIn('aname', array_keys($parentList))->get()->toArray();
+        $list = self::whereIn('aname', array_keys($parentList))->get()->toArray();
         if (0 < count($list)) {
             foreach ($list as $parentData) {
                 if (isset($parentList[$parentData['aname']])) {
                     $parent[$parentData['aname']] = $parentData['id'];
 
-                    AuthorityListModel::where('id', $parentData['id'])
+                    self::where('id', $parentData['id'])
                         ->update(['state'=>1, 'vieworder'=>$parentList[$parentData['aname']]['order']]);
                     unset($parentList[$parentData['aname']]);
                 }
@@ -61,7 +61,7 @@ class AuthorityListModel extends BaseModel
 
         if (0 < count($parentList)) {
             foreach ($parentList as $parentData) {
-                $parent[$parentData['name']] = AuthorityListModel::create([
+                $parent[$parentData['name']] = self::create([
                     'aname'=>$parentData['name'],
                     'vieworder'=>$parentData['order'],
                 ])->id;
@@ -84,13 +84,13 @@ class AuthorityListModel extends BaseModel
 
         $master = [];
 
-        $list = AuthorityListModel::whereIn('classname', array_keys($masterList))->get()->toarray();
+        $list = self::whereIn('classname', array_keys($masterList))->get()->toarray();
         if (0 < count($list)) {
             foreach ($list as $masterData) {
                 if (isset($masterList[$masterData['classname']])) {
                     $master[$masterData['classname']] = $masterData['id'];
 
-                    AuthorityListModel::where('id', $masterData['id'])
+                    self::where('id', $masterData['id'])
                         ->update([
                             'state'=>1,
                             'vieworder'=>$masterList[$masterData['classname']]['order'],
@@ -105,7 +105,7 @@ class AuthorityListModel extends BaseModel
 
         if (0 < count($masterList)) {
             foreach ($masterList as $masterData) {
-                $master[$masterData['classname']] = AuthorityListModel::create([
+                $master[$masterData['classname']] = self::create([
                     'aname'=>$masterData['name'],
                     'url'=>$masterData['url'],
                     'filename'=>$masterData['filename'],
@@ -133,13 +133,13 @@ class AuthorityListModel extends BaseModel
 
         $sub = $updateIds = [];
 
-        $list = AuthorityListModel::where('parentid', '>', '0')->where('masterid', '>', '0')->get()->toarray();
+        $list = self::where('parentid', '>', '0')->where('masterid', '>', '0')->get()->toarray();
         if (0 < count($list)) {
             foreach ($list as $subData) {
                 if (isset($subList[$subData['classname'].'|'.$subData['methodname']])) {
                     $sub[$subData['classname'].'|'.$subData['methodname']] = $subData['id'];
 
-                    AuthorityListModel::where('id', $subData['id'])
+                    self::where('id', $subData['id'])
                         ->update([
                             'state'=>1,
                             'aname'=>$subList[$subData['classname'].'|'.$subData['methodname']]['name'],
@@ -152,7 +152,7 @@ class AuthorityListModel extends BaseModel
 
         if (0 < count($subList)) {
             foreach ($subList as $subData) {
-                $sub[$subData['classname'].'|'.$subData['methodname']] = AuthorityListModel::create([
+                $sub[$subData['classname'].'|'.$subData['methodname']] = self::create([
                     'aname'=>$subData['name'],
                     'url'=>$subData['url'],
                     'filename'=>$subData['filename'],
@@ -174,10 +174,10 @@ class AuthorityListModel extends BaseModel
     public function stopAuthority(Array $ids=[])
     {
         if (!$ids) {
-            return AuthorityListModel::update(['state'=>0]);
+            return self::update(['state'=>0]);
         } else {
             if (is_array($ids)) {
-                return AuthorityListModel::whereIn('id', $ids)->update(['state'=>0]);
+                return self::whereIn('id', $ids)->update(['state'=>0]);
             } else {
                 throw new \Exception(__CLASS__ .'->'.__FUNCTION__.': 参数错误, '.implode(',', func_get_args()));
             }

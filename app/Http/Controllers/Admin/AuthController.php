@@ -22,12 +22,14 @@ class AuthController extends AdminBaseController
 
     public function index()
     {
-        foreach ($this->admin_user_authority as $value) {
-            foreach ($value['master'] as $value1) {
-                @header("HTTP/1.1 301 Moved Permanently");
-                @header('Status: 301 Moved Permanently');
-                @header("Location:" . urldecode($value1['url']));
-                exit;
+        if ($this->admin_user_authority) {
+            foreach ($this->admin_user_authority as $value) {
+                foreach ($value['master'] as $value1) {
+                    @header("HTTP/1.1 301 Moved Permanently");
+                    @header('Status: 301 Moved Permanently');
+                    @header("Location:" . urldecode($value1['url']));
+                    exit;
+                }
             }
         }
         return view('welcome');

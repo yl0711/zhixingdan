@@ -14,7 +14,7 @@
 		<a style="color: #FFFFFF;" href="{{ url('logout') }}">安全退出</a>
 	</div>
 	<div class="header-r fr">
-		{{ $admin_user['uname'] }}，欢迎您！
+		{{ $admin_user['name'] }}，欢迎您！
 	</div>
 @endif
 </div>

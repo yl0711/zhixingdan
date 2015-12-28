@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use App\Http\Manage\AdminAuthorityManage;
 use App\Http\Manage\AdminUserManage;
-use Auth;
 use Config;
 use Route;
 use Closure;
@@ -26,9 +25,9 @@ class AdminAuthenticate
      * @param  Guard  $auth
      * @return void
      */
-    public function __construct()
+    public function __construct(Guard $auth)
     {
-        $this->adminAuth = auth::class;
+        $this->adminAuth = $auth;
     }
 
     /**
@@ -45,18 +44,12 @@ class AdminAuthenticate
         }
 
         // 获取管理员信息
-        $admin_user = $this->adminAuth->get()->toArray();
+        $admin_user = $this->adminAuth->user()->toArray();
         // 权限\发文审核\浏览权限没有设置时继承所属管理组
         $adminUserManage = new AdminUserManage();
-        $admin_user_group = $adminUserManage->getUserGroup($admin_user['gid'])->toArray()[0];
+        $admin_user_group = $adminUserManage->getUserGroup($admin_user['group_id'])->toArray()[0];
         if (empty($admin_user['authority'])) {
             $admin_user['authority'] = $admin_user_group['authority'];
-        }
-        if (-1 == $admin_user['article_check']) {
-            $admin_user['article_check'] = $admin_user_group['article_check'];
-        }
-        if (-1 == $admin_user['article_view']) {
-            $admin_user['article_view'] = $admin_user_group['article_view'];
         }
 
         if (empty($admin_user['authority'])) {
