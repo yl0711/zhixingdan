@@ -12,20 +12,22 @@ Route::get('login', ['as'=>'login', 'uses'=>'Admin\AuthController@login']);
 Route::post('login', ['as'=>'login', 'uses'=>'Admin\AuthController@dologin']);
 Route::get('logout', ['as'=>'logout', 'uses'=>'Admin\AuthController@logout']);
 
-Route::group(['namespace'=>'Admin', 'middleware'=>'auth'],function() {
+//, 'middleware'=>'auth'
+
+Route::group(['namespace'=>'Admin'],function() {
 
     Route::get('/', 'AuthController@index');
 
     Route::group(['prefix' => 'user'], function() {
-        Route::get('/index', ['use' => 'AdminUserController@index']);
+        Route::get('/index', ['uses' => 'AdminUserController@index']);
     });
 
     Route::group(['prefix' => 'usergroup'], function() {
-        Route::get('/index', ['use' => 'AdminUserGroupController@index']);
+        Route::get('/index', ['uses' => 'AdminUserGroupController@index']);
     });
 
     Route::group(['prefix' => 'department'], function() {
-        Route::get('/index', ['use' => 'AdminDepartmentController@index']);
+        Route::get('/index', ['uses' => 'AdminDepartmentController@index']);
     });
 
 });

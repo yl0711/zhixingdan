@@ -52,12 +52,12 @@ class AdminUserManage
         $userList = $this->userModel->getList($name, $gid, $status)->toarray();
 
         foreach ($userList['data'] as $key=>$value) {
-            $groupids[$value['gid']] = $value['gid'];
+            $groupids[$value['group_id']] = $value['group_id'];
         }
         if ($groupids) {
             $data = $this->groupModel->getByGid($groupids)->toarray();
             foreach ($data as $value) {
-                $userGroup[$value['gid']] = $value;
+                $userGroup[$value['id']] = $value;
             }
         }
         return ['userList'=>$userList, 'userGroup'=>$userGroup];
@@ -71,24 +71,21 @@ class AdminUserManage
      */
     public function addUser(Array $request)
     {
-        if (!isset($request['uname']) || empty($request['uname'])) {
+        if (!isset($request['name']) || empty($request['name'])) {
             throw new \Exception('请填写管理员账号');
         }
-        if (!empty($this->userModel->getByUname($request['uname']))) {
-            throw new \Exception('用户 ' . $request['uname'] . ' 已经存在');
+        if (!empty($this->userModel->getByUname($request['name']))) {
+            throw new \Exception('用户 ' . $request['name'] . ' 已经存在');
         }
         if (!isset($request['password']) || empty($request['password'])) {
             throw new \Exception('请填写管理员密码');
         }
-        if (!isset($request['gid']) || empty($request['gid'])) {
+        if (!isset($request['group_id']) || empty($request['group_id'])) {
             throw new \Exception('请选择管理员所属用户组');
         }
-        $userGroup = $this->groupModel->getByGid($request['gid'])->toarray();
+        $userGroup = $this->groupModel->getByGid($request['group_id'])->toarray();
         if (empty($userGroup)) {
             throw new \Exception('选择的管理员组不存在');
-        }
-        if (!isset($request['article_check'])) {
-            $request['article_check'] = 1;
         }
         $request['password'] = bcrypt($request['password']);
 
@@ -103,17 +100,17 @@ class AdminUserManage
     public function modifyUser(Array $request)
     {
         try {
-            $this->userModel->getByUid($request['uid']);
-            $uid = $request['uid'];
+            $this->userModel->getByUid($request['id']);
+            $uid = $request['id'];
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
 
-        if (!isset($request['uname']) || empty($request['uname'])) {
+        if (!isset($request['name']) || empty($request['name'])) {
             throw new \Exception('请填写管理员账号');
         }
-        if ($request['uname'] != $request['olduname'] && !empty($this->userModel->getByUname($request['uname']))) {
-            throw new \Exception('用户 ' . $request['uname'] . ' 已经存在');
+        if ($request['name'] != $request['oldname'] && !empty($this->userModel->getByUname($request['name']))) {
+            throw new \Exception('用户 ' . $request['name'] . ' 已经存在');
         }
         if (!isset($request['password']) || empty($request['password'])) {
             //每天密码表示不修改密码
@@ -121,11 +118,8 @@ class AdminUserManage
         } else {
             $request['password'] = bcrypt($request['password']);
         }
-        if (!isset($request['article_check'])) {
-            $request['article_check'] = 1;
-        }
-        unset($request['uid']);
-        unset($request['olduname']);
+        unset($request['id']);
+        unset($request['oldname']);
 
         $this->userModel->modify($uid, $request);
     }
@@ -182,14 +176,11 @@ class AdminUserManage
      */
     public function addUserGroup(Array $request)
     {
-        if (!isset($request['gname']) || empty($request['gname'])) {
+        if (!isset($request['name']) || empty($request['name'])) {
             throw new \Exception('请填写管理组名称');
         }
-        if (!empty($this->groupModel->getByGname($request['gname']))) {
-            throw new \Exception('管理组 ' . $request['gname'] . ' 已经存在');
-        }
-        if (!isset($request['article_check'])) {
-            $request['article_check'] = 1;
+        if (!empty($this->groupModel->getByGname($request['name']))) {
+            throw new \Exception('管理组 ' . $request['name'] . ' 已经存在');
         }
 
         return $this->groupModel->add($request);
@@ -203,24 +194,21 @@ class AdminUserManage
     public function modifyUserGroup(Array $request)
     {
         try {
-            $this->groupModel->getByGid($request['gid']);
-            $gid = $request['gid'];
+            $this->groupModel->getByGid($request['id']);
+            $gid = $request['id'];
 
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
 
-        if (!isset($request['gname']) || empty($request['gname'])) {
+        if (!isset($request['name']) || empty($request['name'])) {
             throw new \Exception('请填写管理组名');
         }
-        if ($request['gname'] != $request['oldgname'] && !empty($this->groupModel->getByGname($request['gname']))) {
-            throw new \Exception('管理组 ' . $request['gname'] . ' 已经存在');
+        if ($request['name'] != $request['oldname'] && !empty($this->groupModel->getByGname($request['name']))) {
+            throw new \Exception('管理组 ' . $request['name'] . ' 已经存在');
         }
-        if (!isset($request['article_check'])) {
-            $request['article_check'] = 1;
-        }
-        unset($request['gid']);
-        unset($request['oldgname']);
+        unset($request['id']);
+        unset($request['oldname']);
 
         $this->groupModel->modify($gid, $request);
     }

@@ -19,19 +19,19 @@ class GroupModel extends BaseModel
      * @link url('usergroup/index')
      * @param string $name      管理组名
      * @param int    $parentid  上级管理组ID
-     * @param int    $state     管理组状态, 1-启用，0-停用，-1-删除
+     * @param int    $status     管理组状态, 1-启用，0-停用，-1-删除
      * @return mixed
      */
-    public function getList($name=null, $parentid=null, $state=null)
+    public function getList($name=null, $parentid=null, $status=null)
     {
         if (!is_null($name)) {
-            self::where('gname', 'like', '%'.$name.'%');
+            self::where('name', 'like', '%'.$name.'%');
         }
         if (!is_null($parentid)) {
             self::where('parentid', $parentid);
         }
-        if (!is_null($state)) {
-            self::where('state', $state);
+        if (!is_null($status)) {
+            self::where('status', $status);
         }
 
         return self::orderBy('created_at', 'desc')->get();
@@ -43,20 +43,20 @@ class GroupModel extends BaseModel
      */
     public function getAll()
     {
-        return self::where('state', 1)->orderBy('gname', 'desc')->get();
+        return self::where('state', 1)->orderBy('name', 'desc')->get();
     }
 
     /**
      * 获取指定ID的管理组
-     * @param  mixed $gid 可以是数组或单个ID
+     * @param  mixed $id 可以是数组或单个ID
      * @return mixed
      */
-    public function getByGid($gid)
+    public function getByGid($id)
     {
-        if (is_array($gid)) {
-            return self::whereIn('gid', $gid)->get();
-        } elseif (is_numeric($gid)) {
-            return self::where('gid', $gid)->get();
+        if (is_array($id)) {
+            return self::whereIn('id', $id)->get();
+        } elseif (is_numeric($id)) {
+            return self::where('id', $id)->get();
         } else {
             throw new \Exception(__CLASS__ . '->' . __FUNCTION__ . ': 参数不符合规范, ' . implode(',', func_get_args()));
         }
@@ -64,12 +64,12 @@ class GroupModel extends BaseModel
 
     /**
      * 获取指定名字的管理组
-     * @param $gname
+     * @param $name
      * @return mixed
      */
-    public function getByGname($gname)
+    public function getByGname($name)
     {
-        return self::where('gname', $gname)->get()->toarray();
+        return self::where('name', $name)->get()->toarray();
     }
 
     public function add(Array $data)
@@ -82,12 +82,12 @@ class GroupModel extends BaseModel
         return $obj->id;
     }
 
-    public function modify($gid, Array $data)
+    public function modify($id, Array $data)
     {
-        self::where('gid', $gid)->update($data);
+        self::where('id', $id)->update($data);
     }
 
-    public function state($gid)
+    public function state($id)
     {
 
     }

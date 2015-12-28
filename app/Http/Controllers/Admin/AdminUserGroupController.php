@@ -25,9 +25,7 @@ class AdminUserGroupController extends AdminBaseController
         $list = [];
         $data = $this->adminUserManage->getUserGroupList()->toArray();
         foreach ($data as $value) {
-            $value['article_check'] = $this->adminUserManage->getArticleCheck($value['article_check']);
-            $value['article_view'] = $this->adminUserManage->getArticleView($value['article_view']);
-            $list[$value['gid']] = $value;
+            $list[$value['id']] = $value;
         }
         return view('admin.admin_usergroup_list', compact('list'));
     }
@@ -61,7 +59,7 @@ class AdminUserGroupController extends AdminBaseController
     /**
      * @Authorization 修改
      */
-    public function modify(Request $request, $gid)
+    public function modify(Request $request, $id)
     {
         if ('POST' == $request->method()) {
             return $this->domodify($request);
@@ -72,17 +70,11 @@ class AdminUserGroupController extends AdminBaseController
                 echo $e->getMessage();exit;
             }
 
-            $group['article_check_0'] = $group['article_check_1'] = '';
-            $group['article_check_' . $group['article_check']] = 'checked="checked"';
-
-            $group['article_view_0'] = $group['article_view_1'] = $group['article_view_2'] = '';
-            $group['article_view_' . $group['article_view']] = 'checked="checked"';
-
             $grouplist = $this->adminUserManage->getUserGroupAll()->toarray();
             foreach ($grouplist as $key=>&$value) {
-                if ($value['gid'] == $group['gid']) {
+                if ($value['id'] == $group['id']) {
                     unset($grouplist[$key]);
-                } elseif ($value['gid'] == $group['parentid']) {
+                } elseif ($value['id'] == $group['parentid']) {
                     $value['selected'] = 'selected="selected"';
                 } else {
                     $value['selected'] = '';
@@ -105,7 +97,7 @@ class AdminUserGroupController extends AdminBaseController
     /**
      * @Authorization 删除
      */
-    public function state($uid) {
+    public function state($id) {
 
     }
 }

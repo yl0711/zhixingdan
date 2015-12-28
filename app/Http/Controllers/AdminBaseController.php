@@ -30,6 +30,9 @@ abstract class AdminBaseController extends Controller
 	public function __construct()
     {
 		$this->adminUserManage = new AdminUserManage();
+
+		return;
+
 		$this->admin_user = config('global.CONSTANTS_ADMIN_USER');
 		$this->admin_user_group = config('global.CONSTANTS_ADMIN_USER_GROUP');
 		$this->admin_user_authority = config('global.CONSTANTS_ADMIN_USER_AUTHORITY');

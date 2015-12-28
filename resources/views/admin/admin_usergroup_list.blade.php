@@ -20,8 +20,6 @@
 							<th style="width: 5%;">ID</th>
 							<th style="width: 10%;">管理组</th>
 							<th style="width: 15%;">上级管理组</th>
-							<th style="width: 15%;">发文是否需要审核</th>
-							<th style="width: 15%;">内容查看权限</th>
 							<th style="width: 20%;" class = "timedate">最后修改时间</th>
 							<th >操作</th>
 						</tr>
@@ -29,20 +27,18 @@
 					<tbody id= "dataListTable"　>
 						@if (count($list))
 						@foreach ($list as $item)
-						<tr id = "data_{{$item['gid']}}" data-id = "{{$item['gid']}}" >
-							<td class= "_id" >{{$item['gid']}}</td>
-							<td class= "_name">{{$item['gname']}}</td>
-							<td >@if ($item['parentid'] > 0) {{$list[$item['parentid']]['gname']}} @endif</td>
-							<td >{{$item['article_check']}}</td>
-							<td >{{$item['article_view']}}</td>
+						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
+							<td class= "_id" >{{$item['id']}}</td>
+							<td class= "_name">{{$item['name']}}</td>
+							<td >@if ($item['parentid'] > 0) {{$list[$item['parentid']]['name']}} @endif</td>
 							<td >{{$item['updated_at']}}</td>
 							<td >
-								<a id="modify" href="{{url('usergroup/modify')}}/{{$item['gid']}}" target="_self">修改</a>&nbsp;
-								<a id＝"authority" href="{{url('authority/group')}}/{{$item['gid']}}" target="_self">权限</a>&nbsp;
-							@if ($item['state'] == 1)
-								<a id="state" href="{{url('usergroup/state')}}/{{$item['gid']}}">停用</a>
+								<a id="modify" href="{{url('usergroup/modify')}}/{{$item['id']}}" target="_self">修改</a>&nbsp;
+								<a id＝"authority" href="{{url('authority/group')}}/{{$item['id']}}" target="_self">权限</a>&nbsp;
+							@if ($item['status'] == 1)
+								<a id="state" href="{{url('usergroup/state')}}/{{$item['id']}}">停用</a>
 							@else
-								<a id="state" href="{{url('usergroup/state')}}/{{$item['gid']}}">启用</a>
+								<a id="state" href="{{url('usergroup/state')}}/{{$item['id']}}">启用</a>
 							@endif
 							</td>
 						</tr>

@@ -60,12 +60,12 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
      * @param  mixed $uid 可以是数组或单个ID
      * @return mixed
      */
-    public function getByUid($uid)
+    public function getByUid($id)
     {
-        if (is_array($uid)) {
-            $data = self::whereIn('uid', $uid)->get();
-        } elseif (is_numeric($uid)) {
-            $data = self::where('uid', $uid)->get();
+        if (is_array($id)) {
+            $data = self::whereIn('id', $id)->get();
+        } elseif (is_numeric($id)) {
+            $data = self::where('id', $id)->get();
         } else {
             throw new \Exception(__CLASS__ . '->' . __FUNCTION__ . ': 参数不符合规范, ' . implode(',', func_get_args()));
         }
@@ -91,12 +91,12 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
         return $obj->id;
     }
 
-    public function modify($uid, Array $data)
+    public function modify($id, Array $data)
     {
-        self::where('uid', $uid)->update($data);
+        self::where('id', $id)->update($data);
     }
 
-    public function state($uid)
+    public function state($id)
     {
 
     }
