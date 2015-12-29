@@ -36,7 +36,7 @@ class DepartmentModel extends BaseModel
      */
     public function getAll($status=1)
     {
-
+        return self::where('status', $status)->get();
     }
 
     /**
@@ -46,7 +46,7 @@ class DepartmentModel extends BaseModel
      */
     public function getOneById($id)
     {
-        return self::where(['id'=>$id])->get();
+        return self::where('id', $id)->get();
     }
 
     /**
@@ -56,7 +56,7 @@ class DepartmentModel extends BaseModel
      */
     public function getMoreById(array $ids)
     {
-
+        return self::whereIn('id', $ids)->get();
     }
 
     /**
@@ -66,7 +66,7 @@ class DepartmentModel extends BaseModel
      */
     public function getOneByName($name)
     {
-
+        return self::where('name', $name)->get();
     }
 
     public function add(array $data)
@@ -87,7 +87,11 @@ class DepartmentModel extends BaseModel
      */
     public function modifyById($id, array $data)
     {
-
+        try {
+            return self::where('id', $id)->update($data);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
 }

@@ -74,17 +74,17 @@ class AdminDepartmentController extends AdminBaseController
         }
         else
         {
+            $model = new DepartmentModel();
             try
             {
-                $model = new DepartmentModel();
-                $department = $model->getOneById($id)->toArray();
+                $department = $model->getOneById($id)->toArray()[0];
             }
             catch (\Exception $e)
             {
                 echo $e->getMessage();exit;
             }
+            $departmentlist = $model->getAll()->toArray();
 
-            $departmentlist = $this->departmentManage->getListByStatus(1)->toarray();
             foreach ($departmentlist as $key=>&$value)
             {
                 if ($value['id'] == $id)
@@ -124,7 +124,15 @@ class AdminDepartmentController extends AdminBaseController
 
     private function doModify(Request $request)
     {
-
+        try
+        {
+            $this->departmentManage->modify($request->all());
+            return json_encode(['status'=>'success']);
+        }
+        catch (\Exception $e)
+        {
+            return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
     }
 
 }

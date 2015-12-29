@@ -37,6 +37,13 @@ class DepartmentManage
         {
             throw new \Exception('部门名称不能为空');
         }
+        else
+        {
+            if ($this->nameExists($data['name']))
+            {
+                throw new \Exception('部门名称已经存在, 请重新填写');
+            }
+        }
         if (isset($data['parentid']) && !empty($data['parentid']))
         {
             $parent = $this->departmentModel->getOneById($data['parentid'])->toArray()[0];
@@ -59,9 +66,60 @@ class DepartmentManage
         }
     }
 
-    public function modify()
+    public function modify(array $data)
     {
-
+        if (!isset($data['id']) || empty($data['id']))
+        {
+            throw new \Exception('参数错误 #');
+        }
+        if (!isset($data['name']) || empty($data['name']))
+        {
+            throw new \Exception('部门名称不能为空');
+        }
+        else
+        {
+            if ($data['name'] != $data['oldname'])
+            {
+                if ($this->nameExists($data['name']))
+                {
+                    throw new \Exception('部门名称已经存在, 请重新填写');
+                }
+            }
+        }
+        if (isset($data['parentid']) && !empty($data['parentid']))
+        {
+            $parent = $this->departmentModel->getOneById($data['parentid'])->toArray()[0];
+            if (!$parent)
+            {
+                throw new \Exception('选择的上级部门不存在');
+            }
+            if (0 === $parent['status'])
+            {
+                throw new \Exception('选择的上级部门不可用');
+            }
+        }
+        try
+        {
+            $id = $data['id'];
+            unset($data['id'], $data['oldname']);
+            $this->departmentModel->modifyById($id, $data);
+        }
+        catch (\Exception $e)
+        {
+            throw new \Exception($e->getMessage());
+        }
     }
 
+    public function nameExists($name)
+    {
+        $exists = $this->departmentModel->getOneByName($name)->toArray();
+        if ($exists)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }
