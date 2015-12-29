@@ -19,9 +19,14 @@ class DepartmentModel extends BaseModel
      *
      * @param array $where  索引是条件字段, 值是对应字段的值, 这里不进行字段筛选过滤
      */
-    public function getList(array $where)
+    public function getList(array $where = [])
     {
+        $query = self::orderBy('created_at', 'desc');
 
+        if ($where) {
+            $query = $query->where($where);
+        }
+        return $query->paginate(config('global.PAGE_SIZE'));
     }
 
     /**
@@ -41,7 +46,7 @@ class DepartmentModel extends BaseModel
      */
     public function getOneById($id)
     {
-
+        return self::where(['id'=>$id])->get();
     }
 
     /**
@@ -62,6 +67,16 @@ class DepartmentModel extends BaseModel
     public function getOneByName($name)
     {
 
+    }
+
+    public function add(array $data)
+    {
+        try {
+            $obj = self::create($data);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+        return $obj->id;
     }
 
     /**

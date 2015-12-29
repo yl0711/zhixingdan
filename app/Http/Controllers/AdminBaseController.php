@@ -9,9 +9,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Manage\AdminUserManage;
-use Illuminate\Support\Facades\Config;
 use Validator;
 use Request;
+use Config;
 
 
 abstract class AdminBaseController extends Controller
@@ -68,7 +68,8 @@ abstract class AdminBaseController extends Controller
 			view()->share('admin_current_authority', $this->admin_current_authority);
 		}
 
-		$this->pageSize = Request::input('pageSize', config('global.PAGE_SIZE'));
+		Config::set('global.PAGE_SIZE', Request::input('pageSize', config('global.PAGE_SIZE')));
+		$this->pageSize = config('global.PAGE_SIZE');
 		view()->share('pageSize', $this->pageSize);
 		if (method_exists($this, '__init')) $this->__init();
     }

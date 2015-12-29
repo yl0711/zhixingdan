@@ -27,6 +27,12 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminauth'], function() {
 
     Route::group(['prefix' => 'department'], function() {
         Route::get('/index', ['uses' => 'AdminDepartmentController@index']);
+
+        Route::match(['get', 'post'], '/add', ['uses' => 'AdminDepartmentController@add']);
+
+        Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'AdminDepartmentController@modify'])->where('id', '[0-9]+');
+
+        Route::get('status/{id}', ['uses'=>'AdminDepartmentController@modifyStatus'])->where('id', '[0-9]+');
     });
 
     //权限管理

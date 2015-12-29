@@ -65,7 +65,7 @@ class AdminUserGroupController extends AdminBaseController
             return $this->domodify($request);
         } else {
             try {
-                $group = $this->adminUserManage->getUserGroup($gid)->toarray()[0];
+                $group = $this->adminUserManage->getUserGroup($id)->toarray()[0];
             } catch (\Exception $e) {
                 echo $e->getMessage();exit;
             }
