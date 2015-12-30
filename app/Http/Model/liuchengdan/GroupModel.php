@@ -24,26 +24,30 @@ class GroupModel extends BaseModel
      */
     public function getList($name=null, $parentid=null, $status=null)
     {
-        if (!is_null($name)) {
-            self::where('name', 'like', '%'.$name.'%');
+        $query = self::orderBy('id', 'asc');
+        if (!is_null($name))
+        {
+            $query = $query->where('name', 'like', '%'.$name.'%');
         }
-        if (!is_null($parentid)) {
-            self::where('parentid', $parentid);
+        if (!is_null($parentid))
+        {
+            $query = $query->where('parentid', $parentid);
         }
-        if (!is_null($status)) {
-            self::where('status', $status);
+        if (!is_null($status))
+        {
+            $query = $query->where('status', $status);
         }
 
-        return self::orderBy('created_at', 'desc')->get();
+        return $query->paginate(config('global.PAGE_SIZE'));
     }
 
     /**
      * 获取所有管理组列表
      * @return mixed
      */
-    public function getAll()
+    public function getAll($status=1)
     {
-        return self::where('state', 1)->orderBy('name', 'desc')->get();
+        return self::where('status', $status)->orderBy('id', 'asc')->get();
     }
 
     /**
@@ -53,11 +57,16 @@ class GroupModel extends BaseModel
      */
     public function getByGid($id)
     {
-        if (is_array($id)) {
+        if (is_array($id))
+        {
             return self::whereIn('id', $id)->get();
-        } elseif (is_numeric($id)) {
+        }
+        elseif (is_numeric($id))
+        {
             return self::where('id', $id)->get();
-        } else {
+        }
+        else
+        {
             throw new \Exception(__CLASS__ . '->' . __FUNCTION__ . ': 参数不符合规范, ' . implode(',', func_get_args()));
         }
     }
@@ -74,9 +83,12 @@ class GroupModel extends BaseModel
 
     public function add(Array $data)
     {
-        try {
+        try
+        {
             $obj = self::create($data);
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e)
+        {
             throw new \Exception($e->getMessage());
         }
         return $obj->id;

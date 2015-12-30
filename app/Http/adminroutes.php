@@ -19,10 +19,22 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminauth'], function() {
 
     Route::group(['prefix' => 'user'], function() {
         Route::get('/index', ['uses' => 'AdminUserController@index']);
+
+        Route::match(['get', 'post'], '/add', ['uses' => 'AdminUserController@add']);
+
+        Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'AdminUserController@modify'])->where('id', '[0-9]+');
+
+        Route::get('status/{id}', ['uses'=>'AdminUserController@modifyStatus'])->where('id', '[0-9]+');
     });
 
     Route::group(['prefix' => 'usergroup'], function() {
         Route::get('/index', ['uses' => 'AdminUserGroupController@index']);
+
+        Route::match(['get', 'post'], '/add', ['uses' => 'AdminUserGroupController@add']);
+
+        Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'AdminUserGroupController@modify'])->where('id', '[0-9]+');
+
+        Route::get('status/{id}', ['uses'=>'AdminUserGroupController@modifyStatus'])->where('id', '[0-9]+');
     });
 
     Route::group(['prefix' => 'department'], function() {

@@ -24,7 +24,7 @@ class AdminUserGroupController extends AdminBaseController
     {
         $list = [];
         $data = $this->adminUserManage->getUserGroupList()->toArray();
-        foreach ($data as $value) {
+        foreach ($data['data'] as $value) {
             $list[$value['id']] = $value;
         }
         return view('admin.admin_usergroup_list', compact('list'));
@@ -36,23 +36,13 @@ class AdminUserGroupController extends AdminBaseController
     public function add(Request $request)
     {
         if ('POST' == $request->method()) {
-            return $this->doadd($request);
+            return $this->doAdd($request);
         } else {
-            $grouplist = $this->adminUserManage->getUserGroupAll()->toarray();
+            $grouplist = $this->adminUserManage->getUserGroupAll()->toArray();
             foreach ($grouplist as $key=>&$value) {
                 $value['selected'] = '';
             }
             return view('admin.admin_usergroup_add', compact('grouplist'));
-        }
-    }
-
-    public function doadd(Request $request)
-    {
-        try {
-            $this->adminUserManage->addUserGroup($request->all());
-            echo json_encode(['status'=>'success']);
-        } catch (\Exception $e) {
-            echo json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
         }
     }
 
@@ -62,7 +52,7 @@ class AdminUserGroupController extends AdminBaseController
     public function modify(Request $request, $id)
     {
         if ('POST' == $request->method()) {
-            return $this->domodify($request);
+            return $this->doModify($request);
         } else {
             try {
                 $group = $this->adminUserManage->getUserGroup($id)->toarray()[0];
@@ -84,7 +74,24 @@ class AdminUserGroupController extends AdminBaseController
         }
     }
 
-    public function domodify(Request $request)
+    /**
+     * @Authorization 状态变更
+     */
+    public function modifyStatus($id) {
+
+    }
+
+    private function doAdd(Request $request)
+    {
+        try {
+            $this->adminUserManage->addUserGroup($request->all());
+            echo json_encode(['status'=>'success']);
+        } catch (\Exception $e) {
+            echo json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
+    }
+
+    private function doModify(Request $request)
     {
         try {
             $this->adminUserManage->modifyUserGroup($request->all());
@@ -92,12 +99,5 @@ class AdminUserGroupController extends AdminBaseController
         } catch (\Exception $e) {
             echo json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
         }
-    }
-
-    /**
-     * @Authorization 删除
-     */
-    public function state($id) {
-
     }
 }

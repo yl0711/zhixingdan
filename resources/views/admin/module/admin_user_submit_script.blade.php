@@ -7,18 +7,16 @@ $(function() {
 			$.ajax({
 				type:"post",
 				dataType:"json",
-				url: @if ($page_type=='modify') "{{url('user/modify')}}/{{$user['uid']}}" @else "{{url('user/add')}}" @endif,
+				url: @if ($page_type=='modify') "{{url('user/modify')}}/{{$user['id']}}" @else "{{url('user/add')}}" @endif,
 				data:{
 					@if ($page_type=='modify')
-					'uid':$('#uid').val(),
-					'olduname':$('#olduname').val(),
+					'id':$('#id').val(),
+					'oldname':$('#oldname').val(),
 					@endif
-					'uname':$('#uname').val(),
+					'name':$('#name').val(),
 					'password':$('#password').val(),
 					'email':$('#email').val(),
-					'gid':$('#gid').val(),
-					'article_check':article_check,
-					'article_view':article_view,
+					'group_id':$('#group_id').val(),
 				},
 				async:false,
 				success:function($data) {
@@ -36,9 +34,9 @@ $(function() {
 });
 
 function check_submit_data() {
-	if (0 == $('#uname').val().trim().length) {
+	if (0 == $('#name').val().trim().length) {
 		alert('管理员账号不能为空');
-		$('#uname').focus();
+		$('#name').focus();
 		return false;
 	}
 	@if ($page_type=='add')
@@ -47,12 +45,10 @@ function check_submit_data() {
 		$('#password').focus();
 		return false;
 	}
-	if (0 == $('#gid').val()) {
+	if (0 == $('#group_id').val()) {
 		alert('请选择管理员所在管理组');
 		return;
 	}
 	@endif
-	article_check = $(":radio[name=article_check]:checked").val();
-	article_view = $(":radio[name=article_view]:checked").val();
 }
 </script>

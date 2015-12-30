@@ -25,6 +25,7 @@ return array(
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Manage\\AdminAuthorityManage' => $baseDir . '/app/Http/Manage/AdminAuthorityManage.php',
     'App\\Http\\Manage\\AdminUserManage' => $baseDir . '/app/Http/Manage/AdminUserManage.php',
+    'App\\Http\\Manage\\DepartmentManage' => $baseDir . '/app/Http/Manage/DepartmentManage.php',
     'App\\Http\\Middleware\\AdminAuthenticate' => $baseDir . '/app/Http/Middleware/AdminAuthenticate.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',

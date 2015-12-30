@@ -10,7 +10,7 @@
 					<button class = "btn_seach" onclick="form_seach.submit();">查询</button>
 				</form>	
 				<div class="fr top-r">
-					<i class="add-ico" id = "btn_add_admin_usergroup" > 添加管理组 </i>
+					<i class="add-ico" id = "btn_add" > 添加管理组 </i>
 				</div>
 			</div>
 			<div class="table-con">	
@@ -36,9 +36,9 @@
 								<a id="modify" href="{{url('usergroup/modify')}}/{{$item['id']}}" target="_self">修改</a>&nbsp;
 								<a id＝"authority" href="{{url('authority/group')}}/{{$item['id']}}" target="_self">权限</a>&nbsp;
 							@if ($item['status'] == 1)
-								<a id="state" href="{{url('usergroup/state')}}/{{$item['id']}}">停用</a>
+								<a id="state" href="{{url('usergroup/status')}}/{{$item['id']}}">停用</a>
 							@else
-								<a id="state" href="{{url('usergroup/state')}}/{{$item['id']}}">启用</a>
+								<a id="state" href="{{url('usergroup/status')}}/{{$item['id']}}">启用</a>
 							@endif
 							</td>
 						</tr>
@@ -58,7 +58,7 @@
 
 <script>
 $(function() {
-	$('#btn_add_admin_usergroup').click(function() {
+	$('#btn_add').click(function() {
 		window.location.href="{{url('usergroup/add')}}";
 	});
 });

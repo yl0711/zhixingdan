@@ -1,22 +1,18 @@
 <script>
-var article_check = article_view = 0;
-
 $(function() {
 	$('#admin_user_group_submit').bind('click', function(){
 		if (false != check_submit_data()) {
 			$.ajax({
 				type:"post",
 				dataType:"json",
-				url:@if ($page_type=='modify') "{{url('usergroup/modify')}}" @else "{{url('usergroup/add')}}" @endif ,
+				url:@if ($page_type=='modify') "{{url('usergroup/modify')}}/{{$group['id']}}" @else "{{url('usergroup/add')}}" @endif ,
 				data:{
-					'gid':$('#gid').val(),
-					'gname':$('#gname').val(),
+					'id':$('#id').val(),
+					'name':$('#name').val(),
 				@if ($page_type=='modify')
-					'oldgname':$('#oldgname').val(),
+					'oldname':$('#oldname').val(),
 				@endif
 					'parentid':$('#parentid').val(),
-					'article_check':article_check,
-					'article_view':article_view,
 				},
 				async:false,
 				success:function($data) {
@@ -34,12 +30,10 @@ $(function() {
 });
 
 function check_submit_data() {
-	if (0 == $('#gname').val().trim().length) {
+	if (0 == $('#name').val().trim().length) {
 		alert('用户组名称不能为空');
-		$('#gname').focus();
+		$('#name').focus();
 		return false;
 	}
-	article_check = $(":radio[name=article_check]:checked").val();
-	article_view = $(":radio[name=article_view]:checked").val();
 }
 </script>

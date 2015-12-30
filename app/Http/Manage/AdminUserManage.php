@@ -49,7 +49,7 @@ class AdminUserManage
     public function getUserList($name=null, $gid=null, $status=null)
     {
         $groupids = $userGroup = [];
-        $userList = $this->userModel->getList($name, $gid, $status)->toarray();
+        $userList = $this->userModel->getList($name, $gid, $status)->toArray();
 
         foreach ($userList['data'] as $key=>$value) {
             $groupids[$value['group_id']] = $value['group_id'];
