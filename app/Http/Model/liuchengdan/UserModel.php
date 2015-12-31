@@ -44,7 +44,7 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
     {
         $query = self::where('superadmin', '!=', 1);
 
-        if (!is_null($name)) {
+        if (!is_null($name) && !$name) {
             $query = $query->where('name', 'like', '%'.$name.'%');
         }
         if (!is_null($group_id)) {

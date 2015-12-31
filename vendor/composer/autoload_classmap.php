@@ -19,6 +19,8 @@ return array(
     'App\\Http\\Controllers\\Admin\\AdminUserController' => $baseDir . '/app/Http/Controllers/Admin/AdminUserController.php',
     'App\\Http\\Controllers\\Admin\\AdminUserGroupController' => $baseDir . '/app/Http/Controllers/Admin/AdminUserGroupController.php',
     'App\\Http\\Controllers\\Admin\\AuthController' => $baseDir . '/app/Http/Controllers/Admin/AuthController.php',
+    'App\\Http\\Controllers\\Admin\\CompanyController' => $baseDir . '/app/Http/Controllers/Admin/CompanyController.php',
+    'App\\Http\\Controllers\\Admin\\ProjectController' => $baseDir . '/app/Http/Controllers/Admin/ProjectController.php',
     'App\\Http\\Controllers\\Auth\\AuthController' => $baseDir . '/app/Http/Controllers/Auth/AuthController.php',
     'App\\Http\\Controllers\\Auth\\PasswordController' => $baseDir . '/app/Http/Controllers/Auth/PasswordController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',

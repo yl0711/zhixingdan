@@ -17,6 +17,7 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminauth'], function() {
 
     Route::get('/', 'AuthController@index');
 
+    //用户管理
     Route::group(['prefix' => 'user'], function() {
         Route::get('/index', ['uses' => 'AdminUserController@index']);
 
@@ -27,6 +28,7 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminauth'], function() {
         Route::get('status/{id}', ['uses'=>'AdminUserController@modifyStatus'])->where('id', '[0-9]+');
     });
 
+    //用户组管理
     Route::group(['prefix' => 'usergroup'], function() {
         Route::get('/index', ['uses' => 'AdminUserGroupController@index']);
 
@@ -37,6 +39,7 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminauth'], function() {
         Route::get('status/{id}', ['uses'=>'AdminUserGroupController@modifyStatus'])->where('id', '[0-9]+');
     });
 
+    //部门管理
     Route::group(['prefix' => 'department'], function() {
         Route::get('/index', ['uses' => 'AdminDepartmentController@index']);
 
@@ -49,7 +52,7 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminauth'], function() {
 
     //权限管理
     Route::group(['prefix'=>'authority'], function() {
-        Route::get('index', ['as'=>'authority', 'uses'=>'AdminAuthorityController@index']);
+        Route::get('index', ['uses'=>'AdminAuthorityController@index']);
         Route::get('refresh', ['uses'=>'AdminAuthorityController@refreshList']);
 
         Route::get('user/{uid}', ['uses'=>'AdminAuthorityController@userAuthority'])->where('uid','[1-9]+');
@@ -57,6 +60,16 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminauth'], function() {
 
         Route::post('user/{uid?}', ['uses'=>'AdminAuthorityController@userAuthority']);
         Route::post('group/{gid?}', ['uses'=>'AdminAuthorityController@groupAuthority']);
+    });
+
+    //供应商管理
+    Route::group(['prefix' => 'company'], function() {
+        Route::get('index', ['uses'=>'CompanyController@index']);
+    });
+
+    //项目管理
+    Route::group(['prefix' => 'project'], function() {
+        Route::get('index', ['uses'=>'ProjectController@index']);
     });
 
 });

@@ -15,4 +15,9 @@ return [
         '权限管理' => 'App\\Http\\Controllers\\Admin\\AdminAuthorityController',
     ],
 
+    '项目管理' => [
+        '供应商管理' => 'App\\Http\\Controllers\\Admin\\CompanyController',
+        '项目管理' => 'App\\Http\\Controllers\\Admin\\ProjectController',
+    ],
+
 ];
