@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.1.27 (LTS) on 2015-12-31.
+ * Generated for Laravel 5.1.28 (LTS) on 2016-01-04.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -2107,6 +2107,30 @@ namespace {
          */
         public static function forget($key){
             return \Illuminate\Cache\Repository::forget($key);
+        }
+        
+        /**
+         * Begin executing a new tags operation if the store supports it.
+         *
+         * @param string $name
+         * @return \Illuminate\Cache\TaggedCache 
+         * @deprecated since version 5.1. Use tags instead.
+         * @static 
+         */
+        public static function section($name){
+            return \Illuminate\Cache\Repository::section($name);
+        }
+        
+        /**
+         * Begin executing a new tags operation if the store supports it.
+         *
+         * @param array|mixed $names
+         * @return \Illuminate\Cache\TaggedCache 
+         * @throws \BadMethodCallException
+         * @static 
+         */
+        public static function tags($names){
+            return \Illuminate\Cache\Repository::tags($names);
         }
         
         /**
@@ -4450,7 +4474,7 @@ namespace {
         /**
          * Determine if any rows exist for the current query.
          *
-         * @return bool 
+         * @return bool|null 
          * @static 
          */
         public static function exists(){
@@ -10925,19 +10949,6 @@ namespace {
         }
         
         /**
-         * Flash a key / value pair to the session
-         * for immediate use.
-         *
-         * @param string $key
-         * @param mixed $value
-         * @return void 
-         * @static 
-         */
-        public static function now($key, $value){
-            \Illuminate\Session\Store::now($key, $value);
-        }
-        
-        /**
          * Flash an input array to the session.
          *
          * @param array $value
@@ -11001,14 +11012,14 @@ namespace {
         }
         
         /**
-         * Remove one or many items from the session.
+         * Remove an item from the session.
          *
-         * @param string|array $keys
+         * @param string $key
          * @return void 
          * @static 
          */
-        public static function forget($keys){
-            \Illuminate\Session\Store::forget($keys);
+        public static function forget($key){
+            \Illuminate\Session\Store::forget($key);
         }
         
         /**

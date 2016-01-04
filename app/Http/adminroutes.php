@@ -65,11 +65,23 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminauth'], function() {
     //供应商管理
     Route::group(['prefix' => 'company'], function() {
         Route::get('index', ['uses'=>'CompanyController@index']);
+
+        Route::match(['get', 'post'], '/add', ['uses' => 'CompanyController@add']);
+
+        Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'CompanyController@modify'])->where('id', '[0-9]+');
+
+        Route::get('status/{id}', ['uses'=>'CompanyController@modifyStatus'])->where('id', '[0-9]+');
     });
 
     //项目管理
     Route::group(['prefix' => 'project'], function() {
         Route::get('index', ['uses'=>'ProjectController@index']);
+
+        Route::match(['get', 'post'], '/add', ['uses' => 'ProjectController@add']);
+
+        Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'ProjectController@modify'])->where('id', '[0-9]+');
+
+        Route::get('status/{id}', ['uses'=>'ProjectController@modifyStatus'])->where('id', '[0-9]+');
     });
 
 });

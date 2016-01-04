@@ -1,7 +1,6 @@
 @include('admin/static/header')
 <div id="wrapper">
 @include('admin/static/leftside')
-	
 	<div class="content-r">
 		<div class="table-box">
 			<div class="search-box">
@@ -25,7 +24,7 @@
 						</tr>
 					</thead>
 					<tbody id= "dataListTable"　>
-						@if (count($list))
+					@if (count($list))
 						@foreach ($list as $item)
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
 							<td class= "_id" >{{$item['id']}}</td>
@@ -43,9 +42,9 @@
 							</td>
 						</tr>
 						@endforeach
-						@else
+					@else
 						<tr><td colspan="10">无数据</td></tr>
-						@endif
+					@endif
 					</tbody>
 				</table>
 			</div>
@@ -55,7 +54,6 @@
 	@include('admin/static/footer')
 </div>
 </body>
-
 <script>
 $(function() {
 	$('#btn_add').click(function() {

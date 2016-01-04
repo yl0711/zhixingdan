@@ -12,7 +12,7 @@ use App\Http\Manage\AdminUserManage;
 use Validator;
 use Request;
 use Config;
-
+use Route;
 
 abstract class AdminBaseController extends Controller
 {
@@ -52,6 +52,11 @@ abstract class AdminBaseController extends Controller
 				'filename' => $data['filename'],
 				'classname' => $data['classname'],
 				'methodname' => $data['methodname'],
+				'master' => [],
+				'parent' => [
+					'id' => $this->admin_user_authority[$parentid]['id'],
+					'aname' => $this->admin_user_authority[$parentid]['aname'],
+				],
 			];
 
 			if (isset($data['sub']) && !empty($data['sub'])){
@@ -62,9 +67,14 @@ abstract class AdminBaseController extends Controller
 						'filename' => $value['filename'],
 						'classname' => $value['classname'],
 						'methodname' => $value['methodname'],
+						'master' => $this->admin_current_authority[$data['url']],
+						'parent' => [],
 					];
 				}
 			}
+
+			$navigation = navigation(Route::currentRouteAction());
+			view()->share('navigation', $navigation);
 			view()->share('admin_current_authority', $this->admin_current_authority);
 		}
 
@@ -119,4 +129,31 @@ abstract class AdminBaseController extends Controller
         }
     }
 
+	/**
+	 * 生成面包屑导航
+	 *
+	 * @param $RouteAction 使用 Route::currentRouteAction() 获取的路由
+	 */
+	protected function navigation($RouteAction)
+	{
+		$navigation = [];
+		list($class, $method) = explode('@', $RouteAction);
+		$currentUrl = class_method_to_url(config('global.DOMAIN')['ADMIN'], $class, $method);
+		$current = $this->admin_current_authority[$currentUrl];
+		if ($current['parent']) {
+			$navigation[] = $current['parent'];
+			unset($current['parent']);
+			$navigation[] = $current;
+		} else if ($current['master']) {
+			$navigation[] = $current['master']['parent'];
+			unset($current['master']['parent']);
+			$navigation[] = $current['master'];
+			unset($current['master']);
+			$navigation[] = $current;
+		} else {
+			$navigation[] = $current;
+		}
+
+		return $navigation;
+	}
 }

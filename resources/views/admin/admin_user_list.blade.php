@@ -1,7 +1,6 @@
 @include('admin/static/header')
 <div id="wrapper">
 @include('admin/static/leftside')
-	
 	<div class="content-r">
 		<div class="table-box">
 			<div class="search-box">
@@ -25,7 +24,7 @@
 						</tr>
 					</thead>
 					<tbody id= "dataListTable"　>
-						@if(count($userList))
+					@if(count($userList))
 						@foreach($userList as $item)
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
 							<td class= "_id" >{{$item['id']}}</td>
@@ -36,20 +35,17 @@
 								<a id="modify" href="{{url('user/modify')}}/{{$item['id']}}" target="_self">修改</a>&nbsp;
 								<a id＝"authority" href="{{url('authority/user')}}/{{$item['id']}}" target="_self">权限</a>&nbsp;
 							@if ($item['status'] == 1)
-								<a id="state" href="{{url('user/state')}}/{{$item['id']}}">停用</a>
+								<a id="state" href="{{url('user/status')}}/{{$item['id']}}">停用</a>
 							@else
-								<a id="state" href="{{url('user/state')}}/{{$item['id']}}">启用</a>
+								<a id="state" href="{{url('user/status')}}/{{$item['id']}}">启用</a>
 							@endif
 							</td>
 						</tr>
 						@endforeach
-						@else
+					@else
 						<tr><td colspan="10">无数据</td></tr>
-
-						@endif
-						
+					@endif
 					</tbody>
-					
 				</table>
 			</div>
  		</div>
@@ -58,7 +54,6 @@
 @include('admin/static/footer')
 </div>
 </body>
-
 <script>
 $(function() {
 	$('#btn_add_admin_user').click(function() {
