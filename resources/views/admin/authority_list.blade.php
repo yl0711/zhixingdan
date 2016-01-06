@@ -1,9 +1,11 @@
 @include('admin/static/header')
 <div id="wrapper">
     @include('admin/static/leftside')
-
     <div class="content-r">
         <div class="table-box">
+        		<div>
+				<div class = "table_tit" style="float: left;padding: 15px;"><h1>{{$navigation}}</h1></div>
+			</div>
             <div class="search-box">
                 <div class="fr top-r">
                     <i class="add-ico" id = "btn_refresh_list" > 刷新列表 </i>

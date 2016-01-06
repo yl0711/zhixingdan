@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 /**
  * Class AdminDepartmentController
  * @package App\Http\Controllers\Admin
- * @Authorization 部门管理::管理组管理
  */
 class AdminDepartmentController extends AdminBaseController
 {
@@ -32,8 +31,8 @@ class AdminDepartmentController extends AdminBaseController
     public function index()
     {
         $list = [];
-        $data = $this->departmentManage->getList();
-        foreach ($data as $value)
+        $data = $this->departmentManage->getList()->toArray();
+        foreach ($data['data'] as $value)
         {
             $list[$value['id']] = $value;
         }

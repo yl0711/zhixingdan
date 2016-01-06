@@ -44,6 +44,11 @@ class CompanyModel extends BaseModel
         return self::where('name', $name)->get();
     }
 
+    public function getMoreById(array $ids)
+    {
+        return self::whereIn('id', $ids)->get();
+    }
+
     public function add(Array $data)
     {
         try {

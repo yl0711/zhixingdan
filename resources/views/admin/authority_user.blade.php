@@ -5,7 +5,7 @@
     <div class="content-r">
         <div class="table-box">
         		<div class="search-box">
-				<div class = "table_tit" style="float: left;padding: 15px;"><h1>权限管理 --> 权限管理 --> 修改 {{$user['name']}} 权限</h1></div>
+				<div class = "table_tit" style="float: left;padding: 15px;"><h1>{{$navigation}}</h1></div>
 			</div>
             <div class="table-con">
                 <table>

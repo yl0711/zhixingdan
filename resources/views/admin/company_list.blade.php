@@ -3,6 +3,9 @@
 @include('admin/static/leftside')
 	<div class="content-r">
 		<div class="table-box">
+			<div>
+				<div class = "table_tit" style="float: left;padding: 15px;"><h1>{{$navigation}}</h1></div>
+			</div>
 			<div class="search-box">
 				<span>&nbsp;</span>
 				<form action = "{{url('company/index')}}" id = "form_seach" name = "form_seach" method="post" >

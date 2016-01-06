@@ -3,6 +3,9 @@
 @include('admin/static/leftside')
 	<div class="content-r">
 		<div class="table-box">
+			<div>
+				<div class = "table_tit" style="float: left;padding: 15px;"><h1>{{$navigation}}</h1></div>
+			</div>
 			<div class="search-box">
 				<span>&nbsp;</span>
 				<form action = "{{url('project/index')}}" id = "form_seach" name = "form_seach" method="post" >
@@ -27,8 +30,8 @@
 						</tr>
 					</thead>
 					<tbody id= "dataListTable"　>
-					@if(count($projectList))
-						@foreach($projectList as $item)
+					@if(count($project))
+						@foreach($project as $item)
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
 							<td class= "_id" >{{$item['id']}}</td>
 							<td class= "_name">{{$item['name']}}</td>

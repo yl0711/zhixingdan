@@ -12,7 +12,12 @@ $(function() {
 					'oldname':$('#oldname').val(),
 					@endif
 					'name':$('#name').val(),
-					'parentid':$('#parentid').val(),
+					'addr':$('#addr').val(),
+					'person':$('#person').val(),
+					'phone':$('#phone').val(),
+					'mobile':$('#mobile').val(),
+					'email':$('#email').val(),
+					'homepage':$('#homepage').val(),
 				},
 				async:false,
 				success:function($data) {
@@ -31,7 +36,7 @@ $(function() {
 
 function check_submit_data() {
 	if (0 == $('#name').val().trim().length) {
-		alert('部门名称不能为空');
+		alert('供应商名称不能为空');
 		$('#name').focus();
 		return false;
 	}

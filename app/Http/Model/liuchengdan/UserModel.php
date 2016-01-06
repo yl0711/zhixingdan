@@ -73,7 +73,7 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
         }
 
         if (empty($data->toarray())) {
-            throw new \Exception('管理员不存在');
+            throw new \Exception('用户不存在');
         }
         return $data;
     }

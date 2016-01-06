@@ -73,7 +73,7 @@ abstract class AdminBaseController extends Controller
 				}
 			}
 
-			$navigation = navigation(Route::currentRouteAction());
+			$navigation = $this->navigationTreeToStr($this->navigationTree(Route::currentRouteAction()));
 			view()->share('navigation', $navigation);
 			view()->share('admin_current_authority', $this->admin_current_authority);
 		}
@@ -134,26 +134,40 @@ abstract class AdminBaseController extends Controller
 	 *
 	 * @param $RouteAction 使用 Route::currentRouteAction() 获取的路由
 	 */
-	protected function navigation($RouteAction)
+	protected function navigationTree($RouteAction)
 	{
-		$navigation = [];
+		$navigationTree = [];
 		list($class, $method) = explode('@', $RouteAction);
 		$currentUrl = class_method_to_url(config('global.DOMAIN')['ADMIN'], $class, $method);
 		$current = $this->admin_current_authority[$currentUrl];
 		if ($current['parent']) {
-			$navigation[] = $current['parent'];
+			$navigationTree[] = $current['parent'];
 			unset($current['parent']);
-			$navigation[] = $current;
+			$navigationTree[] = $current;
 		} else if ($current['master']) {
-			$navigation[] = $current['master']['parent'];
+			$navigationTree[] = $current['master']['parent'];
 			unset($current['master']['parent']);
-			$navigation[] = $current['master'];
+			$navigationTree[] = $current['master'];
 			unset($current['master']);
-			$navigation[] = $current;
+			$navigationTree[] = $current;
 		} else {
-			$navigation[] = $current;
+			$navigationTree[] = $current;
 		}
 
-		return $navigation;
+		return $navigationTree;
+	}
+
+	/**
+	 * 导航树数组生成面包屑字符串
+	 *
+	 * @param $navigationTree  navigationTree() 方法生成的导航树数组
+	 */
+	protected function navigationTreeToStr($navigationTree)
+	{
+		$navigation = [];
+		foreach ($navigationTree as $value) {
+			$navigation[] = $value['aname'];
+		}
+		return implode(' --> ', $navigation);
 	}
 }

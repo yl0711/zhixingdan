@@ -10,7 +10,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminBaseController;
 use App\Http\Manage\ProjectManage;
+use App\Http\Model\liuchengdan\CompanyModel;
 use App\Http\Model\liuchengdan\ProjectModel;
+use App\Http\Model\liuchengdan\UserModel;
 use App\Http\Requests\Request;
 
 class ProjectController extends AdminBaseController
@@ -27,8 +29,41 @@ class ProjectController extends AdminBaseController
     public function index()
     {
         $data = $this->projectManage->getList()->toArray();
+        $project = $data['data'];
 
-        return view('admin.project_list', compact('data'));
+        $companyids = $pmids = $companyList = $pmList = [];
+        foreach ($project as $value)
+        {
+            if ($value['ompany_id'])
+            {
+                $companyids[$value['ompany_id']] = $value['ompany_id'];
+            }
+            if ($value['pm_id'])
+            {
+                $pmids[$value['pm_id']] = $value['pm_id'];
+            }
+        }
+
+        if ($companyids)
+        {
+            $companyModel = new CompanyModel();
+            $data = $companyModel->getMoreById($companyids)->toArray();
+            foreach ($data as $value)
+            {
+                $companyList[$value['id']] = $value;
+            }
+        }
+        if ($pmids)
+        {
+            $userModel = new UserModel();
+            $data = $userModel->getByUid($pmids);
+            foreach ($data as $value)
+            {
+                $pmList[$value['id']] = $value;
+            }
+        }
+
+        return view('admin.project_list', compact('project', 'companyList', 'pmList'));
     }
 
     /**

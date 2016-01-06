@@ -27,8 +27,9 @@ class CompanyController extends AdminBaseController
     public function index()
     {
         $data = $this->companyManage->getList()->toArray();
+        $companyList = $data['data'];
 
-        return view('admin.company_list', compact('data'));
+        return view('admin.company_list', compact('companyList'));
     }
 
     /**
