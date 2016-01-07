@@ -9,11 +9,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminBaseController;
+use App\Http\Manage\CompanyManage;
 use App\Http\Manage\ProjectManage;
 use App\Http\Model\liuchengdan\CompanyModel;
 use App\Http\Model\liuchengdan\ProjectModel;
 use App\Http\Model\liuchengdan\UserModel;
-use App\Http\Requests\Request;
+use Illuminate\Http\Request;
 
 class ProjectController extends AdminBaseController
 {
@@ -77,7 +78,13 @@ class ProjectController extends AdminBaseController
         }
         else
         {
-            return view('admin.project_add');
+            $companyManage = new CompanyManage();
+            $companyList = $companyManage->getAll()->toArray();
+            foreach ($companyList as &$value)
+            {
+                $value['selected'] = '';
+            }
+            return view('admin.project_add', compact('companyList'));
         }
     }
 
@@ -95,13 +102,27 @@ class ProjectController extends AdminBaseController
             try
             {
                 $model = new ProjectModel();
-                $company = $model->getOneById($id)->toArray()[0];
+                $project = $model->getOneById($id)->toArray()[0];
+
+                $companyManage = new CompanyManage();
+                $companyList = $companyManage->getAll()->toArray();
+                foreach ($companyList as &$value)
+                {
+                    if ($value['id'] == $project['company_id'])
+                    {
+                        $value['selected'] = 'selected="selected"';
+                    }
+                    else
+                    {
+                        $value['selected'] = '';
+                    }
+                }
             }
             catch (\Exception $e)
             {
                 echo $e->getMessage();exit;
             }
-            return view('admin.project_modify', compact('company'));
+            return view('admin.project_modify', compact('project', 'companyList'));
         }
     }
 

@@ -24,6 +24,11 @@ class CompanyManage
         return $this->companyModel->getList($name, $status);
     }
 
+    public function getAll()
+    {
+        return $this->companyModel->getAll();
+    }
+
     public function add(array $request)
     {
         if (!isset($request['name']) || empty($request['name'])) {

@@ -22,11 +22,11 @@
 							<th style="width: 5%;">ID</th>
 							<th style="width: 10%;">供应商名称</th>
 							<th style="width: 15%;">地址</th>
-							<th style="width: 15%;">联系人</th>
-							<th style="width: 15%;">联系电话</th>
-							<th style="width: 15%;">Email</th>
-							<th style="width: 15%;">主页</th>
-							<th style="width: 20%;" class = "timedate">最后修改时间</th>
+							<th style="width: 8%;">联系人</th>
+							<th style="width: 12%;">联系电话</th>
+							<th style="width: 12%;">Email</th>
+							<th style="width: 12%;">主页</th>
+							<th style="width: 12%;" class = "timedate">最后修改时间</th>
 							<th >操作</th>
 						</tr>
 					</thead>
@@ -43,7 +43,13 @@
 								手机：{{$item['mobile']}}
 							</td>
 							<td class= "_name">{{$item['email']}}</td>
-							<td class= "_name">{{$item['homepage']}}</td>
+							<td class= "_name">
+							@if ($item['homepage']) 
+								<a href="{{$item['homepage']}}" target="_blank">{{$item['homepage']}}
+							@else
+								&nbsp;
+							@endif
+							</td>
 							<td >{{$item['updated_at']}}</td>
 							<td >
 								<a id="modify" href="{{url('company/modify')}}/{{$item['id']}}" target="_self">修改</a>&nbsp;

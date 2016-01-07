@@ -17,6 +17,7 @@ return [
     'DOMAIN' => [
         'ADMIN' => 'admin.limeng.com',
         'IMAGE' => 'image.limeng.com',
+        'API' => 'api.limeng.com',
     ],
     'PAGE_SIZE'=>10,
     'API_LIMIT'=>2,
