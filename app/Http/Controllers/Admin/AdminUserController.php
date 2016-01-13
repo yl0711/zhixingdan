@@ -90,7 +90,12 @@ class AdminUserController extends AdminBaseController
      */
     public function modifyStatus($id)
     {
-
+        try {
+            $data = $this->adminUserManage->setUserStatus($id);
+            echo json_encode(['status'=>'success', 'data'=>$data]);
+        } catch (\Exception $e) {
+            echo json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
     }
 
     private function doAdd(Request $request)

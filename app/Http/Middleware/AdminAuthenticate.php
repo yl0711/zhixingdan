@@ -45,6 +45,9 @@ class AdminAuthenticate
 
         // 获取管理员信息
         $admin_user = $this->adminAuth->user()->toArray();
+        if (1 != $admin_user['status']) {
+            return $this->responseErr($request, '你的账号已经被关闭, 请联系管理员');
+        }
         // 权限\发文审核\浏览权限没有设置时继承所属管理组
         $adminUserManage = new AdminUserManage();
         $admin_user_group = $adminUserManage->getUserGroup($admin_user['group_id'])->toArray()[0];
@@ -72,7 +75,7 @@ class AdminAuthenticate
             // 权限表里是否有此页面
             $data = $adminAuthorityManage->getAuthorityByController($className, $method)->toArray();
             if (!$data) {
-                return $this->responseErr($request, '对不起, 您所访问的功能以关闭 '.$className.'->'.$method, false);
+                return $this->responseErr($request, '对不起, 您所访问的功能已关闭 '.$className.'->'.$method, false);
             }
             // 访问页面是否在用户权限列表中
             if ('all' != $admin_user['authority']) {
@@ -102,16 +105,12 @@ class AdminAuthenticate
 
     private function responseErr($request, $msg='', $logout=true)
     {
+        !$msg && $msg = 'Unauthorized';
         $logout && $this->adminAuth->logout();
         if ($request->ajax()) {
-            !$msg && $msg = 'Unauthorized';
             return response(json_encode(['status'=>'error', 'info'=>$msg]));
         } else {
-            if ($logout) {
-                return redirect()->guest('login')->with('loginerr', $msg);
-            } else {
-                return redirect()->to('/');
-            }
+            abort('400', $msg);
         }
     }
 }

@@ -1,9 +1,42 @@
 <script>
+/**
+ *  设置日期选择控件，用于选择开始和结束日期
+ */
+var date = new Date();
+
+$( "#starttime" ).datepicker({
+	dateFormat: "yy-mm-dd",
+	changeMonth: true,
+    changeYear: true,
+    minDate: 0,
+	yearRange: date.getFullYear() + ":" + parseInt(date.getFullYear()+10)
+});
+
+$( "#endtime" ).datepicker({
+	dateFormat: "yy-mm-dd",
+	changeMonth: true,
+    changeYear: true
+});
+
+$( "#starttime" ).datepicker( "option", "onClose", function(dateText, inst) {
+	if ('' == dateText) {
+		$( "#endtime" ).attr('disabled', true);
+		$( "#endtime" ).val('');
+		$('#starttime_warning').text('请选择项目开始时间');
+	} else {
+		$( "#endtime" ).attr('disabled', false);
+		$('#starttime_warning').text('');
+		// 开始日期选择完毕后，设置结束日期控件属性
+		// 首先结束日期不能早于开始日期
+		$( "#endtime" ).datepicker( "option", "minDate", $( "#starttime" ).val());
+		var starttime_tmp = $( "#starttime" ).val().split('-');
+		$( "#endtime" ).datepicker( "option", "yearRange", starttime_tmp[1] + ":" + parseInt(starttime_tmp[1]+10));
+	}
+} );
+
 $(function() {
-	var check_form = 0;
-	
 	$('#form_submit').bind('click', function(){
-		if (false != check_submit_data() && 0 == check_form) {
+		if (false != check_submit_data()) {
 			$.ajax({
 				type:"post",
 				dataType:"json",
@@ -32,42 +65,28 @@ $(function() {
 			});
 		}
 	});
-	
-	$('#pm_id').blur(function() {
-		if ($(this).val() == 0) {
-			$("#pm_name").css("color","#FF0000");
-			$('#pm_name').text('请填写项目经理ID');
-			check_form = 1;
-		} else if (isNaN($(this).val())) {
-			$("#pm_name").css("color","#FF0000");
-			$('#pm_name').text('项目经理ID应该是数字');
-			check_form = 1;
-		} else {
-			$.ajax({
-				type:"get",
-				dataType:"json",
-				url: "{{url('get/user')}}/" + $(this).val(),
-				async:false,
-				success:function($data) {
-					if ($data.status == 'error') {
-						$("#pm_name").css("color","#FF0000");
-						$('#pm_name').text($data.info);
-						check_form = 1;
-					} else {
-						$("#pm_name").css("color","#000000");
-						$('#pm_name').text($data.data.name);
-						check_form = 0;
-					}
-				}
-			});
-		}
-	});
 });
 
 function check_submit_data() {
 	if (0 == $('#name').val().trim().length) {
 		alert('项目名称不能为空');
 		$('#name').focus();
+		return false;
+	}
+	if (0 == $('#company_id').val().trim().length) {
+		alert('没有设置项目所属供应商');
+		return false;
+	}
+	if (0 == $('#pm_id').val().trim().length) {
+		alert('没有设置项目经理');
+		return false;
+	}
+	if (0 == $('#starttime').val().trim().length) {
+		alert('没有设置项目的开始日期');
+		return false;
+	}
+	if (0 == $('#endtime').val().trim().length) {
+		alert('没有设置项目的结束日期');
 		return false;
 	}
 }

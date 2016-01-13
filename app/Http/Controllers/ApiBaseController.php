@@ -8,11 +8,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Manage\AdminUserManage;
-use Validator;
-use Request;
-use Config;
-use Route;
 
 abstract class ApiBaseController extends Controller
 {

@@ -9,6 +9,7 @@
 namespace App\Http\Manage;
 
 use App\Http\Model\liuchengdan\DepartmentModel;
+use App\Http\Model\liuchengdan\UserModel;
 
 class DepartmentManage
 {
@@ -106,6 +107,27 @@ class DepartmentManage
         }
         catch (\Exception $e)
         {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function setStatus($id)
+    {
+        try {
+            if ($this->departmentModel->getCount(['parentid'=>$id])) {
+                throw new \Exception('当前部门下有子部门, 请先移除这些子部门再关闭');
+            }
+            $userModel = new UserModel();
+            if ($userModel->getCount(['department_id'=>$id])) {
+                throw new \Exception('当前用户组下存在用户, 请先移除再关闭');
+            }
+
+            $data = [];
+            $department = $this->departmentModel->getOneById($id)->toArray()[0];
+            $data['status'] = abs(1 - $department['status']);
+            $this->departmentModel->modifyById($id, $data);
+            return $data['status'];
+        } catch (HttpException $e) {
             throw new \Exception($e->getMessage());
         }
     }

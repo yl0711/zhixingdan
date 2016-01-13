@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href = "{{ asset('css/admin/bootstrap.min.css') }}" />
 	<link rel="stylesheet" href="{{ asset('css/admin/common.css') }}">
 	<link rel="stylesheet" href="{{ asset('css/admin/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('js/plugin/jquery-ui/jquery-ui.min.css') }}">
 </head>
 <body >
 <div id="header">

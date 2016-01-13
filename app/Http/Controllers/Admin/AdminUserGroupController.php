@@ -77,8 +77,14 @@ class AdminUserGroupController extends AdminBaseController
     /**
      * @Authorization 状态变更
      */
-    public function modifyStatus($id) {
-
+    public function modifyStatus($id)
+    {
+        try {
+            $data = $this->adminUserManage->setGroupStatus($id);
+            echo json_encode(['status'=>'success', 'data'=>$data]);
+        } catch (\Exception $e) {
+            echo json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
     }
 
     private function doAdd(Request $request)

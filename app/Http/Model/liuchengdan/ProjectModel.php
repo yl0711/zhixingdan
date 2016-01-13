@@ -34,9 +34,14 @@ class ProjectModel extends BaseModel
         return $query->paginate(config('global.PAGE_SIZE'));
     }
 
-    public function getOneById($id)
+    public function getOneById($id, $status=null)
     {
-        return self::where('id', $id)->get();
+        $query = self::where('id', $id);
+        if (!is_null($status))
+        {
+            $query = $query->where('status', $status);
+        }
+        return $query->get();
     }
 
     public function getOneByName($name)

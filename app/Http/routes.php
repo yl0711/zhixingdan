@@ -24,7 +24,7 @@ switch ($httpHost) {
     case $domain['ADMIN']:
         require app_path('Http/adminroutes.php');
         break;
-    case $domain['api']:
+    case $domain['API']:
         require app_path('Http/apiroutes.php');
         break;
     default:

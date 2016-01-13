@@ -63,6 +63,11 @@ class AdminUserManage
         return ['userList'=>$userList, 'userGroup'=>$userGroup];
     }
 
+    public function getAllUser($status=1)
+    {
+        return $this->userModel->getAll($status);
+    }
+
     /**
      * 添加管理员
      * @param array $request
@@ -214,11 +219,42 @@ class AdminUserManage
     }
 
     /**
+     * 修改管理员状态
+     */
+    public function setUserStatus($id)
+    {
+        try {
+            $data = [];
+            $department = $this->userModel->getByUid($id)->toArray()[0];
+            $data['status'] = abs(1 - $department['status']);
+            $this->userModel->modify($id, $data);
+            return $data['status'];
+        } catch (HttpException $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    /**
      * 修改管理组状态
      */
-    public function stateUserGroup()
+    public function setGroupStatus($id)
     {
+        try {
+            if ($this->groupModel->getCount(['parentid'=>$id])) {
+                throw new \Exception('当前用户组存在下级用户组, 请先移除再关闭');
+            }
+            if ($this->userModel->getCount(['group_id'=>$id])) {
+                throw new \Exception('当前用户组下存在用户, 请先移除再关闭');
+            }
 
+            $data = [];
+            $department = $this->groupModel->getOneById($id)->toArray()[0];
+            $data['status'] = abs(1 - $department['status']);
+            $this->groupModel->modify($id, $data);
+            return $data['status'];
+        } catch (HttpException $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     /**

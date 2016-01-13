@@ -57,6 +57,16 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
         return $query->orderBy('created_at', 'desc')->paginate(config('global.PAGE_SIZE'));
 	}
 
+    public function getCount(array $where)
+    {
+        return self::where($where)->count();
+    }
+
+    public function getAll($status=1)
+    {
+        return self::where('status', $status)->orderBy('name', 'asc')->get();
+    }
+
     /**
      * 获取指定ID的管理员
      * @param  mixed $uid 可以是数组或单个ID

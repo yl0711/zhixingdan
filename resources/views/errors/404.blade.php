@@ -20,15 +20,17 @@
 		<div id="mother">
 			<div id="errorBox">
 				<div id="errorText">
-					<h1>Sorry..该资源没有找到！</h1>
+					<h1>@if (isset($exception) && !empty($exception->getMessage()))
+						{{$exception->getMessage()}}
+					@else
+						Sorry..该资源没有找到！
+					@endif</h1>
 					<p>
-						似乎你所寻找的网页已移动或丢失了。
-						<p>或者也许你只是键入错误了一些东西。</p>
-						请不要担心，这没事。如果该资源对你很重要，请与管理员联系。
+						如果该资源对你很重要，请与管理员联系。
 					</p>
 
 					<p>
-						火星不太安全，我可以免费送你回地球
+						<a href="#" onclick="history.go(-1);">点击返回</a>
 					</p>
 				</div>
 			</div>

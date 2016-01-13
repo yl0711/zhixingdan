@@ -29,6 +29,11 @@ class DepartmentModel extends BaseModel
         return $query->paginate(config('global.PAGE_SIZE'));
     }
 
+    public function getCount(array $where = [])
+    {
+        return self::where($where)->count();
+    }
+
     /**
      * 返回全部, 此处只对数据显示状态进行过滤
      *

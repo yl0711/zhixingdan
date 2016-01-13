@@ -35,13 +35,13 @@
 							<td >@if ($item['parentid'] > 0) {{$list[$item['parentid']]['name']}} @endif</td>
 							<td >{{$item['updated_at']}}</td>
 							<td >
-								<a id="modify" href="{{url('usergroup/modify')}}/{{$item['id']}}" target="_self">修改</a>&nbsp;
-								<a id＝"authority" href="{{url('authority/group')}}/{{$item['id']}}" target="_self">权限</a>&nbsp;
-							@if ($item['status'] == 1)
-								<a id="state" href="{{url('usergroup/status')}}/{{$item['id']}}">停用</a>
-							@else
-								<a id="state" href="{{url('usergroup/status')}}/{{$item['id']}}">启用</a>
-							@endif
+								<button target="{{$item['id']}}" type="button" class="modify btn btn-info">修改</button>
+								<button target="{{$item['id']}}" type="button" class="authority btn btn-success" >权限</button>
+								@if(1 == $item['status'])
+								<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-danger">关闭</button>
+								@else
+								<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-warning">开启</button>
+								@endif
 							</td>
 						</tr>
 						@endforeach
@@ -61,6 +61,42 @@
 $(function() {
 	$('#btn_add').click(function() {
 		window.location.href="{{url('usergroup/add')}}";
+	});
+	
+	$('button[class^="modify"]').click(function() {
+		window.location.href="{{url('usergroup/modify')}}/" + $(this).attr('target');
+	});
+	
+	$('button[class^="authority"]').click(function() {
+		window.location.href="{{url('authority/group')}}/" + $(this).attr('target');
+	});
+	
+	$('button[class^="on-off"]').click(function() {
+		this_obj = $(this);
+		if (confirm('是否要将' + this_obj.attr('_name') + $(this).text().trim())) {
+			$.ajax({
+				type:"get",
+				dataType:"json",
+				url: "{{url('usergroup/status')}}/" + $(this).attr('target'),
+				async:false,
+				success:function($data) {
+					if ($data.status == 'error') {
+						alert($data.info);
+					} else {
+						alert(this_obj.attr('_name') + '状态修改成功');
+						if (1 == $data.data) {
+							this_obj.text('关闭');
+							this_obj.removeClass("btn-warning");
+							this_obj.addClass("btn-danger");
+						} else {
+							this_obj.text('开启');
+							this_obj.removeClass("btn-danger");
+							this_obj.addClass("btn-warning");
+						}
+					}
+				}
+			});	
+		}
 	});
 });
 </script>

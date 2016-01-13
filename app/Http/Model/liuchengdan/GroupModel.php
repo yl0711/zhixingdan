@@ -41,6 +41,12 @@ class GroupModel extends BaseModel
         return $query->paginate(config('global.PAGE_SIZE'));
     }
 
+
+    public function getCount(array $where)
+    {
+        return self::where($where)->count();
+    }
+
     /**
      * 获取所有管理组列表
      * @return mixed

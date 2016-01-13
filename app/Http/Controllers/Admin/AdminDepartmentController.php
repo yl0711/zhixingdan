@@ -103,9 +103,17 @@ class AdminDepartmentController extends AdminBaseController
         }
     }
 
+    /**
+     * @Authorization 修改状态
+     */
     public function modifyStatus($id)
     {
-
+        try {
+            $data = $this->departmentManage->setStatus($id);
+            echo json_encode(['status'=>'success', 'data'=>$data]);
+        } catch (\Exception $e) {
+            echo json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
     }
 
     private function doAdd(Request $request)

@@ -57,11 +57,9 @@ class AdminAuthorityController extends AdminBaseController
         $adminUserManage = new AdminUserManage();
         $user = $adminUserManage->getUser($uid)->toArray()[0];
         $user['type'] = 'user';
-        $user['id'] = $user['uid'];
-        $user['name'] = $user['uname'];
 
         if (!$user['authority']) {
-            $group = $adminUserManage->getUserGroup($user['gid'])->toArray()[0];
+            $group = $adminUserManage->getUserGroup($user['group_id'])->toArray()[0];
             $user['authority'] = $group['authority'];
         }
 
@@ -96,8 +94,6 @@ class AdminAuthorityController extends AdminBaseController
         $adminUserManage = new AdminUserManage();
         $user = $adminUserManage->getUserGroup($gid)->toArray()[0];
         $user['type'] = 'group';
-        $user['id'] = $user['gid'];
-        $user['name'] = $user['gname'];
 
         $authorityList = [];
         if ('all' == $user['authority']) {
