@@ -19,7 +19,7 @@ class CompanyManage
         $this->companyModel = new CompanyModel();
     }
 
-    public function getList($name=null, $status=null)
+    public function getList($name='', $status=2)
     {
         return $this->companyModel->getList($name, $status);
     }
@@ -61,6 +61,19 @@ class CompanyManage
         try {
             $this->companyModel->modify($id, $request);
         } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function setStatus($id)
+    {
+        try {
+            $data = [];
+            $company = $this->companyModel->getOneById($id)->toArray()[0];
+            $data['status'] = abs(1 - $company['status']);
+            $this->companyModel->modify($id, $data);
+            return $data['status'];
+        } catch (HttpException $e) {
             throw new \Exception($e->getMessage());
         }
     }

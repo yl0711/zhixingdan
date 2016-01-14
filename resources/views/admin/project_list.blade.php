@@ -9,7 +9,22 @@
 			<div class="search-box">
 				<span>&nbsp;</span>
 				<form action = "{{url('project/index')}}" id = "form_seach" name = "form_seach" method="post" >
+					<input style="width: 150px;" type="text" name="name" placeholder="输入名称" value="{{ $name}}" />
+					<select id="company_id" name="company_id" class = "seachByStatus">
+						<option value="0" >选择供应商</option>
+						@foreach($companyList as $item)
+						<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
+						@endforeach
+					</select>
+					<select  class = "seachByStatus" name="status">
+						<option value="2" @if($status==2) selected @endif >全部</option>
+						<option value="1" @if($status==1) selected @endif >已打开</option>
+						<option value="0" @if($status==0) selected @endif>已关闭</option>
+					</select>
 					<button class = "btn_seach" onclick="form_seach.submit();">查询</button>
+					<!--每页显示条数-->
+					<span class = "pageSizeSpan" >条/页</span>
+					<input type="text"  action = "{{url('project/index')}}/?name={{$name}}&status={{$status}}&company_id＝{{$company_id}}" class = "pageSize" name = "pageSize"  value="{{$pageSize}}" >
 				</form>	
 				<div class="fr top-r">
 					<i class="add-ico" id = "btn_add_admin_project" >添加项目 </i>
@@ -31,7 +46,7 @@
 						</tr>
 					</thead>
 					<tbody id= "dataListTable"　>
-					@if(count($project))
+					@if($project->count())
 						@foreach($project as $item)
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
 							<td class= "_id" >{{$item['id']}}</td>
@@ -43,11 +58,13 @@
 							<td class= "_name">{{date('Y-m-d', $item['endtime'])}}</td>
 							<td >{{$item['updated_at']}}</td>
 							<td >
-								<a id="modify" href="{{url('project/modify')}}/{{$item['id']}}" target="_self">修改</a>&nbsp;
-								<a id="member" href="{{url('project/member')}}/{{$item['id']}}" target="_self">项目成员</a>&nbsp;
-								<a id="status" href="{{url('project/status')}}/{{$item['id']}}">
-								@if ($item['status'] == 1) 停用 @else 启用 @endif
-								</a>
+								<button target="{{$item['id']}}" type="button" class="modify btn btn-info">修改</button>
+								<button target="{{$item['id']}}" type="button" class="authority btn btn-success" >成员</button>
+							@if(1 == $item['status'])
+								<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-danger">关闭</button>
+							@else
+								<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-warning">开启</button>
+							@endif
 							</td>
 						</tr>
 						@endforeach
@@ -57,6 +74,9 @@
 					</tbody>
 				</table>
 			</div>
+			@if($project->count())
+			{!! $project->appends(['name'=>$name, 'status'=>$status, 'company_id'=>$company_id, 'pageSize'=>$pageSize])->render() !!}
+			@endif
  		</div>
 		<!--//网页备注-->	
 	</div>
@@ -67,6 +87,42 @@
 $(function() {
 	$('#btn_add_admin_project').click(function() {
 		window.location.href="{{url('project/add')}}";
+	});
+	
+	$('button[class^="modify"]').click(function() {
+		window.location.href="{{url('project/modify')}}/" + $(this).attr('target');
+	});
+	
+	$('button[class^="authority"]').click(function() {
+		window.location.href="{{url('project/member')}}/" + $(this).attr('target');
+	});
+	
+	$('button[class^="on-off"]').click(function() {
+		this_obj = $(this);
+		if (confirm('是否要将' + this_obj.attr('_name') + $(this).text().trim())) {
+			$.ajax({
+				type:"get",
+				dataType:"json",
+				url: "{{url('project/status')}}/" + $(this).attr('target'),
+				async:false,
+				success:function($data) {
+					if ($data.status == 'error') {
+						alert($data.info);
+					} else {
+						alert(this_obj.attr('_name') + '状态修改成功');
+						if (1 == $data.data) {
+							this_obj.text('关闭');
+							this_obj.removeClass("btn-warning");
+							this_obj.addClass("btn-danger");
+						} else {
+							this_obj.text('开启');
+							this_obj.removeClass("btn-danger");
+							this_obj.addClass("btn-warning");
+						}
+					}
+				}
+			});	
+		}
 	});
 });
 </script>

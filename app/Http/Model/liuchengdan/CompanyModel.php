@@ -20,14 +20,14 @@ class CompanyModel extends BaseModel
      */
     protected $table = 'base_company';
 
-    public function getList($name=null, $status=1)
+    public function getList($name='', $status=2)
     {
         $query = self::orderBy('id', 'asc');
 
-        if (!is_null($name) && !$name) {
+        if (!empty($name)) {
             $query = $query->where('name', 'like', '%'.$name.'%');
         }
-        if (!is_null($status)) {
+        if (2 != $status) {
             $query = $query->where('status', $status);
         }
 

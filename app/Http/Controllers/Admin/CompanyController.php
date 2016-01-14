@@ -24,12 +24,13 @@ class CompanyController extends AdminBaseController
         $this->companyManage = new CompanyManage();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->companyManage->getList()->toArray();
-        $companyList = $data['data'];
+        $name = $request->input('name', '');
+        $status = $request->input('status', 2);
+        $companyList = $this->companyManage->getList($name, $status);
 
-        return view('admin.company_list', compact('companyList'));
+        return view('admin.company_list', compact('companyList', 'name', 'status'));
     }
 
     /**
@@ -76,7 +77,12 @@ class CompanyController extends AdminBaseController
      */
     public function modifyStatus($id)
     {
-
+        try {
+            $data = $this->companyManage->setStatus($id);
+            echo json_encode(['status'=>'success', 'data'=>$data]);
+        } catch (\Exception $e) {
+            echo json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
     }
 
     private function doAdd(Request $request)

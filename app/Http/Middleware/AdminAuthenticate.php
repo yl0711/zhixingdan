@@ -40,7 +40,7 @@ class AdminAuthenticate
     public function handle($request, Closure $next)
     {
         if ($this->adminAuth->guest()) {
-            return $this->responseErr($request);
+            return redirect()->to('/login');
         }
 
         // 获取管理员信息

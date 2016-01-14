@@ -28,31 +28,19 @@ class ProjectController extends AdminBaseController
         $this->projectManage = new ProjectManage();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->projectManage->getList()->toArray();
-        $project = $data['data'];
+        $name = $request->input('name', '');
+        $company_id = $request->input('company_id', 0);
+        $status = $request->input('status', 2);
+        $project = $this->projectManage->getList($name, $company_id, $status);
 
-        $companyids = $pmids = $companyList = $pmList = [];
+        $pmids = $pmList = [];
         foreach ($project as $value)
         {
-            if ($value['company_id'])
-            {
-                $companyids[$value['company_id']] = $value['company_id'];
-            }
             if ($value['pm_id'])
             {
                 $pmids[$value['pm_id']] = $value['pm_id'];
-            }
-        }
-
-        if ($companyids)
-        {
-            $companyModel = new CompanyModel();
-            $data = $companyModel->getMoreById($companyids)->toArray();
-            foreach ($data as $value)
-            {
-                $companyList[$value['id']] = $value;
             }
         }
         if ($pmids)
@@ -65,7 +53,22 @@ class ProjectController extends AdminBaseController
             }
         }
 
-        return view('admin.project_list', compact('project', 'companyList', 'pmList'));
+        $companyModel = new CompanyModel();
+        $data = $companyModel->getAll();
+        foreach ($data as $value)
+        {
+            if ($value['id'] == $company_id)
+            {
+                $value['selected'] = 'selected="selected"';
+            }
+            else
+            {
+                $value['selected'] = '';
+            }
+            $companyList[$value['id']] = $value;
+        }
+
+        return view('admin.project_list', compact('project', 'companyList', 'pmList', 'name', 'company_id', 'status'));
     }
 
     /**
@@ -184,7 +187,12 @@ class ProjectController extends AdminBaseController
      */
     public function modifyStatus($id)
     {
-
+        try {
+            $data = $this->projectManage->setStatus($id);
+            echo json_encode(['status'=>'success', 'data'=>$data]);
+        } catch (\Exception $e) {
+            echo json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
     }
 
     private function doAdd(Request $request)

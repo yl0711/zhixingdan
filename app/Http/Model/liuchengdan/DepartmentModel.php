@@ -16,15 +16,19 @@ class DepartmentModel extends BaseModel
 
     /**
      * 根据指定条件返回部门数据列表
-     *
-     * @param array $where  索引是条件字段, 值是对应字段的值, 这里不进行字段筛选过滤
      */
-    public function getList(array $where = [])
+    public function getList($name='', $status=2, $parentid=0)
     {
         $query = self::orderBy('created_at', 'desc');
 
-        if ($where) {
-            $query = $query->where($where);
+        if (!empty($name)) {
+            $query = $query->where('name', 'like', "%{$name}%");
+        }
+        if (2 != $status) {
+            $query = $query->where('status', $status);
+        }
+        if (0 < $parentid) {
+            $query = $query->where('parentid', $parentid);
         }
         return $query->paginate(config('global.PAGE_SIZE'));
     }

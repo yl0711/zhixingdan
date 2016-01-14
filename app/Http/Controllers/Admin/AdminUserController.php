@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminBaseController;
+use App\Http\Manage\DepartmentManage;
 use Illuminate\Http\Request;
 
 /**
@@ -18,14 +19,44 @@ use Illuminate\Http\Request;
  */
 class AdminUserController extends AdminBaseController
 {
+    private $departmentManage;
 
-    public function index()
+    public function __construct()
     {
-        $data = $this->adminUserManage->getUserList();
-        $userGroup = $data['userGroup'];
-        $userList = $data['userList']['data'];
+        parent::__construct();
 
-        return view('admin.admin_user_list', compact('userList', 'userGroup'));
+        $this->departmentManage = new DepartmentManage();
+    }
+
+    public function index(Request $request)
+    {
+        $name = $request->input('name', '');
+        $group_id = $request->input('group_id', 0);
+        $department_id = $request->input('department_id', 0);
+        $status = $request->input('status', 2);
+
+        $userList = $this->adminUserManage->getUserList($name, $group_id, $department_id, $status);
+        $data = $this->adminUserManage->getUserGroupAll();
+        foreach ($data as $value) {
+            if ($value['id'] == $group_id) {
+                $value['selected'] = 'selected="selected"';
+            } else {
+                $value['selected'] = '';
+            }
+            $grouplist[$value['id']] = $value;
+        }
+
+        $data = $this->departmentManage->getListByStatus();
+        foreach ($data as $value) {
+            if ($value['id'] == $department_id) {
+                $value['selected'] = 'selected="selected"';
+            } else {
+                $value['selected'] = '';
+            }
+            $departmentlist[$value['id']] = $value;
+        }
+
+        return view('admin.admin_user_list', compact('userList', 'grouplist', 'departmentlist', 'name', 'group_id', 'department_id', 'status'));
     }
 
     /**
@@ -40,12 +71,17 @@ class AdminUserController extends AdminBaseController
         else
         {
             $user = [];
-            $group = $this->adminUserManage->getUserGroupAll()->toarray();
-            foreach ($group as &$value)
+            $group = $this->adminUserManage->getUserGroupAll();
+            foreach ($group as $value)
             {
                 $value['selected'] = '';
             }
-            return view('admin.admin_user_add', compact('user', 'group'));
+            $department = $this->departmentManage->getListByStatus();
+            foreach ($department as $value)
+            {
+                $value['selected'] = '';
+            }
+            return view('admin.admin_user_add', compact('user', 'group', 'department'));
         }
     }
 
@@ -68,8 +104,8 @@ class AdminUserController extends AdminBaseController
             {
                 echo $e->getMessage();exit;
             }
-            $group = $this->adminUserManage->getUserGroupAll()->toarray();
-            foreach ($group as &$value)
+            $group = $this->adminUserManage->getUserGroupAll();
+            foreach ($group as $value)
             {
                 if ($value['id'] == $user['group_id'])
                 {
@@ -80,8 +116,20 @@ class AdminUserController extends AdminBaseController
                     $value['selected'] = '';
                 }
             }
+            $department = $this->departmentManage->getListByStatus();
+            foreach ($department as $value)
+            {
+                if ($value['id'] == $user['department_id'])
+                {
+                    $value['selected'] = 'selected="selected"';
+                }
+                else
+                {
+                    $value['selected'] = '';
+                }
+            }
 
-            return view('admin.admin_user_modify', compact('user', 'group'));
+            return view('admin.admin_user_modify', compact('user', 'group', 'department'));
         }
     }
 

@@ -20,24 +20,30 @@ class ProjectModel extends BaseModel
      */
     protected $table = 'base_project';
 
-    public function getList($name=null, $status=null)
+    public function getList($name='', $company_id=0, $status=2, array $where=[])
     {
         $query = self::orderBy('id', 'asc');
 
-        if (!is_null($name) && !$name) {
+        if (!empty($name)) {
             $query = $query->where('name', 'like', '%'.$name.'%');
         }
-        if (!is_null($status)) {
+        if (0 < $company_id) {
+            $query = $query->where('company_id', $company_id);
+        }
+        if (2 != $status) {
             $query = $query->where('status', $status);
+        }
+        if (!empty($where)) {
+            $query = $query->where($where);
         }
 
         return $query->paginate(config('global.PAGE_SIZE'));
     }
 
-    public function getOneById($id, $status=null)
+    public function getOneById($id, $status=2)
     {
         $query = self::where('id', $id);
-        if (!is_null($status))
+        if (2 != $status)
         {
             $query = $query->where('status', $status);
         }
@@ -47,6 +53,13 @@ class ProjectModel extends BaseModel
     public function getOneByName($name)
     {
         return self::where('name', $name)->get();
+    }
+
+    public function getCount(array $where=[])
+    {
+        if ($where) {
+
+        }
     }
 
     public function add(Array $data)

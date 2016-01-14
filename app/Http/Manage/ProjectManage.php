@@ -29,9 +29,9 @@ class ProjectManage
      * @param int $status
      * @return mixed
      */
-    public function getList($name=null, $status=null)
+    public function getList($name='', $company_id=0, $status=2)
     {
-        return $this->projectModel->getList($name, $status);
+        return $this->projectModel->getList($name, $company_id, $status);
     }
 
     /**
@@ -88,6 +88,10 @@ class ProjectManage
         }
     }
 
+    /**
+     * @param $id
+     * @return array
+     */
     public function getMemberListByProjectid($id)
     {
         $model = new ProjectMemberModel();
@@ -107,7 +111,7 @@ class ProjectManage
             $userids = [];
             foreach ($memberList as $value)
             {
-                $userids[$value['ser_id']] = $value['ser_id'];
+                $userids[$value['user_id']] = $value['user_id'];
             }
             if ($userids)
             {
@@ -127,5 +131,18 @@ class ProjectManage
             }
         }
         return ['memberList'=>$memberList, 'userList'=>$userList];
+    }
+
+    public function setStatus($id)
+    {
+        try {
+            $data = [];
+            $project = $this->projectModel->getOneById($id)->toArray()[0];
+            $data['status'] = abs(1 - $project['status']);
+            $this->projectModel->modify($id, $data);
+            return $data['status'];
+        } catch (HttpException $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 }

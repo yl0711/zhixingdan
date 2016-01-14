@@ -17,6 +17,7 @@ $(function() {
 					'password':$('#password').val(),
 					'email':$('#email').val(),
 					'group_id':$('#group_id').val(),
+					'department_id':$('#department_id').val()
 				},
 				async:false,
 				success:function($data) {

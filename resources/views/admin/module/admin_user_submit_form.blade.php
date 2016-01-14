@@ -37,6 +37,17 @@
 			</td>
 		</tr>
 		<tr>
+			<td class="tr"> 部门 :</td>
+			<td class="tl">
+				<select id="department_id" name="department_id" class = "seachByStatus">
+					<option value="0" >请选择</option>
+				@foreach($department as $item)
+					<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
+				@endforeach
+				</select>
+			</td>
+		</tr>
+		<tr>
 			<th colspan = "2" >
 				<button type="button" id="admin_user_submit" class="btn btn-success" >确认提交</button>
 			</th>

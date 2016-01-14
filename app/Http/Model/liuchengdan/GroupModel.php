@@ -22,18 +22,18 @@ class GroupModel extends BaseModel
      * @param int    $status     管理组状态, 1-启用，0-停用，-1-删除
      * @return mixed
      */
-    public function getList($name=null, $parentid=null, $status=null)
+    public function getList($name='', $parentid=0, $status=2)
     {
         $query = self::orderBy('id', 'asc');
-        if (!is_null($name))
+        if (!empty($name))
         {
             $query = $query->where('name', 'like', '%'.$name.'%');
         }
-        if (!is_null($parentid))
+        if (0 < $parentid)
         {
             $query = $query->where('parentid', $parentid);
         }
-        if (!is_null($status))
+        if (2 != $status)
         {
             $query = $query->where('status', $status);
         }

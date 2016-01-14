@@ -28,15 +28,27 @@ class AdminDepartmentController extends AdminBaseController
         $this->departmentManage = new DepartmentManage();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $list = [];
-        $data = $this->departmentManage->getList()->toArray();
-        foreach ($data['data'] as $value)
+        $name = $request->input('name', '');
+        $parentid = $request->input('parentid', 0);
+        $status = $request->input('status', 2);
+        $list = $this->departmentManage->getList($name, $status, $parentid);
+
+        $departmentlist = $this->departmentManage->getListByStatus(1);
+        if ($departmentlist)
         {
-            $list[$value['id']] = $value;
+            foreach ($departmentlist as $value)
+            {
+                if ($value['id'] == $parentid) {
+                    $value['selected'] = 'selected="selected"';
+                } else {
+                    $value['selected'] = '';
+                }
+            }
         }
-        return view('admin.department_list', compact('list'));
+
+        return view('admin.department_list', compact('list', 'departmentlist', 'name', 'parentid', 'status'));
     }
 
     /**

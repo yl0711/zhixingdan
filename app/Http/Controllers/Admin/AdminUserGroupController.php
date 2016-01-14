@@ -20,14 +20,27 @@ use Illuminate\Http\Request;
 class AdminUserGroupController extends AdminBaseController
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $list = [];
-        $data = $this->adminUserManage->getUserGroupList()->toArray();
-        foreach ($data['data'] as $value) {
-            $list[$value['id']] = $value;
+        $name = $request->input('name', '');
+        $parentid = $request->input('parentid', 0);
+        $status = $request->input('status', 2);
+
+        $list = $this->adminUserManage->getUserGroupList($name, $parentid, $status);
+        $grouplist = $this->adminUserManage->getUserGroupAll();
+        if ($grouplist)
+        {
+            foreach ($grouplist as $value)
+            {
+                if ($value['id'] == $parentid) {
+                    $value['selected'] = 'selected="selected"';
+                } else {
+                    $value['selected'] = '';
+                }
+            }
         }
-        return view('admin.admin_usergroup_list', compact('list'));
+
+        return view('admin.admin_usergroup_list', compact('list', 'name', 'parentid', 'status', 'grouplist'));
     }
 
     /**

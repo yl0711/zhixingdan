@@ -22,14 +22,14 @@ class DepartmentManage
         $this->departmentModel = new DepartmentModel();
     }
 
-    public function getList()
+    public function getList($name='', $status=2, $parentid=0)
     {
-        return $this->departmentModel->getList();
+        return $this->departmentModel->getList($name, $status, $parentid);
     }
 
     public function getListByStatus($status=1)
     {
-        return $this->departmentModel->getList(['status'=>$status]);
+        return $this->departmentModel->getAll($status);
     }
 
     public function add(array $data)

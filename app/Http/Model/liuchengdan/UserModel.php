@@ -40,17 +40,20 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
      * @param int    $state
      * @return mixed
      */
-	public function getList($name=null, $group_id=null, $status=null)
+	public function getList($name='', $group_id=0, $department_id=0, $status=2)
     {
         $query = self::where('superadmin', '!=', 1);
 
-        if (!is_null($name) && !$name) {
+        if (!empty($name)) {
             $query = $query->where('name', 'like', '%'.$name.'%');
         }
-        if (!is_null($group_id)) {
+        if (0 < $group_id) {
             $query = $query->where('group_id', $group_id);
         }
-        if (!is_null($status)) {
+        if (0 < $department_id) {
+            $query = $query->where('department_id', $department_id);
+        }
+        if (2 != $status) {
             $query = $query->where('status', $status);
         }
 

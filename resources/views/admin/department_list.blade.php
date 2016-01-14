@@ -8,13 +8,23 @@
 			</div>
 			<div class="search-box">
 				<span>&nbsp;</span>
-				<form action = "{{url('user/index')}}" id = "form_seach" name = "form_seach" method="post" >
-					<select name="search_type">
-						<option value="name">部门</option>
-						<option value="parent_name">上级部门</option>
+				<form action = "{{url('department/index')}}" id = "form_seach" name = "form_seach" method="post" >
+					<input style="width: 150px;" type="text" name="name" placeholder="输入名称" value="{{ $name}}" />
+					<select id="parentid" name="parentid" class = "seachByStatus">
+						<option value="0" >选择上级部门</option>
+						@foreach($departmentlist as $item)
+						<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
+						@endforeach
 					</select>
-					<input type="text" name="search_input" />
+					<select  class = "seachByStatus" name="status">
+						<option value="2" @if($status==2) selected @endif >全部</option>
+						<option value="1" @if($status==1) selected @endif >已打开</option>
+						<option value="0" @if($status==0) selected @endif>已关闭</option>
+					</select>
 					<button class = "btn_seach" onclick="form_seach.submit();">查询</button>
+					<!--每页显示条数-->
+					<span class = "pageSizeSpan" >条/页</span>
+					<input type="text"  action = "{{url('department/index')}}/?name={{$name}}&status={{$status}}&parentid＝{{$parentid}}" class = "pageSize" name = "pageSize"  value="{{$pageSize}}" >
 				</form>	
 				<div class="fr top-r">
 					<i class="add-ico" id = "btn_add" >添加部门 </i>
@@ -32,7 +42,7 @@
 						</tr>
 					</thead>
 					<tbody id= "dataListTable"　>
-					@if(count($list))
+					@if($list->count())
 						@foreach($list as $item)
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
 							<td class= "_id" >{{$item['id']}}</td>
@@ -56,6 +66,9 @@
 					</tbody>
 				</table>
 			</div>
+			@if($list->count())
+			{!! $list->appends(['name'=>$name, 'status'=>$status, 'parentid'=>$parentid, 'pageSize'=>$pageSize])->render() !!}
+			@endif
  		</div>
 		<!--//网页备注-->	
 	</div>

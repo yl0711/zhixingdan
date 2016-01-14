@@ -21,7 +21,7 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminlog'], function() {
 
         //用户管理
         Route::group(['prefix' => 'user'], function() {
-            Route::get('/index', ['uses' => 'AdminUserController@index']);
+            Route::match(['get', 'post'], '/index', ['uses' => 'AdminUserController@index']);
 
             Route::match(['get', 'post'], '/add', ['uses' => 'AdminUserController@add']);
 
@@ -32,7 +32,7 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminlog'], function() {
 
         //用户组管理
         Route::group(['prefix' => 'usergroup'], function() {
-            Route::get('/index', ['uses' => 'AdminUserGroupController@index']);
+            Route::match(['get', 'post'], '/index', ['uses' => 'AdminUserGroupController@index']);
 
             Route::match(['get', 'post'], '/add', ['uses' => 'AdminUserGroupController@add']);
 
@@ -43,7 +43,7 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminlog'], function() {
 
         //部门管理
         Route::group(['prefix' => 'department'], function() {
-            Route::get('/index', ['uses' => 'AdminDepartmentController@index']);
+            Route::match(['get', 'post'], '/index', ['uses' => 'AdminDepartmentController@index']);
 
             Route::match(['get', 'post'], '/add', ['uses' => 'AdminDepartmentController@add']);
 
@@ -66,7 +66,7 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminlog'], function() {
 
         //供应商管理
         Route::group(['prefix' => 'company'], function() {
-            Route::get('index', ['uses'=>'CompanyController@index']);
+            Route::match(['get', 'post'], 'index', ['uses'=>'CompanyController@index']);
 
             Route::match(['get', 'post'], '/add', ['uses' => 'CompanyController@add']);
 
@@ -77,7 +77,7 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminlog'], function() {
 
         //项目管理
         Route::group(['prefix' => 'project'], function() {
-            Route::get('index', ['uses'=>'ProjectController@index']);
+            Route::match(['get', 'post'], 'index', ['uses'=>'ProjectController@index']);
 
             Route::match(['get', 'post'], '/add', ['uses' => 'ProjectController@add']);
             Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'ProjectController@modify'])->where('id', '[0-9]+');

@@ -46,21 +46,9 @@ class AdminUserManage
      * @param int $status  状态
      * @return array
      */
-    public function getUserList($name=null, $gid=null, $status=null)
+    public function getUserList($name='', $group_id=0, $department_id=0, $status=2)
     {
-        $groupids = $userGroup = [];
-        $userList = $this->userModel->getList($name, $gid, $status)->toArray();
-
-        foreach ($userList['data'] as $key=>$value) {
-            $groupids[$value['group_id']] = $value['group_id'];
-        }
-        if ($groupids) {
-            $data = $this->groupModel->getByGid($groupids)->toarray();
-            foreach ($data as $value) {
-                $userGroup[$value['id']] = $value;
-            }
-        }
-        return ['userList'=>$userList, 'userGroup'=>$userGroup];
+        return $this->userModel->getList($name, $group_id, $department_id, $status);
     }
 
     public function getAllUser($status=1)
@@ -159,7 +147,7 @@ class AdminUserManage
      * @param null $status
      * @return mixed
      */
-    public function getUserGroupList($name=null, $parentid=null, $status=null)
+    public function getUserGroupList($name='', $parentid=0, $status=2)
     {
         return $this->groupModel->getList($name, $parentid, $status);
     }
@@ -168,9 +156,9 @@ class AdminUserManage
      * 获取所有开启的管理组
      * @return mixed
      */
-    public function getUserGroupAll()
+    public function getUserGroupAll($status=1)
     {
-        return $this->groupModel->getAll();
+        return $this->groupModel->getAll($status);
     }
 
     /**
