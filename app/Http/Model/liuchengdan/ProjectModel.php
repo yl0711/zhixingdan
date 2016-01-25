@@ -40,7 +40,7 @@ class ProjectModel extends BaseModel
         return $query->paginate(config('global.PAGE_SIZE'));
     }
 
-    public function getOneById($id, $status=2)
+    public function getOneById($id, $status=1)
     {
         $query = self::where('id', $id);
         if (2 != $status)

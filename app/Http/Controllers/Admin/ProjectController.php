@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\AdminBaseController;
 use App\Http\Manage\AdminUserManage;
 use App\Http\Manage\CompanyManage;
+use App\Http\Manage\DepartmentManage;
 use App\Http\Manage\ProjectManage;
 use App\Http\Model\liuchengdan\CompanyModel;
 use App\Http\Model\liuchengdan\UserModel;
@@ -137,23 +138,32 @@ class ProjectController extends AdminBaseController
      */
     public function member($id)
     {
-        try
-        {
+        try {
             $project = $this->projectManage->getOneById($id)->toArray()[0];
+        } catch (HttpException $e) {
+            abort($e->getStatusCode(), $e->getMessage());
         }
-        catch (HttpException $e)
-        {
-            abort('404', $e->getMessage(), ['HTTP_REFERER'=>url('project/index')]);
-        }
-        if (0 == $project['status'])
-        {
-            abort('404', '你访问的项目已经关闭, 请先启动再设置', ['HTTP_REFERER'=>url('project/index')]);
+        if (0 == $project['status']) {
+            abort('400', '你访问的项目已经关闭, 请先启动再设置');
         }
         $data = $this->projectManage->getMemberListByProjectid($id);
         $memberList = $data['memberList'];
         $userList = $data['userList'];
 
-        return view('admin.project_member_list', compact('project', 'memberList', 'userList'));
+        $userGroup = $department = [];
+        $adminUserManage = new AdminUserManage();
+        $data = $adminUserManage->getUserGroupAll();
+        foreach ($data as $value) {
+            $userGroup[$value['id']] = $value;
+        }
+
+        $departmentManage = new DepartmentManage();
+        $data = $departmentManage->getListByStatus();
+        foreach ($data as $value) {
+            $department[$value['id']] = $value;
+        }
+
+        return view('admin.project_member_list', compact('project', 'memberList', 'userList', 'userGroup', 'department'));
     }
 
     /**
@@ -170,15 +180,41 @@ class ProjectController extends AdminBaseController
         }
         else
         {
-            try
-            {
+            try {
                 $project = $this->projectManage->getOneById($id)->toArray()[0];
-            }
-            catch (HttpException $e)
-            {
+            } catch (HttpException $e) {
                 abort($e->getStatusCode(), $e->getMessage());
             }
-            return view('admin.project_member_add', compact('project'));
+            if (0 == $project['status']) {
+                abort('400', '你访问的项目已经关闭, 请先启动再设置');
+            }
+            $data = $this->projectManage->getMemberListByProjectid($id);
+            $existsUser = $data['userList'];
+
+            $userGroup = $department = [];
+            $adminUserManage = new AdminUserManage();
+            $data = $adminUserManage->getUserGroupAll()->toArray();
+            foreach ($data as $value) {
+                $userGroup[$value['id']] = $value;
+            }
+
+            $data = $adminUserManage->getAllUser()->toArray();
+            foreach ($data as $value) {
+                if (isset($existsUser[$value['id']])) {
+                    continue;
+                }
+                $value['showname'] = $userGroup[$value['group_id']]['name'] .' : '. $value['name'];
+                $userList[$value['department_id']][] = $value;
+            }
+            if (!isset($userList) || empty($userList)) {
+                abort('400', '没有可用用户, 所有用户都在这个项目里了');
+            }
+            $userList = json_encode($userList);
+
+            $departmentManage = new DepartmentManage();
+            $department = $departmentManage->getListByStatus();
+
+            return view('admin.project_member_add', compact('project', 'userList', 'userGroup', 'department'));
         }
     }
 
@@ -199,7 +235,14 @@ class ProjectController extends AdminBaseController
     {
         try
         {
-            $this->projectManage->add($request->all());
+            $data = $request->all();
+            $project_id = $this->projectManage->add($data);
+            if ($project_id) {
+                $pm_id = $data['pm_id'];
+                $this->projectManage->addMember($project_id, $pm_id, 1);
+            } else {
+                return json_encode(['status'=>'error', 'info'=>'数据写入失败']);
+            }
             return json_encode(['status'=>'success']);
         }
         catch (\Exception $e)
@@ -278,6 +321,23 @@ class ProjectController extends AdminBaseController
 
     private function doAddMember(Request $request, $id)
     {
-
+        try {
+            $project = $this->projectManage->getOneById($id)->toArray()[0];
+        } catch (\Exception $e) {
+            return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
+        if (0 == $project['status']) {
+            return json_encode(['status'=>'error', 'info'=>'你访问的项目已经关闭, 请先启动再设置']);
+        }
+        $data = $request->all();
+        if ($this->projectManage->userExists($id, $data['user_id'])) {
+            return json_encode(['status'=>'error', 'info'=>'用户已经在此项目中']);
+        }
+        try {
+            $this->projectManage->addMember($id, $data['user_id']);
+            return json_encode(['status'=>'success']);
+        } catch (\Exception $e) {
+            return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
     }
 }

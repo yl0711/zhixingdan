@@ -21,9 +21,9 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminlog'], function() {
 
         //用户管理
         Route::group(['prefix' => 'user'], function() {
-            Route::match(['get', 'post'], '/index', ['uses' => 'AdminUserController@index']);
+            Route::match(['get', 'post'], 'index', ['uses' => 'AdminUserController@index']);
 
-            Route::match(['get', 'post'], '/add', ['uses' => 'AdminUserController@add']);
+            Route::match(['get', 'post'], 'add', ['uses' => 'AdminUserController@add']);
 
             Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'AdminUserController@modify'])->where('id', '[0-9]+');
 
@@ -32,9 +32,9 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminlog'], function() {
 
         //用户组管理
         Route::group(['prefix' => 'usergroup'], function() {
-            Route::match(['get', 'post'], '/index', ['uses' => 'AdminUserGroupController@index']);
+            Route::match(['get', 'post'], 'index', ['uses' => 'AdminUserGroupController@index']);
 
-            Route::match(['get', 'post'], '/add', ['uses' => 'AdminUserGroupController@add']);
+            Route::match(['get', 'post'], 'add', ['uses' => 'AdminUserGroupController@add']);
 
             Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'AdminUserGroupController@modify'])->where('id', '[0-9]+');
 
@@ -43,9 +43,9 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminlog'], function() {
 
         //部门管理
         Route::group(['prefix' => 'department'], function() {
-            Route::match(['get', 'post'], '/index', ['uses' => 'AdminDepartmentController@index']);
+            Route::match(['get', 'post'], 'index', ['uses' => 'AdminDepartmentController@index']);
 
-            Route::match(['get', 'post'], '/add', ['uses' => 'AdminDepartmentController@add']);
+            Route::match(['get', 'post'], 'add', ['uses' => 'AdminDepartmentController@add']);
 
             Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'AdminDepartmentController@modify'])->where('id', '[0-9]+');
 
@@ -68,7 +68,7 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminlog'], function() {
         Route::group(['prefix' => 'company'], function() {
             Route::match(['get', 'post'], 'index', ['uses'=>'CompanyController@index']);
 
-            Route::match(['get', 'post'], '/add', ['uses' => 'CompanyController@add']);
+            Route::match(['get', 'post'], 'add', ['uses' => 'CompanyController@add']);
 
             Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'CompanyController@modify'])->where('id', '[0-9]+');
 
@@ -79,7 +79,7 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminlog'], function() {
         Route::group(['prefix' => 'project'], function() {
             Route::match(['get', 'post'], 'index', ['uses'=>'ProjectController@index']);
 
-            Route::match(['get', 'post'], '/add', ['uses' => 'ProjectController@add']);
+            Route::match(['get', 'post'], 'add', ['uses' => 'ProjectController@add']);
             Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'ProjectController@modify'])->where('id', '[0-9]+');
 
             Route::get('member/{id}', ['uses'=>'ProjectController@member'])->where('id', '[0-9]+');
@@ -88,6 +88,16 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminlog'], function() {
             Route::get('status/{id}', ['uses'=>'ProjectController@modifyStatus'])->where('id', '[0-9]+');
         });
 
+        //执行单管理
+        Route::group(['prefix'=>'documents'], function() {
+            Route::match(['get', 'post'], 'index', ['uses'=>'DocumentsController@index']);
+
+            Route::match(['get', 'post'], 'add', ['uses' => 'DocumentsController@add']);
+            Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'DocumentsController@modify'])->where('id', '[0-9]+');
+            Route::match(['get', 'post'], 'review/{id}', ['uses'=>'DocumentsController@review'])->where('id', '[0-9]+');
+
+            Route::get('status/{id}', ['uses'=>'DocumentsController@modifyStatus'])->where('id', '[0-9]+');
+        });
     });
 
 });

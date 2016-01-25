@@ -7,24 +7,21 @@
 				<div class = "table_tit" style="float: left;padding: 15px;"><h1>{{$navigation}}</h1></div>
 			</div>
 			<div class="search-box">
-				<span>&nbsp;</span>
-				<form action = "{{url('project/member')}}" id = "form_seach" name = "form_seach" method="post" >
-					<button class = "btn_seach" onclick="form_seach.submit();">查询</button>
-				</form>	
+				<span>{{$project['name']}} 团队列表</span>
 				<div class="fr top-r">
-					<i class="add-ico" id = "btn_add_project_member" >添加组员 </i>
+					<i class="add-ico" id = "btn_return" >返回项目列表 </i>
+					<i class="add-ico" id = "btn_manage_member" >添加团队成员 </i>
 				</div>
 			</div>
 			<div class="table-con">	
 				<table>
 					<thead>
 						<tr>
-							<th style="width: 5%;">成员ID</th>
-							<th style="width: 15%;">成员名称</th>
-							<th style="width: 15%;">项目名称</th>
-							<th style="width: 15%;">项目身份</th>
+							<th style="width: 15%;">用户</th>
+							<th style="width: 15%;">部门</th>
+							<th style="width: 15%;">用户组</th>
+							<th style="width: 15%;">角色</th>
 							<th style="width: 15%;">加入日期</th>
-							<th style="width: 10%;" class = "timedate">最后修改时间</th>
 							<th >操作</th>
 						</tr>
 					</thead>
@@ -32,19 +29,13 @@
 					@if(count($memberList))
 						@foreach($memberList as $item)
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
-							<td class= "_id" >{{$item['user_id']}}</td>
 							<td class= "_name">{{$userList[$item['user_id']]['name']}}</td>
-							<td class= "_name">{{$project['name']}}</td>
-							<td class= "_name">
-								@if (1 == $item['pm']) 项目经理 @else 普通成员 @endif
-							</td>
-							<td class= "_name">{{$item['created_at']}}</td>
-							<td >{{$item['updated_at']}}</td>
+							<td class= "_name">{{$department[$item['user_id']]['name']}}</td>
+							<td class= "_name">{{$userGroup[$item['user_id']]['name']}}</td>
+							<td class= "_name">@if (1 == $item['pm']) 项目经理 @else 普通成员 @endif</td>
+							<td >{{$item['created_at']}}</td>
 							<td >
-								<a id="modify" href="{{url('project/modify')}}/{{$item['id']}}" target="_self">修改</a>&nbsp;
-								<a id="status" href="{{url('project/status')}}/{{$item['id']}}">
-								@if ($item['status'] == 1) 停用 @else 启用 @endif
-								</a>
+								<button target="{{$item['id']}}" type="button" class="delete btn btn-info">删除</button>
 							</td>
 						</tr>
 						@endforeach
@@ -62,7 +53,11 @@
 </body>
 <script>
 $(function() {
-	$('#btn_add_project_member').click(function() {
+	$('#btn_return').click(function() {
+		window.location.href = "{{url('project/index')}}";
+	});
+	
+	$('#btn_manage_member').click(function() {
 		window.location.href = "{{url('project/addmember')}}/{{$project['id']}}";
 	});
 });

@@ -40,7 +40,7 @@ class ProjectManage
      * @param int $id
      * @param int $status
      */
-    public function getOneById($id, $status=null)
+    public function getOneById($id, $status=1)
     {
         $data = $this->projectModel->getOneById($id, $status);
         if (empty($data->toArray()))
@@ -62,6 +62,21 @@ class ProjectManage
         $request['endtime'] = strtotime($request['endtime']);
 
         return $this->projectModel->add($request);
+    }
+
+    /**
+     * @param $project_id
+     * @param $user_id
+     * @param int $pm
+     */
+    public function addMember($project_id, $user_id, $pm=0)
+    {
+        $projectMemberModel = new ProjectMemberModel();
+        try {
+            return $projectMemberModel->addMember($project_id, $user_id, $pm);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function modify(array $request)
@@ -95,37 +110,22 @@ class ProjectManage
     public function getMemberListByProjectid($id)
     {
         $model = new ProjectMemberModel();
-        $memberList = $model->getMemberListByProjectid($id)->toArray();
-        if ($memberList && $memberList['data'])
-        {
-            $memberList = $memberList['data'];
-        }
-        else
-        {
-            $memberList = [];
-        }
+        $memberList = $model->getMemberListByProjectid($id);
 
         $userList = [];
-        if ($memberList)
-        {
+        if ($memberList) {
             $userids = [];
-            foreach ($memberList as $value)
-            {
+            foreach ($memberList as $value) {
                 $userids[$value['user_id']] = $value['user_id'];
             }
-            if ($userids)
-            {
+            if ($userids) {
                 $manage = new AdminUserManage();
-                try
-                {
+                try {
                     $data = $manage->getUser($userids)->toArray();
-                    foreach ($data as $value)
-                    {
+                    foreach ($data as $value) {
                         $userList[$value['id']] = $value;
                     }
-                }
-                catch (Exception $e)
-                {
+                } catch (Exception $e) {
                     throw new HttpException('500', $e->getMessage());
                 }
             }
@@ -144,5 +144,16 @@ class ProjectManage
         } catch (HttpException $e) {
             throw new \Exception($e->getMessage());
         }
+    }
+
+    /**
+     * 成员是否存在
+     * @param $project_id
+     * @param $user_id
+     */
+    public function userExists($project_id, $user_id)
+    {
+        $projectMemberModel = new ProjectMemberModel();
+        return $projectMemberModel->getProjectOneMember($project_id, $user_id);
     }
 }

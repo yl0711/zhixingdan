@@ -20,4 +20,8 @@ return [
         '项目管理' => 'App\\Http\\Controllers\\Admin\\ProjectController',
     ],
 
+    '执行单管理' => [
+        '执行单管理' => 'App\\Http\\Controllers\\Admin\\DocumentsController',
+    ],
+
 ];
