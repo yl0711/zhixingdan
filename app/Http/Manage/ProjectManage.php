@@ -34,6 +34,11 @@ class ProjectManage
         return $this->projectModel->getList($name, $company_id, $status);
     }
 
+    public function getAll()
+    {
+        return $this->projectModel->getAll();
+    }
+
     /**
      * 根据项目ID获取单个项目信息
      *

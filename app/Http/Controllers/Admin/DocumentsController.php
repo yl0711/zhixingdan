@@ -9,15 +9,52 @@
 namespace app\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminBaseController;
-use App\Http\Requests\Request;
+use App\Http\Manage\CompanyManage;
+use App\Http\Manage\DocumentsManage;
+use App\Http\Manage\ProjectManage;
+use Illuminate\Http\Request;
 
 class DocumentsController extends AdminBaseController
 {
     private $documentsManage = null;
 
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->documentsManage = new DocumentsManage();
+    }
+
     public function index(Request $request)
     {
+        $name = $request->input('name', '');
+        $company_id = $request->input('company_id', 0);
+        $project_id = $request->input('project_id', 0);
+        $status = $request->input('status', 2);
+
         $this->documentsManage;
+
+        $companyManage = new CompanyManage();
+        $companyList = $companyManage->getAll();
+        foreach ($companyList as $item) {
+            if ($item['id'] == $company_id) {
+                $item['selected'] = 'selected="selected"';
+            } else {
+                $item['selected'] = '';
+            }
+        }
+
+        $projectManage = new ProjectManage();
+        $projectList = $projectManage->getAll();
+        foreach ($projectList as $item) {
+            if ($item['id'] == $project_id) {
+                $item['selected'] = 'selected="selected"';
+            } else {
+                $item['selected'] = '';
+            }
+        }
+
+        return view('admin.document_list', compact('name', 'company_id', 'project_id', 'status', 'companyList'));
     }
 
     /**

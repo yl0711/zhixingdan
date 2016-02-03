@@ -40,6 +40,16 @@ class ProjectModel extends BaseModel
         return $query->paginate(config('global.PAGE_SIZE'));
     }
 
+    public function getAll($status=1)
+    {
+        $query = self::orderBy('id', 'asc');
+        if (!is_null($status)) {
+            $query = $query->where('status', $status);
+        }
+
+        return $query->get();
+    }
+
     public function getOneById($id, $status=1)
     {
         $query = self::where('id', $id);
