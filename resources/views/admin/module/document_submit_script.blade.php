@@ -10,11 +10,13 @@ $(function() {
 					@if ($page_type=='modify')
 					'id':$('#id').val(),
 					'oldname':$('#oldname').val(),
+					'modify_uid':{{$admin_user['id']}},
+					@else
+					'created_uid':{{$admin_user['id']}},
 					@endif
 					'name':$('#name').val(),
 					'company_id':$('#company_id').val(),
 					'project_id':$('#project_id').val(),
-					'created_uid':{{$admin_user['id']}},
 				},
 				async:false,
 				success:function($data) {

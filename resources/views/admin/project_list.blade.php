@@ -60,7 +60,7 @@
 							<td >
 								<button target="{{$item['id']}}" type="button" class="modify btn btn-info">修改</button>
 								<button target="{{$item['id']}}" type="button" class="authority btn btn-success" >成员</button>
-								<button target="{{$item['id']}}" type="button" class="authority btn btn-primary" >执行单</button>
+								<button target="{{$item['id']}}" type="button" class="document btn btn-primary" >执行单</button>
 							@if(1 == $item['status'])
 								<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-danger">关闭</button>
 							@else
@@ -96,6 +96,10 @@ $(function() {
 	
 	$('button[class^="authority"]').click(function() {
 		window.location.href="{{url('project/member')}}/" + $(this).attr('target');
+	});
+
+	$('button[class^="document"]').click(function() {
+		window.location.href="{{url('documents/index')}}/?project_id=" + $(this).attr('target');
 	});
 	
 	$('button[class^="on-off"]').click(function() {

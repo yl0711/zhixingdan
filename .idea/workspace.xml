@@ -2,56 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9c2e4c6-5970-4a71-800c-a818b05b986f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php" afterPath="$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Model/liuchengdan/DocumentsModel.php" afterPath="$PROJECT_DIR$/app/Http/Model/liuchengdan/DocumentsModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/adminroutes.php" afterPath="$PROJECT_DIR$/app/Http/adminroutes.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/document_list.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/document_list.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/document_modify.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/document_modify.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/module/document_submit_script.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/module/document_submit_script.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/project_list.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/project_list.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Alias.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Alias.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Generator.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Generator.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Method.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Method.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/comodojo/exceptions/src/Exception/CookieException.php" afterPath="$PROJECT_DIR$/vendor/comodojo/exceptions/src/Exception/CookieException.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/.gitignore" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Courier-Bold.afm" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Courier-Bold.afm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Courier-BoldOblique.afm" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Courier-BoldOblique.afm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Courier-Oblique.afm" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Courier-Oblique.afm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Courier.afm" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Courier.afm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Helvetica-Bold.afm" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Helvetica-Bold.afm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Helvetica-BoldOblique.afm" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Helvetica-BoldOblique.afm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Helvetica-Oblique.afm" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Helvetica-Oblique.afm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Helvetica.afm" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Helvetica.afm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Symbol.afm" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Symbol.afm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Times-Bold.afm" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Times-Bold.afm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Times-BoldItalic.afm" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Times-BoldItalic.afm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Times-Italic.afm" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Times-Italic.afm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Times-Roman.afm" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/Times-Roman.afm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/ZapfDingbats.afm" afterPath="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/ZapfDingbats.afm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/mockery/mockery/.styleci.yml" afterPath="$PROJECT_DIR$/vendor/mockery/mockery/.styleci.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/monolog/monolog/.php_cs" afterPath="$PROJECT_DIR$/vendor/monolog/monolog/.php_cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1250.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1250.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1251.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1251.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1252.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1252.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1253.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1253.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1254.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1254.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1255.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1255.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1257.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1257.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1258.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp1258.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp874.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/cp874.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-1.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-1.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-11.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-11.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-15.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-15.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-16.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-16.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-2.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-2.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-4.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-4.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-5.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-5.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-7.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-7.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-9.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/iso-8859-9.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/koi8-r.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/koi8-r.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/koi8-u.map" afterPath="$PROJECT_DIR$/vendor/phenx/php-font-lib/maps/koi8-u.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/sunra/php-simple-html-dom-parser/Src/Sunra/PhpSimple/HtmlDomParser.php" afterPath="$PROJECT_DIR$/vendor/sunra/php-simple-html-dom-parser/Src/Sunra/PhpSimple/HtmlDomParser.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer/tests/_samples/charsets/iso-2022-jp/one.txt" afterPath="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer/tests/_samples/charsets/iso-2022-jp/one.txt" />
     </list>
     <ignored path="zhixingdan.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,8 +31,8 @@
       <file leaf-file-name="DocumentsController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.125">
-              <caret line="124" column="27" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="27" />
+            <state vertical-scroll-proportion="-22.75">
+              <caret line="66" column="39" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="39" />
               <folding>
                 <element signature="e#128#173#0#PHP" expanded="true" />
               </folding>
@@ -88,8 +43,8 @@
       <file leaf-file-name="ProjectController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ProjectController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-113.75">
-              <caret line="245" column="54" selection-start-line="245" selection-start-column="12" selection-end-line="245" selection-end-column="54" />
+            <state vertical-scroll-proportion="-19.666666">
+              <caret line="318" column="9" selection-start-line="310" selection-start-column="8" selection-end-line="318" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -98,8 +53,8 @@
       <file leaf-file-name="adminroutes.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/adminroutes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7844828">
-              <caret line="100" column="76" selection-start-line="100" selection-start-column="76" selection-end-line="100" selection-end-column="76" />
+            <state vertical-scroll-proportion="1.875">
+              <caret line="92" column="42" selection-start-line="92" selection-start-column="33" selection-end-line="92" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -108,8 +63,8 @@
       <file leaf-file-name="DocumentsManage.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.541666">
-              <caret line="66" column="48" selection-start-line="66" selection-start-column="48" selection-end-line="66" selection-end-column="48" />
+            <state vertical-scroll-proportion="-42.5">
+              <caret line="73" column="20" selection-start-line="73" selection-start-column="20" selection-end-line="73" selection-end-column="20" />
               <folding>
                 <element signature="e#117#163#0#PHP" expanded="true" />
               </folding>
@@ -201,8 +156,8 @@
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/app/Http/Model/liuchengdan/DocumentsModel.php" />
         <option value="$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" />
         <option value="$PROJECT_DIR$/app/Http/adminroutes.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" />
       </list>
     </option>
   </component>
@@ -929,28 +884,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ProjectController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-19.666666">
+          <caret line="318" column="9" selection-start-line="310" selection-start-column="8" selection-end-line="318" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.541666">
-          <caret line="66" column="48" selection-start-line="66" selection-start-column="48" selection-end-line="66" selection-end-column="48" />
+        <state vertical-scroll-proportion="-42.5">
+          <caret line="73" column="20" selection-start-line="73" selection-start-column="20" selection-end-line="73" selection-end-column="20" />
           <folding>
             <element signature="e#117#163#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ProjectController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-113.75">
-          <caret line="245" column="54" selection-start-line="245" selection-start-column="12" selection-end-line="245" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.125">
-          <caret line="124" column="27" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="27" />
+        <state vertical-scroll-proportion="-22.75">
+          <caret line="66" column="39" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="39" />
           <folding>
             <element signature="e#128#173#0#PHP" expanded="true" />
           </folding>
@@ -959,8 +914,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/adminroutes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7844828">
-          <caret line="100" column="76" selection-start-line="100" selection-start-column="76" selection-end-line="100" selection-end-column="76" />
+        <state vertical-scroll-proportion="1.875">
+          <caret line="92" column="42" selection-start-line="92" selection-start-column="33" selection-end-line="92" selection-end-column="42" />
           <folding />
         </state>
       </provider>

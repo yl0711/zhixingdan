@@ -12,14 +12,20 @@
 					<input style="width: 150px;" type="text" name="name" placeholder="输入名称" value="{{$name}}" />
 					<select id="company_id" name="company_id" class = "seachByStatus">
 						<option value="0" >选择供应商</option>
-						
+						@foreach($companyList as $item)
+						<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
+						@endforeach
 					</select>
 					<select id="project_id" name="project_id" class = "seachByStatus">
 						<option value="0" >选择项目</option>
-						
+						@foreach($projectList as $item)
+						<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
+						@endforeach
 					</select>
 					<select  class = "seachByStatus" name="status">
 						<option value="2" @if($status==2) selected @endif >全部</option>
+						<option value="1" @if($status==1) selected @endif >已打开</option>
+						<option value="0" @if($status==0) selected @endif>已关闭</option>
 					</select>
 					<button class = "btn_seach" onclick="form_seach.submit();">查询</button>
 					<!--每页显示条数-->

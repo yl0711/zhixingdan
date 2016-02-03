@@ -99,7 +99,32 @@ class DocumentsController extends AdminBaseController
         if ('POST' == $request->method()) {
             return $this->doModify($request, $id);
         } else {
-            return view('admin.document_modify');
+            try {
+                $document = $this->documentsManage->getOneById($id)->toArray()[0];
+            } catch (HttpException $e) {
+                abort($e->getStatusCode(), $e->getMessage());
+            }
+
+            $companyManage = new CompanyManage();
+            $companyList = $companyManage->getAll();
+            foreach ($companyList as $item) {
+                $item['selected'] = '';
+
+                if ($item['id'] == $document['company_id']) {
+                    $item['selected'] = 'selected="selected"';
+                }
+            }
+
+            $projectManage = new ProjectManage();
+            $projectList = $projectManage->getAll();
+            foreach ($projectList as $item) {
+                $item['selected'] = '';
+
+                if ($item['id'] == $document['project_id']) {
+                    $item['selected'] = 'selected="selected"';
+                }
+            }
+            return view('admin.document_modify', compact('document', 'companyList', 'projectList'));
         }
     }
 
@@ -147,6 +172,14 @@ class DocumentsController extends AdminBaseController
 
     private function doModify(Request $request, $id)
     {
-
+        try
+        {
+            $this->documentsManage->modify($request->all());
+            return json_encode(['status'=>'success']);
+        }
+        catch (\Exception $e)
+        {
+            return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
     }
 }
