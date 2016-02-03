@@ -9,6 +9,7 @@
 namespace app\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminBaseController;
+use App\Http\Manage\AdminUserManage;
 use App\Http\Manage\CompanyManage;
 use App\Http\Manage\DocumentsManage;
 use App\Http\Manage\ProjectManage;
@@ -32,29 +33,38 @@ class DocumentsController extends AdminBaseController
         $project_id = $request->input('project_id', 0);
         $status = $request->input('status', 2);
 
-        $this->documentsManage;
+        $document = $this->documentsManage->getList($name, $company_id, $project_id, $status);
 
         $companyManage = new CompanyManage();
-        $companyList = $companyManage->getAll();
-        foreach ($companyList as $item) {
+        $data = $companyManage->getAll();
+        foreach ($data as $item) {
             if ($item['id'] == $company_id) {
                 $item['selected'] = 'selected="selected"';
             } else {
                 $item['selected'] = '';
             }
+            $companyList[$item['id']] = $item;
         }
 
         $projectManage = new ProjectManage();
-        $projectList = $projectManage->getAll();
-        foreach ($projectList as $item) {
+        $data = $projectManage->getAll();
+        foreach ($data as $item) {
             if ($item['id'] == $project_id) {
                 $item['selected'] = 'selected="selected"';
             } else {
                 $item['selected'] = '';
             }
+            $projectList[$item['id']] = $item;
         }
 
-        return view('admin.document_list', compact('name', 'company_id', 'project_id', 'status', 'companyList'));
+        $adminUserManage = new AdminUserManage();
+        $data = $adminUserManage->getAllUser();
+        foreach ($data as $item) {
+            $userList[$item['id']] = $item;
+        }
+
+        return view('admin.document_list', compact('name', 'company_id', 'project_id', 'status', 'document',
+            'companyList', 'projectList', 'userList'));
     }
 
     /**
@@ -62,14 +72,22 @@ class DocumentsController extends AdminBaseController
      */
     public function add(Request $request)
     {
-        if ('post' == $request->method()) {
-            try {
-                $this->doAdd($request);
-            } catch (\Exception $e) {
-                return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
-            }
+        if ('POST' == $request->method()) {
+            return $this->doAdd($request);
         } else {
+            $companyManage = new CompanyManage();
+            $companyList = $companyManage->getAll();
+            foreach ($companyList as $item) {
+                $item['selected'] = '';
+            }
 
+            $projectManage = new ProjectManage();
+            $projectList = $projectManage->getAll();
+            foreach ($projectList as $item) {
+                $item['selected'] = '';
+            }
+
+            return view('admin.document_add', compact('companyList', 'projectList'));
         }
     }
 
@@ -78,14 +96,10 @@ class DocumentsController extends AdminBaseController
      */
     public function modify(Request $request, $id)
     {
-        if ('post' == $request->method()) {
-            try {
-                $this->doModify($request, $id);
-            } catch (\Exception $e) {
-                return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
-            }
+        if ('POST' == $request->method()) {
+            return $this->doModify($request, $id);
         } else {
-
+            return view('admin.document_modify');
         }
     }
 
@@ -105,6 +119,14 @@ class DocumentsController extends AdminBaseController
 
     }
 
+    /**
+     * @Authorization 流程
+     */
+    public function process($id)
+    {
+
+    }
+
     public function check(Request $request, $id)
     {
 
@@ -112,7 +134,15 @@ class DocumentsController extends AdminBaseController
 
     private function doAdd(Request $request)
     {
-
+        try
+        {
+            $this->documentsManage->add($request->all());
+            return json_encode(['status'=>'success']);
+        }
+        catch (\Exception $e)
+        {
+            return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
     }
 
     private function doModify(Request $request, $id)

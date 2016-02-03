@@ -8,29 +8,23 @@
 			</div>
 			<div class="search-box">
 				<span>&nbsp;</span>
-				<form action = "{{url('document/index')}}" id = "form_seach" name = "form_seach" method="post" >
+				<form action = "{{url('documents/index')}}" id = "form_seach" name = "form_seach" method="post" >
 					<input style="width: 150px;" type="text" name="name" placeholder="输入名称" value="{{$name}}" />
 					<select id="company_id" name="company_id" class = "seachByStatus">
 						<option value="0" >选择供应商</option>
-						@foreach($companyList as $item)
-						<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
-						@endforeach
+						
 					</select>
 					<select id="project_id" name="project_id" class = "seachByStatus">
 						<option value="0" >选择项目</option>
-						@foreach($projectList as $item)
-						<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
-						@endforeach
+						
 					</select>
 					<select  class = "seachByStatus" name="status">
 						<option value="2" @if($status==2) selected @endif >全部</option>
-						<option value="1" @if($status==1) selected @endif >已打开</option>
-						<option value="0" @if($status==0) selected @endif>已关闭</option>
 					</select>
 					<button class = "btn_seach" onclick="form_seach.submit();">查询</button>
 					<!--每页显示条数-->
 					<span class = "pageSizeSpan" >条/页</span>
-					<input type="text"  action = "{{url('document/index')}}/?name={{$name}}&status={{$status}}&company_id＝{{$company_id}}&project_id={{$project_id}}" class = "pageSize" name = "pageSize"  value="{{$pageSize}}" >
+					<input type="text"  action = "{{url('documents/index')}}/?name={{$name}}&status={{$status}}&company_id＝{{$company_id}}&project_id={{$project_id}}" class = "pageSize" name = "pageSize"  value="{{$pageSize}}" >
 				</form>	
 				<div class="fr top-r">
 					<i class="add-ico" id = "btn_add_admin_project" >添加执行单 </i>
@@ -45,7 +39,8 @@
 							<th style="width: 15%;">所属供应商</th>
 							<th style="width: 10%;">所属项目</th>
 							<th style="width: 10%;">提交时间</th>
-							<th style="width: 10%;">审批状态</th>
+							<th style="width: 10%;">提交人</th>
+							<th style="width: 8%;">审批状态</th>
 							<th style="width: 10%;">当前审批人</th>
 							<th style="width: 10%;" class = "timedate">最后修改时间</th>
 							<th >操作</th>
@@ -57,15 +52,16 @@
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
 							<td class= "_id" >{{$item['id']}}</td>
 							<td class= "_name">{{$item['name']}}</td>
-							<td class= "_name">{{$item['intro']}}</td>
 							<td class= "_name">{{$companyList[$item['company_id']]['name']}}</td>
-							<td class= "_name">{{$pmList[$item['pm_id']]['name']}}</td>
-							<td class= "_name">{{date('Y-m-d', $item['starttime'])}}</td>
-							<td class= "_name">{{date('Y-m-d', $item['endtime'])}}</td>
+							<td class= "_name">{{$projectList[$item['project_id']]['name']}}</td>
+							<td class= "_name">{{$item['created_at']}}</td>
+							<td class= "_name">@if ($item['created_uid']) {{$userList[$item['created_uid']]['name']}} @endif</td>
+							<td class= "_name"></td>
+							<td class= "_name">{{$item['updated_uid']}}</td>
 							<td >{{$item['updated_at']}}</td>
 							<td >
 								<button target="{{$item['id']}}" type="button" class="modify btn btn-info">修改</button>
-								<button target="{{$item['id']}}" type="button" class="authority btn btn-success" >成员</button>
+								<button target="{{$item['id']}}" type="button" class="process btn btn-success">流程</button>
 							@if(1 == $item['status'])
 								<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-danger">关闭</button>
 							@else
@@ -92,15 +88,11 @@
 <script>
 $(function() {
 	$('#btn_add_admin_project').click(function() {
-		window.location.href="{{url('document/add')}}";
+		window.location.href="{{url('documents/add')}}";
 	});
 	
 	$('button[class^="modify"]').click(function() {
-		window.location.href="{{url('document/modify')}}/" + $(this).attr('target');
-	});
-	
-	$('button[class^="authority"]').click(function() {
-		window.location.href="{{url('document/member')}}/" + $(this).attr('target');
+		window.location.href="{{url('documents/modify')}}/" + $(this).attr('target');
 	});
 	
 	$('button[class^="on-off"]').click(function() {
@@ -109,7 +101,7 @@ $(function() {
 			$.ajax({
 				type:"get",
 				dataType:"json",
-				url: "{{url('document/status')}}/" + $(this).attr('target'),
+				url: "{{url('documents/status')}}/" + $(this).attr('target'),
 				async:false,
 				success:function($data) {
 					if ($data.status == 'error') {

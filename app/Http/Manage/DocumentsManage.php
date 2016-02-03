@@ -9,6 +9,7 @@
 namespace App\Http\Manage;
 
 use App\Http\Model\liuchengdan\DocumentsModel;
+use Exception;
 
 class DocumentsManage
 {
@@ -55,13 +56,17 @@ class DocumentsManage
     public function add(array $request)
     {
         if (!isset($request['name']) || empty($request['name'])) {
-            throw new Exception('请填写项目名称');
+            throw new Exception('请填写名称');
+        }
+        if (!isset($request['company_id']) || empty($request['company_id'])) {
+            throw new Exception('请选择供应商');
+        }
+        if (!isset($request['project_id']) || empty($request['project_id'])) {
+            throw new Exception('请选择项目');
         }
         if (!empty($this->documentModel->getOneByName($request['name'])->toArray())) {
-            throw new Exception('项目 ' . $request['name'] . ' 已经存在');
+            throw new Exception($request['name'] . ' 已经存在');
         }
-        $request['starttime'] = strtotime($request['starttime']);
-        $request['endtime'] = strtotime($request['endtime']);
 
         return $this->documentModel->add($request);
     }

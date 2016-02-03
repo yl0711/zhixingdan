@@ -6,8 +6,9 @@
  * Time: 下午1:18
  */
 
+//, 'middleware'=>'adminlog'
 // 后台路由组
-Route::group(['namespace'=>'Admin', 'middleware'=>'adminlog'], function() {
+Route::group(['namespace'=>'Admin'], function() {
 
     //登录和退登
     Route::get('login', ['as'=>'login', 'uses'=>'AuthController@login']);
@@ -97,6 +98,7 @@ Route::group(['namespace'=>'Admin', 'middleware'=>'adminlog'], function() {
             Route::match(['get', 'post'], 'review/{id}', ['uses'=>'DocumentsController@review'])->where('id', '[0-9]+');
 
             Route::get('status/{id}', ['uses'=>'DocumentsController@modifyStatus'])->where('id', '[0-9]+');
+            Route::get('process/{id}', ['uses'=>'DocumentsController@process'])->where('id', '[0-9]+');
         });
     });
 

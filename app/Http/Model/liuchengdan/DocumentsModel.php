@@ -76,6 +76,7 @@ class DocumentsModel extends BaseModel
 
     public function add(Array $data)
     {
+        //echo __CLASS__ . ' # ' . __FUNCTION__ . "\r\n";
         try {
             $obj = self::create($data);
         } catch (\Exception $e) {
