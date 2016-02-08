@@ -23,8 +23,8 @@
 						@endforeach
 					</select>
 					<select  class = "seachByStatus" name="status">
-						<option value="2" @if($status==2) selected @endif >全部</option>
-						<option value="1" @if($status==1) selected @endif >已打开</option>
+						<option value="2" @if($status==2) selected @endif>全部</option>
+						<option value="1" @if($status==1) selected @endif>已打开</option>
 						<option value="0" @if($status==0) selected @endif>已关闭</option>
 					</select>
 					<button class = "btn_seach" onclick="form_seach.submit();">查询</button>

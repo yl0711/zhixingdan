@@ -1392,16 +1392,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "1.1.6",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "e6f80ab77885151908d0ec743689ca700886e8b0"
+                "reference": "b0e69d10852716b2ccbdff69c75c477637220790"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://packagist.phpcomposer.com/files/paragonie/random_compat/e6f80ab77885151908d0ec743689ca700886e8b0.zip",
-                "reference": "e6f80ab77885151908d0ec743689ca700886e8b0",
+                "url": "http://packagist.phpcomposer.com/files/paragonie/random_compat/b0e69d10852716b2ccbdff69c75c477637220790.zip",
+                "reference": "b0e69d10852716b2ccbdff69c75c477637220790",
                 "shasum": ""
             },
             "require": {
@@ -1436,7 +1436,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-01-29 16:19:52"
+            "time": "2016-02-06 03:52:05"
         },
         {
             "name": "phenx/php-font-lib",
@@ -3928,16 +3928,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.0.1",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "3df409958a646dad2bc5046c3fb671ee24a1a691"
+                "reference": "3cf0709d7fe936e97bee9e954382e449003f1d9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://packagist.phpcomposer.com/files/symfony/yaml/3df409958a646dad2bc5046c3fb671ee24a1a691.zip",
-                "reference": "3df409958a646dad2bc5046c3fb671ee24a1a691",
+                "url": "http://packagist.phpcomposer.com/files/symfony/yaml/3cf0709d7fe936e97bee9e954382e449003f1d9a.zip",
+                "reference": "3cf0709d7fe936e97bee9e954382e449003f1d9a",
                 "shasum": ""
             },
             "require": {
@@ -3973,7 +3973,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-12-26 13:39:53"
+            "time": "2016-02-02 13:44:19"
         }
     ],
     "aliases": [],
