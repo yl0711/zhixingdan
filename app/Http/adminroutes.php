@@ -100,6 +100,16 @@ Route::group(['namespace'=>'Admin'], function() {
             Route::get('status/{id}', ['uses'=>'DocumentsController@modifyStatus'])->where('id', '[0-9]+');
             Route::get('process/{id}', ['uses'=>'DocumentsController@process'])->where('id', '[0-9]+');
         });
+
+        //项目类型管理
+        Route::group(['prefix' => 'category'], function() {
+            Route::match(['get', 'post'], 'index', ['uses'=>'CategoryController@index']);
+
+            Route::match(['get', 'post'], 'add', ['uses' => 'CategoryController@add']);
+            Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'CategoryController@modify'])->where('id', '[0-9]+');
+
+            Route::get('status/{id}', ['uses'=>'CategoryController@modifyStatus'])->where('id', '[0-9]+');
+        });
     });
 
 });

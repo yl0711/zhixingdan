@@ -1,4 +1,48 @@
 <script>
+/**
+ *  设置日期选择控件，用于选择开始和结束日期
+ */
+var date = new Date();
+
+$( "#starttime" ).datepicker({
+	dateFormat: "yy-mm-dd",
+	changeMonth: true,
+    changeYear: true,
+    minDate: '-2y',
+    maxDate: '+2y'
+});
+
+$( "#endtime" ).datepicker({
+	dateFormat: "yy-mm-dd",
+	changeMonth: true,
+    changeYear: true,
+    minDate: '-2y',
+    maxDate: '+2y'
+});
+
+$( "#moneytime" ).datepicker({
+	dateFormat: "yy-mm-dd",
+	changeMonth: true,
+    changeYear: true,
+    minDate: '-2y',
+    maxDate: '+2y'
+});
+
+$( "#starttime" ).datepicker( "option", "onClose", function(dateText, inst) {
+	if ('' == dateText) {
+		$( "#endtime" ).attr('disabled', true);
+		$( "#endtime" ).val('');
+		$('#starttime_warning').text('请选择项目开始时间');
+	} else {
+		$( "#endtime" ).attr('disabled', false);
+		$('#starttime_warning').text('');
+		// 开始日期选择完毕后，设置结束日期控件属性
+		// 首先结束日期不能早于开始日期
+		$( "#endtime" ).datepicker( "option", "minDate", $( "#starttime" ).val());
+		var starttime_tmp = $( "#starttime" ).val().split('-');
+	}
+} );
+
 $(function() {
 	$('#form_submit').bind('click', function(){
 		if (false != check_submit_data()) {

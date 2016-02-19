@@ -13,6 +13,7 @@ use App\Http\Manage\AdminUserManage;
 use App\Http\Manage\CompanyManage;
 use App\Http\Manage\DocumentsManage;
 use App\Http\Manage\ProjectManage;
+use App\Http\Model\liuchengdan\CategoryModel;
 use Illuminate\Http\Request;
 
 class DocumentsController extends AdminBaseController
@@ -75,6 +76,24 @@ class DocumentsController extends AdminBaseController
         if ('POST' == $request->method()) {
             return $this->doAdd($request);
         } else {
+            $categoryModel = new CategoryModel();
+            $category = $categoryModel->getAll();
+            $gongzuoleibie = $gongzuofenxiang = $gongzuoxiangmu = [];
+            foreach ($category as $value) {
+                $value['selected'] = '';
+                switch ($value['type']) {
+                    case '1':
+                        $gongzuoleibie[$value['id']] = $value;
+                        break;
+                    case '2':
+                        $gongzuofenxiang[$value['id']] = $value;
+                        break;
+                    case '3':
+                        $gongzuoxiangmu[$value['id']] = $value;
+                        break;
+                }
+            }
+/*
             $companyManage = new CompanyManage();
             $companyList = $companyManage->getAll();
             foreach ($companyList as $item) {
@@ -86,8 +105,19 @@ class DocumentsController extends AdminBaseController
             foreach ($projectList as $item) {
                 $item['selected'] = '';
             }
+*/
+            $adminUserManage = new AdminUserManage();
+            $userList = $adminUserManage->getAllUser();
+            if ($userList) {
+                foreach ($userList as &$value) {
+                    $value['selected'] = '';
+                }
+            } else {
+                $userList = [];
+            }
 
-            return view('admin.document_add', compact('companyList', 'projectList'));
+            return view('admin.document_add', compact('userList',
+                'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
         }
     }
 
