@@ -69,7 +69,7 @@ class ProjectController extends AdminBaseController
             $companyList[$value['id']] = $value;
         }
 
-        return view('admin.project_list', compact('project', 'companyList', 'pmList', 'name', 'company_id', 'status'));
+        return view('admin.project.list', compact('project', 'companyList', 'pmList', 'name', 'company_id', 'status'));
     }
 
     /**
@@ -111,7 +111,7 @@ class ProjectController extends AdminBaseController
                 $userList = [];
             }
 
-            return view('admin.project_add', compact('companyList', 'userList'));
+            return view('admin.project.add', compact('companyList', 'userList'));
         }
     }
 
@@ -163,7 +163,7 @@ class ProjectController extends AdminBaseController
             $department[$value['id']] = $value;
         }
 
-        return view('admin.project_member_list', compact('project', 'memberList', 'userList', 'userGroup', 'department'));
+        return view('admin.project.member_list', compact('project', 'memberList', 'userList', 'userGroup', 'department'));
     }
 
     /**
@@ -214,7 +214,7 @@ class ProjectController extends AdminBaseController
             $departmentManage = new DepartmentManage();
             $department = $departmentManage->getListByStatus();
 
-            return view('admin.project_member_add', compact('project', 'userList', 'userGroup', 'department'));
+            return view('admin.project.member_add', compact('project', 'userList', 'userGroup', 'department'));
         }
     }
 
@@ -303,7 +303,7 @@ class ProjectController extends AdminBaseController
         {
             $userList = [];
         }
-        return view('admin.project_modify', compact('project', 'companyList', 'userList'));
+        return view('admin.project.modify', compact('project', 'companyList', 'userList'));
     }
 
     private function doModify(Request $request)

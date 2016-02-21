@@ -40,7 +40,7 @@ class AdminUserGroupController extends AdminBaseController
             }
         }
 
-        return view('admin.admin_usergroup_list', compact('list', 'name', 'parentid', 'status', 'grouplist'));
+        return view('admin.admin_usergroup.list', compact('list', 'name', 'parentid', 'status', 'grouplist'));
     }
 
     /**
@@ -55,7 +55,7 @@ class AdminUserGroupController extends AdminBaseController
             foreach ($grouplist as $key=>&$value) {
                 $value['selected'] = '';
             }
-            return view('admin.admin_usergroup_add', compact('grouplist'));
+            return view('admin.admin_usergroup.add', compact('grouplist'));
         }
     }
 
@@ -83,7 +83,7 @@ class AdminUserGroupController extends AdminBaseController
                     $value['selected'] = '';
                 }
             }
-            return view('admin.admin_usergroup_modify', compact('group', 'grouplist'));
+            return view('admin.admin_usergroup.modify', compact('group', 'grouplist'));
         }
     }
 

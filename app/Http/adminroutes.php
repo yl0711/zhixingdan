@@ -110,6 +110,16 @@ Route::group(['namespace'=>'Admin'], function() {
 
             Route::get('status/{id}', ['uses'=>'CategoryController@modifyStatus'])->where('id', '[0-9]+');
         });
+
+        //成本构成管理
+        Route::group(['prefix' => 'cost'], function() {
+            Route::match(['get', 'post'], 'index', ['uses'=>'CostController@index']);
+
+            Route::match(['get', 'post'], 'add', ['uses' => 'CostController@add']);
+            Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'CostController@modify'])->where('id', '[0-9]+');
+
+            Route::get('status/{id}', ['uses'=>'CostController@modifyStatus'])->where('id', '[0-9]+');
+        });
     });
 
 });

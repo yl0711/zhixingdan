@@ -8,7 +8,7 @@
 				<div class = "table_tit" style="float: left;padding: 15px;"><h1>{{$navigation}}</h1></div>
 			</div>
 			<div style="width:700px;margin: 0 auto;border-left: 1px solid #ddd; " class="table-con">	
-				@include('admin/module/admin_usergroup_submit_from', ['page_type'=>'modify'])
+				@include('admin/document/module/submit_form', ['page_type'=>'modify'])
 			</div>
 		</div>
 	</div>
@@ -16,4 +16,4 @@
 </div>
 </body>
 
-@include('admin/module/admin_usergroup_submit_script', ['page_type'=>'modify'])
+@include('admin/document/module/submit_script', ['page_type'=>'modify'])

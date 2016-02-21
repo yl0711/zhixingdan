@@ -55,38 +55,21 @@ class DocumentsManage
 
     public function add(array $request)
     {
-        if (!isset($request['name']) || empty($request['name'])) {
-            throw new Exception('请填写名称');
-        }
-        if (!isset($request['company_id']) || empty($request['company_id'])) {
-            throw new Exception('请选择供应商');
-        }
-        if (!isset($request['project_id']) || empty($request['project_id'])) {
-            throw new Exception('请选择项目');
-        }
-        if (!empty($this->documentModel->getOneByName($request['name'])->toArray())) {
-            throw new Exception($request['name'] . ' 已经存在');
-        }
+        $this->check_submit_data();
 
         return $this->documentModel->add($request);
     }
 
     public function modify(array $request)
     {
-        if (!$this->documentModel->getOneById($request['id'])->toArray())
-        {
-            throw new Exception('项目不存在');
+        if (!$this->documentModel->getOneById($request['id'])->toArray()) {
+            throw new Exception('选择的单据不存在');
         }
         $id = $request['id'];
 
-        if (!isset($request['name']) || empty($request['name'])) {
-            throw new Exception('请填写项目名称');
-        }
-        if ($request['name'] != $request['oldname'] && !empty($this->documentModel->getOneByName($request['name'])->toArray())) {
-            throw new Exception('项目 ' . $request['name'] . ' 已经存在');
-        }
+        $this->check_submit_data();
+
         unset($request['id']);
-        unset($request['oldname']);
 
         try {
             $this->documentModel->modify($id, $request);
@@ -106,6 +89,40 @@ class DocumentsManage
             return $data['status'];
         } catch (HttpException $e) {
             throw new \Exception($e->getMessage());
+        }
+    }
+
+    private function check_submit_data()
+    {
+        if (empty($request['gongzuoleibie']) || empty($request['gongzuofenxiang']) || empty($request['gongzuoxiangmu'])) {
+            throw new Exception('项目分类必须全部选择');
+        }
+        if (empty($request['company_name'])) {
+            throw new Exception('请填写客户名称');
+        }
+        if (empty($request['project_name'])) {
+            throw new Exception('请填写项目名称');
+        }
+        if (empty($request['starttime'])) {
+            throw new Exception('请设置项目开始日期');
+        }
+        if (empty($request['endtime'])) {
+            throw new Exception('请设置项目结束日期');
+        }
+        if (empty($request['pm_id'])) {
+            throw new Exception('请选择项目负责人');
+        }
+        if (empty($request['money'])) {
+            throw new Exception('请填写金额');
+        }
+        if (is_numeric($request['money'])) {
+            throw new Exception('金额应为数字');
+        }
+        if (empty($request['author_id'])) {
+            throw new Exception('请选择项目对接人');
+        }
+        if (empty($request['moneytime'])) {
+            throw new Exception('请设置项目回款日期');
         }
     }
 }

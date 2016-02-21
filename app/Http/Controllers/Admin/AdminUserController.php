@@ -56,7 +56,7 @@ class AdminUserController extends AdminBaseController
             $departmentlist[$value['id']] = $value;
         }
 
-        return view('admin.admin_user_list', compact('userList', 'grouplist', 'departmentlist', 'name', 'group_id', 'department_id', 'status'));
+        return view('admin.admin_user.list', compact('userList', 'grouplist', 'departmentlist', 'name', 'group_id', 'department_id', 'status'));
     }
 
     /**
@@ -81,7 +81,7 @@ class AdminUserController extends AdminBaseController
             {
                 $value['selected'] = '';
             }
-            return view('admin.admin_user_add', compact('user', 'group', 'department'));
+            return view('admin.admin_user.add', compact('user', 'group', 'department'));
         }
     }
 
@@ -129,7 +129,7 @@ class AdminUserController extends AdminBaseController
                 }
             }
 
-            return view('admin.admin_user_modify', compact('user', 'group', 'department'));
+            return view('admin.admin_user.modify', compact('user', 'group', 'department'));
         }
     }
 

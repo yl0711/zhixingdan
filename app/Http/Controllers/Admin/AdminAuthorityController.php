@@ -75,7 +75,7 @@ class AdminAuthorityController extends AdminBaseController
 
         $menu = $this->adminAuthorityManage->getList();
 
-        return view('admin.authority_user', compact('menu', 'authorityList', 'user'));
+        return view('admin.admin_authority.user', compact('menu', 'authorityList', 'user'));
     }
 
     /**
@@ -107,7 +107,7 @@ class AdminAuthorityController extends AdminBaseController
 
         $menu = $this->adminAuthorityManage->getList();
 
-        return view('admin.authority_user', compact('menu', 'authorityList', 'user'));
+        return view('admin.admin_authority.user', compact('menu', 'authorityList', 'user'));
     }
 
     /**

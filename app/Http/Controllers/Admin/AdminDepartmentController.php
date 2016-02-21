@@ -48,7 +48,7 @@ class AdminDepartmentController extends AdminBaseController
             }
         }
 
-        return view('admin.department_list', compact('list', 'departmentlist', 'name', 'parentid', 'status'));
+        return view('admin.department.list', compact('list', 'departmentlist', 'name', 'parentid', 'status'));
     }
 
     /**
@@ -70,7 +70,7 @@ class AdminDepartmentController extends AdminBaseController
                     $value['selected'] = '';
                 }
             }
-            return view('admin.department_add', compact('departmentlist'));
+            return view('admin.department.add', compact('departmentlist'));
         }
     }
 
@@ -111,7 +111,7 @@ class AdminDepartmentController extends AdminBaseController
                     $value['selected'] = '';
                 }
             }
-            return view('admin.department_modify', compact('department', 'departmentlist'));
+            return view('admin.department.modify', compact('department', 'departmentlist'));
         }
     }
 

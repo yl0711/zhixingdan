@@ -32,7 +32,7 @@ class CategoryController extends AdminBaseController
 
         $categoryList = $this->categoryManage->getList($name, $type, $status);
 
-        return view('admin.category_list', compact('name', 'status', 'type', 'categoryList'));
+        return view('admin.category.list', compact('name', 'status', 'type', 'categoryList'));
     }
 
     /**
@@ -55,7 +55,7 @@ class CategoryController extends AdminBaseController
                 $userList = [];
             }
 
-            return view('admin.category_add', compact('category_type', 'userList'));
+            return view('admin.category.add', compact('category_type', 'userList'));
         }
     }
 
@@ -89,7 +89,7 @@ class CategoryController extends AdminBaseController
                 $userList = [];
             }
 
-            return view('admin.category_modify', compact('category', 'category_type', 'userList'));
+            return view('admin.category.modify', compact('category', 'category_type', 'userList'));
         }
     }
 

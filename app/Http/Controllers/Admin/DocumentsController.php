@@ -64,7 +64,7 @@ class DocumentsController extends AdminBaseController
             $userList[$item['id']] = $item;
         }
 
-        return view('admin.document_list', compact('name', 'company_id', 'project_id', 'status', 'document',
+        return view('admin.document.list', compact('name', 'company_id', 'project_id', 'status', 'document',
             'companyList', 'projectList', 'userList'));
     }
 
@@ -116,8 +116,7 @@ class DocumentsController extends AdminBaseController
                 $userList = [];
             }
 
-            return view('admin.document_add', compact('userList',
-                'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
+            return view('admin.document.add', compact('userList', 'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
         }
     }
 
@@ -154,7 +153,7 @@ class DocumentsController extends AdminBaseController
                     $item['selected'] = 'selected="selected"';
                 }
             }
-            return view('admin.document_modify', compact('document', 'companyList', 'projectList'));
+            return view('admin.document.modify', compact('document', 'companyList', 'projectList'));
         }
     }
 

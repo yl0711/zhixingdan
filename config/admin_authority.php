@@ -14,15 +14,17 @@ return [
         '管理员管理' => 'App\\Http\\Controllers\\Admin\\AdminUserController',
         '权限管理' => 'App\\Http\\Controllers\\Admin\\AdminAuthorityController',
     ],
-
+/*
     '项目管理' => [
         '供应商管理' => 'App\\Http\\Controllers\\Admin\\CompanyController',
         '项目管理' => 'App\\Http\\Controllers\\Admin\\ProjectController',
-        '项目类型' => 'App\\Http\\Controllers\\Admin\\CategoryController',
-    ],
 
+    ],
+*/
     '执行单管理' => [
         '执行单管理' => 'App\\Http\\Controllers\\Admin\\DocumentsController',
+        '项目类型' => 'App\\Http\\Controllers\\Admin\\CategoryController',
+        '成本构成' => 'App\\Http\\Controllers\\Admin\\CostController',
     ],
 
 ];

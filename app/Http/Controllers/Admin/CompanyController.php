@@ -30,7 +30,7 @@ class CompanyController extends AdminBaseController
         $status = $request->input('status', 2);
         $companyList = $this->companyManage->getList($name, $status);
 
-        return view('admin.company_list', compact('companyList', 'name', 'status'));
+        return view('admin.company.list', compact('companyList', 'name', 'status'));
     }
 
     /**
@@ -44,7 +44,7 @@ class CompanyController extends AdminBaseController
         }
         else
         {
-            return view('admin.company_add');
+            return view('admin.company.add');
         }
     }
 
@@ -68,7 +68,7 @@ class CompanyController extends AdminBaseController
             {
                 echo $e->getMessage();exit;
             }
-            return view('admin.company_modify', compact('company'));
+            return view('admin.company.modify', compact('company'));
         }
     }
 
