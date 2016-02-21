@@ -15,7 +15,6 @@ use ReflectionClass;
 use ReflectionMethod;
 use App\Http\Controllers\AdminBaseController;
 use App\Http\Manage\AdminAuthorityManage;
-use App\Http\Manage\AdminUserManage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
@@ -54,12 +53,11 @@ class AdminAuthorityController extends AdminBaseController
             return $this->modifyAuthority($request);
         }
 
-        $adminUserManage = new AdminUserManage();
-        $user = $adminUserManage->getUser($uid)->toArray()[0];
+        $user = $this->adminUserManage->getUser($uid)->toArray()[0];
         $user['type'] = 'user';
 
         if (!$user['authority']) {
-            $group = $adminUserManage->getUserGroup($user['group_id'])->toArray()[0];
+            $group = $this->adminUserManage->getUserGroup($user['group_id'])->toArray()[0];
             $user['authority'] = $group['authority'];
         }
 
@@ -91,8 +89,7 @@ class AdminAuthorityController extends AdminBaseController
             return $this->modifyAuthority($request);
         }
 
-        $adminUserManage = new AdminUserManage();
-        $user = $adminUserManage->getUserGroup($gid)->toArray()[0];
+        $user = $this->adminUserManage->getUserGroup($gid)->toArray()[0];
         $user['type'] = 'group';
 
         $authorityList = [];

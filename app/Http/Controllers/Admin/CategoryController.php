@@ -9,7 +9,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminBaseController;
-use App\Http\Manage\AdminUserManage;
 use App\Http\Manage\CategoryManage;
 use Illuminate\Http\Request;
 
@@ -45,8 +44,7 @@ class CategoryController extends AdminBaseController
         } else {
             $category_type = ['','','',''];
 
-            $adminUserManage = new AdminUserManage();
-            $userList = $adminUserManage->getAllUser();
+            $userList = $this->adminUserManage->getAllUser();
             if ($userList) {
                 foreach ($userList as $value) {
                     $value['selected'] = '';
@@ -75,8 +73,7 @@ class CategoryController extends AdminBaseController
             $category_type = ['','','',''];
             $category_type[$category['type']] = 'selected="selected"';
 
-            $adminUserManage = new AdminUserManage();
-            $userList = $adminUserManage->getAllUser();
+            $userList = $this->adminUserManage->getAllUser();
             if ($userList) {
                 foreach ($userList as $value) {
                     if ($value['id'] == $category['userid']) {

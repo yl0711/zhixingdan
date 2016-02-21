@@ -38,7 +38,7 @@
 		<tr>
 			<td class="tr"> 说明(请控制在200字以内) :</td>
 			<td class="tl">
-				<textarea id="intro" name="intro" rows="5" cols="80">{{$category['intro']}}</textarea>
+				<textarea id="intro" name="intro" rows="5" cols="80">@if ($page_type=='modify') {{$category['intro']}} @endif</textarea>
 			</td>
 		</tr>
 		<tr>

@@ -5,16 +5,15 @@ $(function() {
 			$.ajax({
 				type:"post",
 				dataType:"json",
-				url: @if ($page_type=='modify') "{{url('category/modify')}}/{{$category['id']}}" @else "{{url('category/add')}}" @endif,
+				url: @if ($page_type=='modify') "{{url('cost/modify')}}/{{$cost['id']}}" @else "{{url('cost/add')}}" @endif,
 				data:{
 					@if ($page_type=='modify')
 					'id':$('#id').val(),
 					'oldname':$('#oldname').val(),
 					@endif
 					'name':$('#name').val(),
-					'type':$('#type').val(),
 					'intro':$('#intro').val(),
-					'userid':$('#userid').val()
+					'review_user':$('#review_user').val()
 				},
 				async:false,
 				success:function($data) {
@@ -22,7 +21,7 @@ $(function() {
 						alert($data.info);
 					} else {
 						if (confirm('数据提交成功, 是否返回列表页')) {
-							window.location.href = "{{url('category/index')}}";
+							window.location.href = "{{url('cost/index')}}";
 						}
 					}
 				}
@@ -33,13 +32,8 @@ $(function() {
 
 function check_submit_data() {
 	if (0 == $('#name').val().trim().length) {
-		alert('分类名称不能为空');
+		alert('名称不能为空');
 		$('#name').focus();
-		return false;
-	}
-	
-	if (0 == $('#type').val()) {
-		alert('请选择分类类型');
 		return false;
 	}
 }

@@ -23,10 +23,19 @@ class CostController extends AdminBaseController
         $this->costManage = new CostManage();
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $name = $request->input('name', '');
+        $status = $request->input('status', 2);
 
-        return view('admin.costList');
+        $costList = $this->costManage->getBaseList($name, $status);
+
+        $data = $this->adminUserManage->getAllUser();
+        foreach ($data as $item) {
+            $userList[$item['id']] = $item;
+        }
+
+        return view('admin.cost.list', compact('costList', 'userList', 'name', 'status'));
     }
 
     /**
@@ -34,7 +43,20 @@ class CostController extends AdminBaseController
      */
     public function add(Request $request)
     {
+        if ('POST' == $request->method()) {
+            return $this->doAdd($request);
+        } else {
+            $userList = $this->adminUserManage->getAllUser();
+            if ($userList) {
+                foreach ($userList as &$value) {
+                    $value['selected'] = '';
+                }
+            } else {
+                $userList = [];
+            }
 
+            return view('admin.cost.add', compact('userList'));
+        }
     }
 
     /**
@@ -42,7 +64,30 @@ class CostController extends AdminBaseController
      */
     public function modify(Request $request, $id)
     {
+        if ('POST' == $request->method()) {
+            return $this->doModify($request, $id);
+        } else {
+            try {
+                $cost = $this->costManage->getBaseOneById($id)->toArray()[0];
+            } catch (HttpException $e) {
+                abort($e->getStatusCode(), $e->getMessage());
+            }
 
+            $userList = $this->adminUserManage->getAllUser();
+            if ($userList) {
+                foreach ($userList as $value) {
+                    if ($value['id'] == $cost['review_user']){
+                        $value['selected'] = 'selected="selected"';
+                    } else {
+                        $value['selected'] = '';
+                    }
+                }
+            } else {
+                $userList = [];
+            }
+
+            return view('admin.cost.modify', compact('cost', 'userList'));
+        }
     }
 
     /**
@@ -51,5 +96,26 @@ class CostController extends AdminBaseController
     public function modifyStatus(Request $request, $id)
     {
 
+    }
+
+
+    private function doAdd(Request $request)
+    {
+        try {
+            $this->costManage->addBase($request->all());
+            return json_encode(['status'=>'success']);
+        } catch (\Exception $e) {
+            return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
+    }
+
+    private function doModify($request, $id)
+    {
+        try {
+            $this->costManage->modifyBase($request->all());
+            return json_encode(['status'=>'success']);
+        } catch (\Exception $e) {
+            return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
     }
 }

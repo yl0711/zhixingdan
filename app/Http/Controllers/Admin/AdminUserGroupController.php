@@ -9,7 +9,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminBaseController;
-use App\Http\Manage\AdminUserManage;
 use Illuminate\Http\Request;
 
 /**

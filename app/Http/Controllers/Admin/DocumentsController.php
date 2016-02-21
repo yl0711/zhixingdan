@@ -9,7 +9,6 @@
 namespace app\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminBaseController;
-use App\Http\Manage\AdminUserManage;
 use App\Http\Manage\CompanyManage;
 use App\Http\Manage\DocumentsManage;
 use App\Http\Manage\ProjectManage;
@@ -58,8 +57,7 @@ class DocumentsController extends AdminBaseController
             $projectList[$item['id']] = $item;
         }
 
-        $adminUserManage = new AdminUserManage();
-        $data = $adminUserManage->getAllUser();
+        $data = $this->adminUserManage->getAllUser();
         foreach ($data as $item) {
             $userList[$item['id']] = $item;
         }
@@ -106,8 +104,7 @@ class DocumentsController extends AdminBaseController
                 $item['selected'] = '';
             }
 */
-            $adminUserManage = new AdminUserManage();
-            $userList = $adminUserManage->getAllUser();
+            $userList = $this->adminUserManage->getAllUser();
             if ($userList) {
                 foreach ($userList as &$value) {
                     $value['selected'] = '';

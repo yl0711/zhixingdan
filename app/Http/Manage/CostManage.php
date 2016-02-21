@@ -26,4 +26,54 @@ class CostManage
     {
         return $this->baseCostStructureModel->getList($name, $status);
     }
+
+    /**
+     * 根据项目ID获取单个项目信息
+     *
+     * @param int $id
+     * @param int $status
+     */
+    public function getBaseOneById($id, $status=1)
+    {
+        $data = $this->baseCostStructureModel->getOneById($id, $status);
+        if (empty($data->toArray())) {
+            throw new HttpException('404', '你所访问的内容不存在');
+        }
+        return $data;
+    }
+
+    public function addBase(array $request)
+    {
+        if (!isset($request['name']) || empty($request['name'])) {
+            throw new \Exception('请填写名称');
+        }
+        if (!empty($this->baseCostStructureModel->getOneByName($request['name'])->toArray())) {
+            throw new \Exception($request['name'] . ' 已经存在');
+        }
+
+        return $this->baseCostStructureModel->add($request);
+    }
+
+    public function modifyBase(array $request)
+    {
+        if (!$this->baseCostStructureModel->getOneById($request['id'])->toArray()) {
+            throw new Exception('数据不存在');
+        }
+        $id = $request['id'];
+
+        if (!isset($request['name']) || empty($request['name'])) {
+            throw new \Exception('请填写名称');
+        }
+        if ($request['name'] != $request['oldname'] && !empty($this->baseCostStructureModel->getOneByName($request['name'])->toArray())) {
+            throw new \Exception($request['name'] . ' 已经存在');
+        }
+
+        unset($request['id'], $request['oldname']);
+
+        try {
+            $this->baseCostStructureModel->modify($id, $request);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
 }

@@ -9,7 +9,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminBaseController;
-use App\Http\Manage\AdminUserManage;
 use App\Http\Manage\CompanyManage;
 use App\Http\Manage\DepartmentManage;
 use App\Http\Manage\ProjectManage;
@@ -97,8 +96,7 @@ class ProjectController extends AdminBaseController
                 $companyList = [];
             }
 
-            $adminUserManage = new AdminUserManage();
-            $userList = $adminUserManage->getAllUser();
+            $userList = $this->adminUserManage->getAllUser();
             if ($userList)
             {
                 foreach ($userList as &$value)
@@ -151,8 +149,8 @@ class ProjectController extends AdminBaseController
         $userList = $data['userList'];
 
         $userGroup = $department = [];
-        $adminUserManage = new AdminUserManage();
-        $data = $adminUserManage->getUserGroupAll();
+
+        $data = $this->adminUserManage->getUserGroupAll();
         foreach ($data as $value) {
             $userGroup[$value['id']] = $value;
         }
@@ -192,13 +190,13 @@ class ProjectController extends AdminBaseController
             $existsUser = $data['userList'];
 
             $userGroup = $department = [];
-            $adminUserManage = new AdminUserManage();
-            $data = $adminUserManage->getUserGroupAll()->toArray();
+
+            $data = $this->adminUserManage->getUserGroupAll()->toArray();
             foreach ($data as $value) {
                 $userGroup[$value['id']] = $value;
             }
 
-            $data = $adminUserManage->getAllUser()->toArray();
+            $data = $this->adminUserManage->getAllUser()->toArray();
             foreach ($data as $value) {
                 if (isset($existsUser[$value['id']])) {
                     continue;
@@ -283,8 +281,7 @@ class ProjectController extends AdminBaseController
             $companyList = [];
         }
 
-        $adminUserManage = new AdminUserManage();
-        $userList = $adminUserManage->getAllUser();
+        $userList = $this->adminUserManage->getAllUser();
         if ($userList)
         {
             foreach ($userList as &$value)
