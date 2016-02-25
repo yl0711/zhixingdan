@@ -1,4 +1,5 @@
 <script>
+var costlist = '<?php echo addslashes($costList) ?>';
 /**
  *  设置日期选择控件，用于选择开始和结束日期
  */
@@ -59,9 +60,9 @@ $(function() {
 					@endif
 					'company_name':$('#company_name').val(),
 					'project_name':$('#project_name').val(),
-					'gongzuoleibie':$('#gongzuoleibie').val(),
-					'gongzuofenxiang':$('#gongzuofenxiang').val(),
-					'gongzuoxiangmu':$('#gongzuoxiangmu').val(),
+					'cate1':$('#gongzuoleibie').val(),
+					'cate2':$('#gongzuofenxiang').val(),
+					'cate3':$('#gongzuoxiangmu').val(),
 					'starttime':$('#starttime').val(),
 					'endtime':$('#endtime').val(),
 					'pm_id':$('#pm_id').val(),
@@ -70,8 +71,7 @@ $(function() {
 					'author_id':$('#author_id').val(),
 					'moneytime':$('#moneytime').val(),
 					
-					'kpi':$('#kpi').val(),
-					'cost':$('#cost').val(),
+					'kpi':$('#kpi').val()
 				},
 				async:false,
 				success:function($data) {
@@ -91,12 +91,12 @@ $(function() {
 function check_submit_data() {
 	if (0 == $('#gongzuoleibie').val() || 0 == $('#gongzuofenxiang').val() || 0 == $('#gongzuoxiangmu').val()) {
 		alert('项目分类必须全部选择');
-		return;
+		return false;
 	}
 	if (0 == $('#company_name').val().trim().length) {
 		alert('请填写客户名称');
 		$('#company_name').focus();
-		return;
+		return false;
 	}
 	if (0 == $('#project_name').val().trim().length) {
 		alert('请填写项目名称');
@@ -115,7 +115,7 @@ function check_submit_data() {
 	}
 	if (0 == $('#pm_id').val()) {
 		alert('请选择项目负责人');
-		return;
+		return false;
 	}
 	if (0 == $('#money').val().trim().length) {
 		alert('请填写金额');
@@ -134,7 +134,7 @@ function check_submit_data() {
 	}
 	if (0 == $('#author_id').val()) {
 		alert('请选择项目对接人');
-		return;
+		return false;
 	}
 	if (0 == $('#moneytime').val().trim().length || '0000-00-00' == $('#moneytime').val().trim().length) {
 		alert('请设置项目回款日期');

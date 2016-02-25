@@ -52,11 +52,10 @@ class DocumentsModel extends BaseModel
         return $query->get();
     }
 
-    public function getOneById($id, $status=1)
+    public function getOneById($id, $status=2)
     {
         $query = self::where('id', $id);
-        if (2 != $status)
-        {
+        if (2 != $status){
             $query = $query->where('status', $status);
         }
         return $query->get();

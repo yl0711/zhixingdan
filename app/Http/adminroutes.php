@@ -120,6 +120,14 @@ Route::group(['namespace'=>'Admin'], function() {
 
             Route::get('status/{id}', ['uses'=>'CostController@modifyStatus'])->where('id', '[0-9]+');
         });
+
+        //区域管理
+        Route::group(['prefix' => 'area'], function() {
+            Route::match(['get', 'post'], 'index', ['uses'=>'AdminAreaController@index']);
+
+            Route::match(['get', 'post'], 'add', ['uses' => 'AdminAreaController@add']);
+            Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'AdminAreaController@modify'])->where('id', '[0-9]+');
+        });
     });
 
 });

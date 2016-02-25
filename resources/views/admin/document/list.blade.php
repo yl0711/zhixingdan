@@ -10,17 +10,29 @@
 				<span>&nbsp;</span>
 				<form action = "{{url('documents/index')}}" id = "form_seach" name = "form_seach" method="post" >
 					<input style="width: 150px;" type="text" name="name" placeholder="输入名称" value="{{$name}}" />
-					<select id="company_id" name="company_id" class = "seachByStatus">
-						<option value="0" >选择供应商</option>
-						@foreach($companyList as $item)
+					<select id="cate1" name="cate1" class = "seachByStatus">
+						<option value="0" >选择工作类别</option>
+					@if (count($gongzuoleibie))
+						@foreach($gongzuoleibie as $item)
 						<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
 						@endforeach
+					@endif
 					</select>
-					<select id="project_id" name="project_id" class = "seachByStatus">
-						<option value="0" >选择项目</option>
-						@foreach($projectList as $item)
+					<select id="cate2" name="cate2" class = "seachByStatus">
+						<option value="0" >选择工作分项</option>
+					@if (count($gongzuofenxiang))
+						@foreach($gongzuofenxiang as $item)
 						<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
 						@endforeach
+					@endif
+					</select>
+					<select id="cate3" name="cate3" class = "seachByStatus">
+						<option value="0" >选择工作项目</option>
+					@if (count($gongzuoxiangmu))
+						@foreach($gongzuoxiangmu as $item)
+						<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
+						@endforeach
+					@endif
 					</select>
 					<select  class = "seachByStatus" name="status">
 						<option value="2" @if($status==2) selected @endif>全部</option>
@@ -30,10 +42,10 @@
 					<button class = "btn_seach" onclick="form_seach.submit();">查询</button>
 					<!--每页显示条数-->
 					<span class = "pageSizeSpan" >条/页</span>
-					<input type="text"  action = "{{url('documents/index')}}/?name={{$name}}&status={{$status}}&company_id＝{{$company_id}}&project_id={{$project_id}}" class = "pageSize" name = "pageSize"  value="{{$pageSize}}" >
+					<input type="text"  action = "{{url('documents/index')}}/?name={{$name}}&status={{$status}}&cate1＝{{$cate1}}&cate2={{$cate2}}&cate3={{$cate3}}" class = "pageSize" name = "pageSize"  value="{{$pageSize}}" >
 				</form>	
 				<div class="fr top-r">
-					<i class="add-ico" id = "btn_add_admin_project" >添加执行单 </i>
+					<i class="add-ico" id = "btn_add_admin_documents" >添加执行单 </i>
 				</div>
 			</div>
 			<div class="table-con">	
@@ -41,14 +53,15 @@
 					<thead>
 						<tr>
 							<th style="width: 5%;">ID</th>
-							<th style="width: 10%;">名称</th>
-							<th style="width: 15%;">所属供应商</th>
-							<th style="width: 10%;">所属项目</th>
-							<th style="width: 10%;">提交时间</th>
-							<th style="width: 10%;">提交人</th>
-							<th style="width: 8%;">审批状态</th>
+							<th style="width: 10%;">编号</th>
+							<th style="width: 15%;">分类</th>
+							<th style="width: 10%;">项目名称</th>
+							<th style="width: 10%;">客户名称</th>
+							<th style="width: 10%;">项目周期</th>
+							<th style="width: 8%;">负责人</th>
+							<th style="width: 10%;">状态</th>
+							<th style="width: 10%;">金额</th>
 							<th style="width: 10%;">当前审批人</th>
-							<th style="width: 10%;" class = "timedate">最后修改时间</th>
 							<th >操作</th>
 						</tr>
 					</thead>
@@ -57,14 +70,21 @@
 						@foreach($document as $item)
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
 							<td class= "_id" >{{$item['id']}}</td>
-							<td class= "_name">{{$item['name']}}</td>
-							<td class= "_name">{{$companyList[$item['company_id']]['name']}}</td>
-							<td class= "_name">{{$projectList[$item['project_id']]['name']}}</td>
-							<td class= "_name">{{$item['created_at']}}</td>
-							<td class= "_name">@if ($item['created_uid']) {{$userList[$item['created_uid']]['name']}} @endif</td>
-							<td class= "_name"></td>
-							<td class= "_name">{{$item['updated_uid']}}</td>
-							<td >{{$item['updated_at']}}</td>
+							<td class= "_name">{{$item['identifier']}}</td>
+							<td class= "_name">
+								{{$gongzuoleibie[$item['cate1']]['name']}}<br />
+								{{$gongzuofenxiang[$item['cate2']]['name']}}<br />
+								{{$gongzuoxiangmu[$item['cate3']]['name']}}
+							</td>
+							<td class= "_name">{{$item['project_name']}}</td>
+							<td class= "_name">{{$item['company_name']}}</td>
+							<td class= "_name">
+								{{$item['starttime']}}<br />至<br />{{$item['endtime']}}
+							</td>
+							<td class= "_name">{{$userList[$item['pm_id']]['name']}}</td>
+							<td class= "_name">@if(1==$item['status']) 已签 @else 未签 @endif</td>
+							<td class= "_name">{{$item['money']}}</td>
+							<td class= "_name">当前审批人</td>
 							<td >
 								<button target="{{$item['id']}}" type="button" class="modify btn btn-info">修改</button>
 								<button target="{{$item['id']}}" type="button" class="process btn btn-success">流程</button>
@@ -83,7 +103,7 @@
 				</table>
 			</div>
 			@if($document->count())
-			{!! $document->appends(['name'=>$name, 'status'=>$status, 'company_id'=>$company_id, 'project_id'=>$project_id, 'pageSize'=>$pageSize])->render() !!}
+			{!! $document->appends(['name'=>$name, 'status'=>$status, 'cate1'=>$cate1, 'cate2'=>$cate2, 'cate3'=>$cate3, 'pageSize'=>$pageSize])->render() !!}
 			@endif
  		</div>
 		<!--//网页备注-->	
@@ -93,7 +113,7 @@
 </body>
 <script>
 $(function() {
-	$('#btn_add_admin_project').click(function() {
+	$('#btn_add_admin_documents').click(function() {
 		window.location.href="{{url('documents/add')}}";
 	});
 	

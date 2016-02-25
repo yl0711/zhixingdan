@@ -9,52 +9,61 @@
 namespace app\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminBaseController;
-use App\Http\Manage\CompanyManage;
+use App\Http\Manage\CostManage;
 use App\Http\Manage\DocumentsManage;
-use App\Http\Manage\ProjectManage;
 use App\Http\Model\liuchengdan\CategoryModel;
 use Illuminate\Http\Request;
+use Exception;
 
 class DocumentsController extends AdminBaseController
 {
     private $documentsManage = null;
+    private $categoryModel = null;
+    private $costManage = null;
 
     public function __construct()
     {
         parent::__construct();
 
         $this->documentsManage = new DocumentsManage();
+        $this->categoryModel = new CategoryModel();
+        $this->costManage = new CostManage();
     }
 
     public function index(Request $request)
     {
         $name = $request->input('name', '');
-        $company_id = $request->input('company_id', 0);
-        $project_id = $request->input('project_id', 0);
+        $cate1 = $request->input('cate1', 0);
+        $cate2 = $request->input('cate2', 0);
+        $cate3 = $request->input('cate3', 0);
         $status = $request->input('status', 2);
 
-        $document = $this->documentsManage->getList($name, $company_id, $project_id, $status);
+        $document = $this->documentsManage->getList($name, $cate1, $cate2, $cate3, $status);
 
-        $companyManage = new CompanyManage();
-        $data = $companyManage->getAll();
-        foreach ($data as $item) {
-            if ($item['id'] == $company_id) {
-                $item['selected'] = 'selected="selected"';
-            } else {
-                $item['selected'] = '';
+        $category = $this->categoryModel->getAll();
+        $gongzuoleibie = $gongzuofenxiang = $gongzuoxiangmu = [];
+        foreach ($category as $value) {
+            $value['selected'] = '';
+            switch ($value['type']) {
+                case '1':
+                    if ($value['id'] == $cate1) {
+                        $value['selected'] = 'selected="selected"';
+                    }
+                    $gongzuoleibie[$value['id']] = $value;
+                    break;
+                case '2':
+                    if ($value['id'] == $cate2) {
+                        $value['selected'] = 'selected="selected"';
+                    }
+                    $gongzuofenxiang[$value['id']] = $value;
+                    break;
+                case '3':
+                    if ($value['id'] == $cate3) {
+                        $value['selected'] = 'selected="selected"';
+                    }
+                    $gongzuoxiangmu[$value['id']] = $value;
+                    break;
             }
-            $companyList[$item['id']] = $item;
-        }
-
-        $projectManage = new ProjectManage();
-        $data = $projectManage->getAll();
-        foreach ($data as $item) {
-            if ($item['id'] == $project_id) {
-                $item['selected'] = 'selected="selected"';
-            } else {
-                $item['selected'] = '';
-            }
-            $projectList[$item['id']] = $item;
         }
 
         $data = $this->adminUserManage->getAllUser();
@@ -62,8 +71,8 @@ class DocumentsController extends AdminBaseController
             $userList[$item['id']] = $item;
         }
 
-        return view('admin.document.list', compact('name', 'company_id', 'project_id', 'status', 'document',
-            'companyList', 'projectList', 'userList'));
+        return view('admin.document.list', compact('name', 'cate1', 'cate2', 'cate3', 'status',
+            'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu', 'document', 'userList'));
     }
 
     /**
@@ -74,8 +83,9 @@ class DocumentsController extends AdminBaseController
         if ('POST' == $request->method()) {
             return $this->doAdd($request);
         } else {
-            $categoryModel = new CategoryModel();
-            $category = $categoryModel->getAll();
+            $status_selected = ['', ''];
+
+            $category = $this->categoryModel->getAll();
             $gongzuoleibie = $gongzuofenxiang = $gongzuoxiangmu = [];
             foreach ($category as $value) {
                 $value['selected'] = '';
@@ -91,29 +101,24 @@ class DocumentsController extends AdminBaseController
                         break;
                 }
             }
-/*
-            $companyManage = new CompanyManage();
-            $companyList = $companyManage->getAll();
-            foreach ($companyList as $item) {
-                $item['selected'] = '';
-            }
 
-            $projectManage = new ProjectManage();
-            $projectList = $projectManage->getAll();
-            foreach ($projectList as $item) {
-                $item['selected'] = '';
-            }
-*/
             $userList = $this->adminUserManage->getAllUser();
             if ($userList) {
-                foreach ($userList as &$value) {
-                    $value['selected'] = '';
+                foreach ($userList as $value) {
+                    $value['pm_selected'] = '';
+                    $value['author_selected'] = '';
                 }
             } else {
                 $userList = [];
             }
 
-            return view('admin.document.add', compact('userList', 'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
+            $costList = $this->costManage->getBaseList()->toArray();
+            if ($costList) {
+                $costList = $costList['data'];
+            }
+            var_dump(json_encode($costList));
+
+            return view('admin.document.add', compact('costList', 'userList', 'status_selected', 'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
         }
     }
 
@@ -127,30 +132,58 @@ class DocumentsController extends AdminBaseController
         } else {
             try {
                 $document = $this->documentsManage->getOneById($id)->toArray()[0];
-            } catch (HttpException $e) {
-                abort($e->getStatusCode(), $e->getMessage());
+            } catch (Exception $e) {
+                abort($e->getCode(), $e->getMessage());
             }
 
-            $companyManage = new CompanyManage();
-            $companyList = $companyManage->getAll();
-            foreach ($companyList as $item) {
-                $item['selected'] = '';
+            $status_selected = ['', ''];
+            $status_selected[$document['status']] = 'selected="selected"';
 
-                if ($item['id'] == $document['company_id']) {
-                    $item['selected'] = 'selected="selected"';
+            $category = $this->categoryModel->getAll();
+            $gongzuoleibie = $gongzuofenxiang = $gongzuoxiangmu = [];
+            foreach ($category as $value) {
+                $value['selected'] = '';
+                switch ($value['type']) {
+                    case '1':
+                        if ($value['id'] == $document['cate1']) {
+                            $value['selected'] = 'selected="selected"';
+                        }
+                        $gongzuoleibie[$value['id']] = $value;
+                        break;
+                    case '2':
+                        if ($value['id'] == $document['cate2']) {
+                            $value['selected'] = 'selected="selected"';
+                        }
+                        $gongzuofenxiang[$value['id']] = $value;
+                        break;
+                    case '3':
+                        if ($value['id'] == $document['cate3']) {
+                            $value['selected'] = 'selected="selected"';
+                        }
+                        $gongzuoxiangmu[$value['id']] = $value;
+                        break;
                 }
             }
 
-            $projectManage = new ProjectManage();
-            $projectList = $projectManage->getAll();
-            foreach ($projectList as $item) {
-                $item['selected'] = '';
-
-                if ($item['id'] == $document['project_id']) {
-                    $item['selected'] = 'selected="selected"';
+            $userList = $this->adminUserManage->getAllUser();
+            if ($userList) {
+                foreach ($userList as $value) {
+                    if ($value['id'] == $document['pm_id']) {
+                        $value['pm_selected'] = 'selected="selected"';
+                    } else {
+                        $value['pm_selected'] = '';
+                    }
+                    if ($value['id'] == $document['author_id']) {
+                        $value['author_selected'] = 'selected="selected"';
+                    } else {
+                        $value['author_selected'] = '';
+                    }
                 }
+            } else {
+                $userList = [];
             }
-            return view('admin.document.modify', compact('document', 'companyList', 'projectList'));
+
+            return view('admin.document.modify', compact('document', 'userList', 'status_selected', 'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
         }
     }
 

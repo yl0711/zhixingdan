@@ -38,13 +38,20 @@ class DepartmentManage
         {
             throw new \Exception('部门名称不能为空');
         }
-        else
+        if ($this->nameExists($data['name']))
         {
-            if ($this->nameExists($data['name']))
-            {
-                throw new \Exception('部门名称已经存在, 请重新填写');
-            }
+            throw new \Exception('部门名称已经存在, 请重新填写');
         }
+
+        if (!isset($data['alias']) || empty($data['alias']))
+        {
+            throw new \Exception('部门缩写不能为空');
+        }
+        if ($this->aliasExists($data['alias']))
+        {
+            throw new \Exception('部门缩写已经存在, 请重新填写');
+        }
+
         if (isset($data['parentid']) && !empty($data['parentid']))
         {
             $parent = $this->departmentModel->getOneById($data['parentid'])->toArray()[0];
@@ -73,6 +80,7 @@ class DepartmentManage
         {
             throw new \Exception('参数错误 #');
         }
+
         if (!isset($data['name']) || empty($data['name']))
         {
             throw new \Exception('部门名称不能为空');
@@ -87,6 +95,22 @@ class DepartmentManage
                 }
             }
         }
+
+        if (!isset($data['alias']) || empty($data['alias']))
+        {
+            throw new \Exception('部门缩写不能为空');
+        }
+        else
+        {
+            if ($data['alias'] != $data['oldalias'])
+            {
+                if ($this->aliasExists($data['alias']))
+                {
+                    throw new \Exception('部门缩写已经存在, 请重新填写');
+                }
+            }
+        }
+
         if (isset($data['parentid']) && !empty($data['parentid']))
         {
             $parent = $this->departmentModel->getOneById($data['parentid'])->toArray()[0];
@@ -102,7 +126,8 @@ class DepartmentManage
         try
         {
             $id = $data['id'];
-            unset($data['id'], $data['oldname']);
+            unset($data['id'], $data['oldname'], $data['oldalias']);
+
             $this->departmentModel->modifyById($id, $data);
         }
         catch (\Exception $e)
@@ -135,6 +160,19 @@ class DepartmentManage
     public function nameExists($name)
     {
         $exists = $this->departmentModel->getOneByName($name)->toArray();
+        if ($exists)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public function aliasExists($alias)
+    {
+        $exists = $this->departmentModel->getOneByElias($alias)->toArray();
         if ($exists)
         {
             return 1;

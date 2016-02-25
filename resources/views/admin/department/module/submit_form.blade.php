@@ -7,6 +7,7 @@
 			@if ($page_type=='modify')
 				<input id="id" type="hidden" value="{{$department['id']}}" />
 				<input id="oldname" type="hidden" value="{{$department['name']}}" />
+				<input id="oldalias" type="hidden" value="{{$department['alias']}}" />
 			@endif
 			</td>
 		</tr>
@@ -19,6 +20,12 @@
 					<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
 				@endforeach
 				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="tr"> 缩写 :</td>
+			<td class="tl">
+				<input name="alias" id="alias" class="form-control" placeholder="缩写" @if ($page_type=='modify') value="{{$department['alias']}}" @endif>
 			</td>
 		</tr>
 		<tr>

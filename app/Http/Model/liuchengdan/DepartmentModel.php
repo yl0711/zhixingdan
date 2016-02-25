@@ -78,6 +78,16 @@ class DepartmentModel extends BaseModel
         return self::where('name', $name)->get();
     }
 
+    /**
+     * 根据缩写获取一条数据, 此处是精确查找
+     *
+     * @param string $name
+     */
+    public function getOneByElias($alias)
+    {
+        return self::where('alias', $alias)->get();
+    }
+
     public function add(array $data)
     {
         try {

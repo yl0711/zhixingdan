@@ -228,16 +228,16 @@
         },
         {
             "name": "comodojo/exceptions",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/comodojo/exceptions.git",
-                "reference": "4b2810d7381c951799eab1ff9b7c598fb9a87887"
+                "reference": "4f6ac344305b59a88d28970f995739ef14e20998"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://packagist.phpcomposer.com/files/comodojo/exceptions/4b2810d7381c951799eab1ff9b7c598fb9a87887.zip",
-                "reference": "4b2810d7381c951799eab1ff9b7c598fb9a87887",
+                "url": "http://packagist.phpcomposer.com/files/comodojo/exceptions/4f6ac344305b59a88d28970f995739ef14e20998.zip",
+                "reference": "4f6ac344305b59a88d28970f995739ef14e20998",
                 "shasum": ""
             },
             "require-dev": {
@@ -271,7 +271,7 @@
                 "comodojo",
                 "exception"
             ],
-            "time": "2015-11-12 00:34:09"
+            "time": "2016-01-31 18:50:38"
         },
         {
             "name": "comodojo/zip",
@@ -900,16 +900,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.1.30",
+            "version": "v5.1.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f00b80d4d33cf67815d1b4aaae8d4b47af2f2a2a"
+                "reference": "d899fbda59bf3ffcde11a9b443c01043b76f40b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://packagist.phpcomposer.com/files/laravel/framework/f00b80d4d33cf67815d1b4aaae8d4b47af2f2a2a.zip",
-                "reference": "f00b80d4d33cf67815d1b4aaae8d4b47af2f2a2a",
+                "url": "http://packagist.phpcomposer.com/files/laravel/framework/d899fbda59bf3ffcde11a9b443c01043b76f40b3.zip",
+                "reference": "d899fbda59bf3ffcde11a9b443c01043b76f40b3",
                 "shasum": ""
             },
             "require": {
@@ -925,7 +925,7 @@
                 "nesbot/carbon": "~1.19",
                 "paragonie/random_compat": "~1.1",
                 "php": ">=5.5.9",
-                "psy/psysh": "0.6.*",
+                "psy/psysh": "0.7.*",
                 "swiftmailer/swiftmailer": "~5.1",
                 "symfony/console": "2.7.*",
                 "symfony/css-selector": "2.7.*",
@@ -1024,7 +1024,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-02-17 18:00:25"
+            "time": "2016-02-24 15:13:21"
         },
         {
             "name": "league/flysystem",
@@ -1609,16 +1609,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.6.1",
+            "version": "v0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "0f04df0b23663799a8941fae13cd8e6299bde3ed"
+                "reference": "1573b36948a32bdaf43db525edf5e95d5a08ed06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/0f04df0b23663799a8941fae13cd8e6299bde3ed",
-                "reference": "0f04df0b23663799a8941fae13cd8e6299bde3ed",
+                "url": "http://packagist.phpcomposer.com/files/bobthecow/psysh/1573b36948a32bdaf43db525edf5e95d5a08ed06.zip",
+                "reference": "1573b36948a32bdaf43db525edf5e95d5a08ed06",
                 "shasum": ""
             },
             "require": {
@@ -1677,7 +1677,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2015-11-12 16:18:56"
+            "time": "2016-02-20 16:27:05"
         },
         {
             "name": "sboo/multiauth",

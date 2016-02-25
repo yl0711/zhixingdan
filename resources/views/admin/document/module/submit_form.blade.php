@@ -34,20 +34,22 @@
 		<tr>
 			<td class="tr"> <span style="color: #FF0000;">*</span> 客户名称 :</td>
 			<td class="tl">
-				<input name="company_name" id="company_name" class="form-control" placeholder="客户名称" @if ($page_type=='modify') value="{{$document['name']}}" @endif>
+				<input name="company_name" id="company_name" class="form-control" placeholder="客户名称" 
+					@if ($page_type=='modify') value="{{$document['company_name']}}" @endif>
 			</td>
 		</tr>
 		<tr>
 			<td class="tr"> <span style="color: #FF0000;">*</span> 项目名称 :</td>
 			<td class="tl">
-				<input name="project_name" id="project_name" class="form-control" placeholder="项目名称" @if ($page_type=='modify') value="{{$document['name']}}" @endif>
+				<input name="project_name" id="project_name" class="form-control" placeholder="项目名称" 
+					@if ($page_type=='modify') value="{{$document['project_name']}}" @endif>
 			</td>
 		</tr>
 		<tr>
 			<td class="tr"> <span style="color: #FF0000;">*</span> 项目开始日期 :</td>
 			<td class="tl">
 				<input style="width: 150px;" name="starttime" id="starttime" class="form-control" placeholder="项目开始日期" 
-					@if ($page_type=='modify') value="{{$project['starttime']}}" @endif>
+					@if ($page_type=='modify') value="{{$document['starttime']}}" @endif>
 				<span id="starttime_warning" style="color: #FF0000;"></span>
 			</td>
 		</tr>
@@ -55,7 +57,7 @@
 			<td class="tr"> <span style="color: #FF0000;">*</span> 项目结束日期 :</td>
 			<td class="tl">
 				<input disabled="disabled" style="width: 150px;" name="endtime" id="endtime" class="form-control" placeholder="项目结束日期" 
-					@if ($page_type=='modify') value="{{$project['endtime']}}" @endif>
+					@if ($page_type=='modify') value="{{$document['endtime']}}" @endif>
 				<span style="color: #FF0000;"></span>
 			</td>
 		</tr>
@@ -66,7 +68,7 @@
 					<option value="0" >请选择</option>
 				@if (count($userList))
 					@foreach($userList as $item)
-					<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
+					<option value="{{$item['id']}}" {{$item['pm_selected']}}>{{$item['name']}}</option>
 					@endforeach
 				@endif
 				</select>
@@ -76,8 +78,8 @@
 			<td class="tr"> 合同状态 :</td>
 			<td class="tl">
 				<select id="status" name="status" class = "seachByStatus">
-					<option value="0" >未签</option>
-					<option value="1" >已签</option>
+					<option value="0" {{$status_selected[0]}}>未签</option>
+					<option value="1" {{$status_selected[1]}}>已签</option>
 				</select>
 			</td>
 		</tr>
@@ -86,7 +88,7 @@
 			<td class="tl">
 				<input name="money" id="money" class="form-control" placeholder="金额"
 				    style="width: 200px;"
-					@if ($page_type=='modify') value="{{$document['name']}}" @endif>
+					@if ($page_type=='modify') value="{{$document['money']}}" @endif>
 			</td>
 		</tr>
 		<tr>
@@ -96,7 +98,7 @@
 					<option value="0" >请选择</option>
 				@if (count($userList))
 					@foreach($userList as $item)
-					<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
+					<option value="{{$item['id']}}" {{$item['author_selected']}}>{{$item['name']}}</option>
 					@endforeach
 				@endif
 				</select>
@@ -106,20 +108,33 @@
 			<td class="tr"> <span style="color: #FF0000;">*</span> 回款日期 :</td>
 			<td class="tl">
 				<input style="width: 150px;" name="moneytime" id="moneytime" class="form-control" placeholder="回款日期" 
-					@if ($page_type=='modify') value="{{$project['moneytime']}}" @endif>
+					@if ($page_type=='modify') value="{{$document['moneytime']}}" @endif>
 				<span id="starttime_warning" style="color: #FF0000;"></span>
 			</td>
 		</tr>
 		<tr>
 			<td class="tr"> 项目KPI指标 :</td>
 			<td class="tl">
-				<textarea id="kpi" name="kpi" rows="10" cols="75"></textarea>
+				<textarea id="kpi" name="kpi" rows="10" cols="75">@if($page_type=='modify'){{$document['kpi']}}@endif</textarea>
 			</td>
 		</tr>
 		<tr>
 			<td class="tr"> 成本预算 :</td>
-			<td class="tl">
-				<input name="cost" id="cost" class="form-control" placeholder="成本预算" @if ($page_type=='modify') value="{{$document['name']}}" @endif>
+			<td class="tl" style="clear: both;">
+				<table border="0" cellpadding="0" cellspacing="0" style="clear: both;">
+					<tr>
+						<td>
+							<select>
+								<option>123123123</option>
+								<option>456456456</option>
+								<option>789789789</option>
+							</select>
+						</td>
+						<td><input style="width: 100px;" id="" name="" /></td>
+						<td><input style="width: 150px;" id="" name="" /></td>
+						<td>增加</td>
+					</tr>
+				</table>
 			</td>
 		</tr>
 		<tr>

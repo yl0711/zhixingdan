@@ -8,10 +8,13 @@
  */
 
 return [
-    '权限管理' => [
+    '用户管理' => [
         '部门管理' => 'App\\Http\\Controllers\\Admin\\AdminDepartmentController',
-        '管理组管理' => 'App\\Http\\Controllers\\Admin\\AdminUserGroupController',
-        '管理员管理' => 'App\\Http\\Controllers\\Admin\\AdminUserController',
+        '用户组管理' => 'App\\Http\\Controllers\\Admin\\AdminUserGroupController',
+        '用户管理' => 'App\\Http\\Controllers\\Admin\\AdminUserController',
+        '区域管理' => 'App\\Http\\Controllers\\Admin\\AdminAreaController',
+    ],
+    '权限管理' => [
         '权限管理' => 'App\\Http\\Controllers\\Admin\\AdminAuthorityController',
     ],
 /*

@@ -43,19 +43,19 @@ class DocumentsManage
      * @param int $id
      * @param int $status
      */
-    public function getOneById($id, $status=1)
+    public function getOneById($id, $status=2)
     {
         $data = $this->documentModel->getOneById($id, $status);
-        if (empty($data->toArray()))
-        {
-            throw new HttpException('404', '你所访问的内容不存在');
+
+        if (empty($data->toArray())) {
+            throw new Exception('你所访问的内容不存在', '404');
         }
         return $data;
     }
 
     public function add(array $request)
     {
-        $this->check_submit_data();
+        $this->check_submit_data($request);
 
         return $this->documentModel->add($request);
     }
@@ -67,14 +67,14 @@ class DocumentsManage
         }
         $id = $request['id'];
 
-        $this->check_submit_data();
+        $this->check_submit_data($request);
 
         unset($request['id']);
 
         try {
             $this->documentModel->modify($id, $request);
         } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+            throw $e;
         }
     }
 
@@ -87,14 +87,14 @@ class DocumentsManage
             $data['status'] = abs(1 - $project['status']);
             $this->documentModel->modify($id, $data);
             return $data['status'];
-        } catch (HttpException $e) {
-            throw new \Exception($e->getMessage());
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 
-    private function check_submit_data()
+    private function check_submit_data($request)
     {
-        if (empty($request['gongzuoleibie']) || empty($request['gongzuofenxiang']) || empty($request['gongzuoxiangmu'])) {
+        if (empty($request['cate1']) || empty($request['cate2']) || empty($request['cate3'])) {
             throw new Exception('项目分类必须全部选择');
         }
         if (empty($request['company_name'])) {
@@ -115,7 +115,7 @@ class DocumentsManage
         if (empty($request['money'])) {
             throw new Exception('请填写金额');
         }
-        if (is_numeric($request['money'])) {
+        if (!is_numeric($request['money'])) {
             throw new Exception('金额应为数字');
         }
         if (empty($request['author_id'])) {

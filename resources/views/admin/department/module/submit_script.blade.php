@@ -10,9 +10,11 @@ $(function() {
 					@if ($page_type=='modify')
 					'id':$('#id').val(),
 					'oldname':$('#oldname').val(),
+					'oldalias':$('#oldalias').val(),
 					@endif
 					'name':$('#name').val(),
 					'parentid':$('#parentid').val(),
+					'alias':$('#alias').val()
 				},
 				async:false,
 				success:function($data) {
@@ -33,6 +35,11 @@ function check_submit_data() {
 	if (0 == $('#name').val().trim().length) {
 		alert('部门名称不能为空');
 		$('#name').focus();
+		return false;
+	}
+	if (0 == $('#alias').val().trim().length) {
+		alert('部门缩写不能为空');
+		$('#alias').focus();
 		return false;
 	}
 }

@@ -9,7 +9,7 @@
  * @license     MIT
  *
  * LICENSE:
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -19,4 +19,22 @@
  * THE SOFTWARE.
  */
 
-class DispatcherException extends \Exception {}
+class DispatcherException extends \Exception {
+
+    private $status;
+
+    public function __construct($message = null, $code = 0, \Exception $previous = null, $status = null) {
+
+        $this->status = empty($status) ? 500 : $status;
+
+        parent::__construct($message, $code, $previous);
+
+    }
+
+    public function getStatus() {
+
+        return $this->status;
+
+    }
+
+}
