@@ -27,6 +27,7 @@ Route::group(['namespace'=>'Admin'], function() {
             Route::match(['get', 'post'], 'add', ['uses' => 'AdminUserController@add']);
 
             Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'AdminUserController@modify'])->where('id', '[0-9]+');
+            Route::match(['get', 'post'], 'parent/{id}', ['uses'=>'AdminUserController@parentUser'])->where('id', '[0-9]+');
 
             Route::get('status/{id}', ['uses'=>'AdminUserController@modifyStatus'])->where('id', '[0-9]+');
         });

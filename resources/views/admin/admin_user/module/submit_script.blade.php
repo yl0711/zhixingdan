@@ -1,5 +1,5 @@
 <script>
-var article_check = article_view = 0;
+var area_id = '';
 
 $(function() {
 	$('#admin_user_submit').bind('click', function(){
@@ -17,15 +17,17 @@ $(function() {
 					'password':$('#password').val(),
 					'email':$('#email').val(),
 					'group_id':$('#group_id').val(),
-					'department_id':$('#department_id').val()
+					'department_id':$('#department_id').val(),
+					'parent_user':$('#parent_user').val(),
+					'area_id':area_id
 				},
 				async:false,
 				success:function($data) {
 					if ($data.status == 'error') {
 						alert($data.info);
 					} else {
-						if (confirm('数据提交成功, 是否返回列表页')) {
-							window.location.href = "{{url('user/index')}}";
+						if (confirm('数据提交成功, 选择用户直属上级')) {
+							window.location.href = "{{url('user/parent')}}/" + $data.data.id;
 						}
 					}
 				}
@@ -35,20 +37,37 @@ $(function() {
 });
 
 function check_submit_data() {
+	$("input[name='area_id']").each(function(){
+        if($(this).attr("checked"))
+            area_id += $(this).val() + ",";
+    });
+	
 	if (0 == $('#name').val().trim().length) {
-		alert('管理员账号不能为空');
+		alert('账号不能为空');
 		$('#name').focus();
 		return false;
+	}
+	if (0 == $('#email').val()) {
+		alert('Email不能为空');
+		return;
+	}
+	if (0 == $('#group_id').val()) {
+		alert('请选择所在用户组');
+		return;
+	}
+	if (0 == $('#department_id').val()) {
+		alert('请选择所在部门');
+		return;
+	}
+	if ('' == area_id) {
+		alert('请选择所在区域');
+		return;
 	}
 	@if ($page_type=='add')
 	if (0 == $('#password').val().trim().length) {
 		alert('管理员密码不能为空');
 		$('#password').focus();
 		return false;
-	}
-	if (0 == $('#group_id').val()) {
-		alert('请选择管理员所在管理组');
-		return;
 	}
 	@endif
 }

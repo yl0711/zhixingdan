@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminBaseController;
+use App\Http\Manage\AreaManage;
 use App\Http\Manage\DepartmentManage;
 use Illuminate\Http\Request;
 
@@ -19,13 +20,15 @@ use Illuminate\Http\Request;
  */
 class AdminUserController extends AdminBaseController
 {
-    private $departmentManage;
+    private $departmentManage = null;
+    private $areaManage = null;
 
     public function __construct()
     {
         parent::__construct();
 
         $this->departmentManage = new DepartmentManage();
+        $this->areaManage = new AreaManage();
     }
 
     public function index(Request $request)
@@ -35,7 +38,7 @@ class AdminUserController extends AdminBaseController
         $department_id = $request->input('department_id', 0);
         $status = $request->input('status', 2);
 
-        $userList = $this->adminUserManage->getUserList($name, $group_id, $department_id, $status);
+        $userList = $this->adminUserManage->getUserList($name, $group_id, $department_id, [], $status);
         $data = $this->adminUserManage->getUserGroupAll();
         foreach ($data as $value) {
             if ($value['id'] == $group_id) {
@@ -81,7 +84,13 @@ class AdminUserController extends AdminBaseController
             {
                 $value['selected'] = '';
             }
-            return view('admin.admin_user.add', compact('user', 'group', 'department'));
+            $area = $this->areaManage->getList();
+            foreach ($department as $value)
+            {
+                $value['selected'] = '';
+            }
+
+            return view('admin.admin_user.add', compact('user', 'group', 'department', 'area'));
         }
     }
 
@@ -92,7 +101,7 @@ class AdminUserController extends AdminBaseController
     {
         if ('POST' == $request->method())
         {
-            return $this->doModify($request);
+            return $this->doModify($request, $id);
         }
         else
         {
@@ -102,7 +111,7 @@ class AdminUserController extends AdminBaseController
             }
             catch (\Exception $e)
             {
-                echo $e->getMessage();exit;
+                abort('404', $e->getMessage());
             }
             $group = $this->adminUserManage->getUserGroupAll();
             foreach ($group as $value)
@@ -128,8 +137,43 @@ class AdminUserController extends AdminBaseController
                     $value['selected'] = '';
                 }
             }
+            $user_area = explode(',', $user['area_id']);
+            $area = $this->areaManage->getList();
+            foreach ($department as $value)
+            {
+                if (in_array($value['id'], $user_area)) {
+                    $value['selected'] = 'selected="selected"';
+                } else {
+                    $value['selected'] = '';
+                }
+            }
 
-            return view('admin.admin_user.modify', compact('user', 'group', 'department'));
+            return view('admin.admin_user.modify', compact('user', 'group', 'department', 'area'));
+        }
+    }
+
+    /**
+     * @Authorization 直属上级设置
+     */
+    public function parentUser(Request $request, $id)
+    {
+        try {
+            $user = $this->adminUserManage->getUser($id)->toarray()[0];
+        }  catch (\Exception $e) {
+            abort('404', $e->getMessage());
+        }
+
+        if ('POST' == $request->method()) {
+
+        } else {
+
+
+
+            $userList = $this->adminUserManage->getUserList('', 0, $user['department_id'], explode(',', $user['area_id']));
+            if (!$userList->count()) {
+                abort('404', '没有与你同区域\同部门的用户');
+            }
+            return view('admin.admin_user.parent', compact('user', 'userList'));
         }
     }
 
@@ -150,8 +194,8 @@ class AdminUserController extends AdminBaseController
     {
         try
         {
-            $this->adminUserManage->addUser($request->all());
-            return json_encode(['status'=>'success']);
+            $id = $this->adminUserManage->addUser($request->all())->id;
+            return json_encode(['status'=>'success', 'data'=>['id'=>$id]]);
         }
         catch (\Exception $e)
         {
@@ -159,9 +203,9 @@ class AdminUserController extends AdminBaseController
         }
     }
 
-    private function doModify(Request $request)
+    private function doModify(Request $request, $id)
     {
         $this->adminUserManage->modifyUser($request->all());
-        return json_encode(['status'=>'success']);
+        return json_encode(['status'=>'success', 'data'=>['id'=>$id]]);
     }
 }

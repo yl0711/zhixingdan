@@ -46,7 +46,7 @@ class AdminUserManage
      * @param int $status  状态
      * @return array
      */
-    public function getUserList($name='', $group_id=0, $department_id=0, $status=2)
+    public function getUserList($name='', $group_id=0, $department_id=0, $area=[], $status=2)
     {
         return $this->userModel->getList($name, $group_id, $department_id, $status);
     }
@@ -65,21 +65,31 @@ class AdminUserManage
     public function addUser(Array $request)
     {
         if (!isset($request['name']) || empty($request['name'])) {
-            throw new \Exception('请填写管理员账号');
+            throw new \Exception('请填写账号');
         }
         if (!empty($this->userModel->getByUname($request['name']))) {
             throw new \Exception('用户 ' . $request['name'] . ' 已经存在');
         }
         if (!isset($request['password']) || empty($request['password'])) {
-            throw new \Exception('请填写管理员密码');
+            throw new \Exception('请填写密码');
+        }
+        if (!isset($request['email']) || empty($request['email'])) {
+            throw new \Exception('请填写email');
         }
         if (!isset($request['group_id']) || empty($request['group_id'])) {
-            throw new \Exception('请选择管理员所属用户组');
+            throw new \Exception('请选择所属用户组');
         }
         $userGroup = $this->groupModel->getByGid($request['group_id'])->toarray();
         if (empty($userGroup)) {
-            throw new \Exception('选择的管理员组不存在');
+            throw new \Exception('选择的用户组不存在');
         }
+        if (!isset($request['department_id']) || empty($request['department_id'])) {
+            throw new \Exception('请选择所属部门');
+        }
+        if (!isset($request['area_id']) || empty($request['area_id'])) {
+            throw new \Exception('请选择所在区域');
+        }
+
         $request['password'] = bcrypt($request['password']);
 
         return $this->userModel->add($request);
@@ -100,7 +110,7 @@ class AdminUserManage
         }
 
         if (!isset($request['name']) || empty($request['name'])) {
-            throw new \Exception('请填写管理员账号');
+            throw new \Exception('请填写账号');
         }
         if ($request['name'] != $request['oldname'] && !empty($this->userModel->getByUname($request['name']))) {
             throw new \Exception('用户 ' . $request['name'] . ' 已经存在');
@@ -111,6 +121,24 @@ class AdminUserManage
         } else {
             $request['password'] = bcrypt($request['password']);
         }
+
+        if (!isset($request['email']) || empty($request['email'])) {
+            throw new \Exception('请填写email');
+        }
+        if (!isset($request['group_id']) || empty($request['group_id'])) {
+            throw new \Exception('请选择所属用户组');
+        }
+        $userGroup = $this->groupModel->getByGid($request['group_id'])->toarray();
+        if (empty($userGroup)) {
+            throw new \Exception('选择的用户组不存在');
+        }
+        if (!isset($request['department_id']) || empty($request['department_id'])) {
+            throw new \Exception('请选择所属部门');
+        }
+        if (!isset($request['area_id']) || empty($request['area_id'])) {
+            throw new \Exception('请选择所在区域');
+        }
+
         unset($request['id']);
         unset($request['oldname']);
 

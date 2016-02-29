@@ -48,6 +48,23 @@
 			</td>
 		</tr>
 		<tr>
+			<td class="tr"> 区域 :</td>
+			<td class="tl">
+				@foreach($area as $item)
+				<input type="checkbox" id="area_{{$item['id']}}" name="area_id" value="{{$item['id']}}" {{$item['selected']}} />
+				<label for="area_{{$item['id']}}">{{$item['name']}}</label>
+				@endforeach
+			</td>
+		</tr>
+		<tr>
+			<td class="tr"> 直属上级 :</td>
+			<td class="tl">
+				<select id="parent_user" name="parent_user" class = "seachByStatus">
+					<option value="0" >请选择</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
 			<th colspan = "2" >
 				<button type="button" id="admin_user_submit" class="btn btn-success" >确认提交</button>
 			</th>
