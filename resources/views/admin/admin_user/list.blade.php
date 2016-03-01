@@ -45,7 +45,8 @@
 							<th style="width: 10%;">管理员</th>
 							<th style="width: 15%;">所属管理组</th>
 							<th style="width: 15%;">所属部门</th>
-							<th style="width: 20%;" class = "timedate">最后修改时间</th>
+							<th style="width: 15%;">所在大区</th>
+							<th style="width: 15%;">直属上级</th>
 							<th >操作</th>
 						</tr>
 					</thead>
@@ -57,9 +58,11 @@
 							<td class= "_name">{{$item['name']}}</td>
 							<td >@if (0 < $item['group_id']) {{$grouplist[$item['group_id']]['name']}} @endif</td>
 							<td >@if (0 < $item['department_id']) {{$departmentlist[$item['department_id']]['name']}} @endif</td>
-							<td >{{$item['updated_at']}}</td>
+							<td>@foreach($item['area_id'] as $aid) @if(isset($arealist[$aid])) {{$arealist[$aid]}}&nbsp; @endif @endforeach</td>
+							<td>@if($item['parent_user'] && isset($parentlist[$item['parent_user']])) {{$parentlist[$item['parent_user']]}} @endif</td>
 							<td >
 								<button target="{{$item['id']}}" type="button" class="modify btn btn-info">修改</button>
+								<button target="{{$item['id']}}" type="button" class="parent btn btn-info">设置上级</button>
 								<button target="{{$item['id']}}" type="button" class="authority btn btn-success" >权限</button>
 								@if(1 == $item['status'])
 								<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-danger">关闭</button>
@@ -96,6 +99,10 @@ $(function() {
 	
 	$('button[class^="authority"]').click(function() {
 		window.location.href="{{url('authority/user')}}/" + $(this).attr('target');
+	});
+	
+	$('button[class^="parent"]').click(function() {
+		window.location.href="{{url('user/parent')}}/" + $(this).attr('target');
 	});
 	
 	$('button[class^="on-off"]').click(function() {

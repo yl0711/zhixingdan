@@ -37,6 +37,7 @@ $(function() {
 });
 
 function check_submit_data() {
+	area_id = '';
 	$("input[name='area_id']").each(function(){
         if($(this).attr("checked"))
             area_id += $(this).val() + ",";

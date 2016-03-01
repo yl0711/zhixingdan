@@ -37,7 +37,7 @@
 							<th style="width: 5%;">ID</th>
 							<th style="width: 20%;">部门名称</th>
 							<th style="width: 10%;">缩写</th>
-							<th style="width: 20%;">上级部门</th>
+							<!--<th style="width: 20%;">上级部门</th>-->
 							<th style="width: 20%;" class = "timedate">最后修改时间</th>
 							<th >操作</th>
 						</tr>
@@ -49,7 +49,7 @@
 							<td class= "_id" >{{$item['id']}}</td>
 							<td class= "_name">{{$item['name']}}</td>
 							<td class= "_name">{{$item['alias']}}</td>
-							<td >@if ($item['parentid'] > 0) {{$list[$item['parentid']]['name']}} @endif&nbsp;</td>
+							<!--<td >@if ($item['parentid'] > 0) {{$list[$item['parentid']]['name']}} @endif&nbsp;</td>-->
 							<td >{{$item['updated_at']}}</td>
 							<td >
 								<button target="{{$item['id']}}" type="button" class="modify btn btn-info">修改</button>

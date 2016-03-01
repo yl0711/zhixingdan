@@ -14,12 +14,18 @@
 							<td class="tr"> 账号 :</td>
 							<td class="tl">{{$user['name']}}</td>
 						</tr>
-						
+						<tr>
+							<td class="tr"> 所属管理组 :</td>
+							<td class="tl">{{$userGroup['name']}}</td>
+						</tr>
 						<tr>
 							<td class="tr"> 直属上级 :</td>
 							<td class="tl">
 								<select id="parent">
-									<option></option>
+									<option value="0">选择用户的直属上级</option>
+								@foreach ($userList as $item)
+									<option value="{{$item['id']}}">@if($item['group_id'] && isset($grouplist[$item['group_id']])) 【{{$grouplist[$item['group_id']]}}】 @endif {{$item['name']}}</option>
+								@endforeach
 								</select>
 							</td>
 						</tr>
@@ -63,4 +69,11 @@ $(function() {
 		}
 	});
 });
+
+function check_submit_data() {
+	if ($('#parent').val() == 0) {
+		alert('请选择你的直属上级');
+		return false;
+	}
+}
 </script>

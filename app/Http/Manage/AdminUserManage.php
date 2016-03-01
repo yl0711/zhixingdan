@@ -56,6 +56,15 @@ class AdminUserManage
         return $this->userModel->getAll($status);
     }
 
+    public function getUserById($id)
+    {
+        if (is_array($id)) {
+            return UserModel::whereIn('id', $id)->get();
+        } else {
+            return UserModel::where('id', $id)->get();
+        }
+    }
+
     /**
      * 添加管理员
      * @param array $request
@@ -271,6 +280,11 @@ class AdminUserManage
         } catch (HttpException $e) {
             throw new \Exception($e->getMessage());
         }
+    }
+
+    public function updateParentUser($id, $parentid)
+    {
+        return UserModel::where('id', $id)->update(['parent_user'=>$parentid]);
     }
 
     /**

@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\AdminBaseController;
 use App\Http\Manage\AreaManage;
 use App\Http\Manage\DepartmentManage;
+use App\Http\Model\liuchengdan\UserModel;
 use Illuminate\Http\Request;
 
 /**
@@ -37,8 +38,28 @@ class AdminUserController extends AdminBaseController
         $group_id = $request->input('group_id', 0);
         $department_id = $request->input('department_id', 0);
         $status = $request->input('status', 2);
+        $arealist = $grouplist = $departmentlist = $parentids = $parentlist = [];
+
+        $data = $this->areaManage->getList();
+        foreach ($data as $value) {
+            $arealist[$value['id']] = $value['name'];
+        }
 
         $userList = $this->adminUserManage->getUserList($name, $group_id, $department_id, [], $status);
+        foreach ($userList as $value) {
+            $value['area_id'] = explode(',', trim($value['area_id'], ','));
+            if ($value['parent_user']) {
+                $parentids[] = $value['parent_user'];
+            }
+        }
+
+        if ($parentids) {
+            $data = $this->adminUserManage->getUserById($parentids);
+            foreach ($data as $value) {
+                $parentlist[$value['id']] = $value['name'];
+            }
+        }
+
         $data = $this->adminUserManage->getUserGroupAll();
         foreach ($data as $value) {
             if ($value['id'] == $group_id) {
@@ -59,7 +80,7 @@ class AdminUserController extends AdminBaseController
             $departmentlist[$value['id']] = $value;
         }
 
-        return view('admin.admin_user.list', compact('userList', 'grouplist', 'departmentlist', 'name', 'group_id', 'department_id', 'status'));
+        return view('admin.admin_user.list', compact('userList', 'arealist', 'grouplist', 'departmentlist', 'parentlist', 'name', 'group_id', 'department_id', 'status'));
     }
 
     /**
@@ -85,9 +106,9 @@ class AdminUserController extends AdminBaseController
                 $value['selected'] = '';
             }
             $area = $this->areaManage->getList();
-            foreach ($department as $value)
+            foreach ($area as $value)
             {
-                $value['selected'] = '';
+                $value['checked'] = '';
             }
 
             return view('admin.admin_user.add', compact('user', 'group', 'department', 'area'));
@@ -139,12 +160,12 @@ class AdminUserController extends AdminBaseController
             }
             $user_area = explode(',', $user['area_id']);
             $area = $this->areaManage->getList();
-            foreach ($department as $value)
+            foreach ($area as $value)
             {
                 if (in_array($value['id'], $user_area)) {
-                    $value['selected'] = 'selected="selected"';
+                    $value['checked'] = 'checked="checked"';
                 } else {
-                    $value['selected'] = '';
+                    $value['checked'] = '';
                 }
             }
 
@@ -164,16 +185,34 @@ class AdminUserController extends AdminBaseController
         }
 
         if ('POST' == $request->method()) {
-
-        } else {
-
-
-
-            $userList = $this->adminUserManage->getUserList('', 0, $user['department_id'], explode(',', $user['area_id']));
-            if (!$userList->count()) {
-                abort('404', '没有与你同区域\同部门的用户');
+            try {
+                $this->adminUserManage->updateParentUser($id, $request->all()['parent']);
+                echo json_encode(['status'=>'success']);
+            } catch (\Exception $e) {
+                echo json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
             }
-            return view('admin.admin_user.parent', compact('user', 'userList'));
+        } else {
+            $parentids = [];
+            $group = $userGroup = $this->adminUserManage->getUserGroup($user['group_id'])->toarray()[0];
+            while ($group['parentid'] > 0) {
+                $group = $this->adminUserManage->getUserGroup($group['parentid'])->toarray()[0];
+                $parentids[] = $group['id'];
+            }
+
+            if (!$parentids) {
+                abort('404', '用户 ' . $user['name'] . ' 所在区域或部门已经没有人级别比他高了!');
+            }
+
+            $userList = $this->adminUserManage->getUserList('', $parentids, $user['department_id'], explode(',', $user['area_id']));
+            if (!$userList->count()) {
+                abort('404', '用户 ' . $user['name'] . ' 所在区域或部门没有其他用户了!');
+            }
+
+            $data = $this->adminUserManage->getUserGroupAll();
+            foreach ($data as $value) {
+                $grouplist[$value['id']] = $value['name'];
+            }
+            return view('admin.admin_user.parent', compact('user', 'userGroup', 'userList', 'grouplist'));
         }
     }
 

@@ -47,8 +47,12 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
         if (!empty($name)) {
             $query = $query->where('name', 'like', '%'.$name.'%');
         }
-        if (0 < $group_id) {
-            $query = $query->where('group_id', $group_id);
+        if ($group_id) {
+            if (is_array($group_id)) {
+                $query = $query->whereIn('group_id', $group_id);
+            } else {
+                $query = $query->where('group_id', $group_id);
+            }
         }
         if (0 < $department_id) {
             $query = $query->where('department_id', $department_id);

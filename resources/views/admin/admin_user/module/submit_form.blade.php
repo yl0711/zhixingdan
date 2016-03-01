@@ -51,7 +51,7 @@
 			<td class="tr"> 区域 :</td>
 			<td class="tl">
 				@foreach($area as $item)
-				<input type="checkbox" id="area_{{$item['id']}}" name="area_id" value="{{$item['id']}}" {{$item['selected']}} />
+				<input type="checkbox" id="area_{{$item['id']}}" name="area_id" value="{{$item['id']}}" {{$item['checked']}} />
 				<label for="area_{{$item['id']}}">{{$item['name']}}</label>
 				@endforeach
 			</td>

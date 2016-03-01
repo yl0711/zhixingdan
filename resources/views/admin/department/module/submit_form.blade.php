@@ -11,6 +11,7 @@
 			@endif
 			</td>
 		</tr>
+		<!--
 		<tr>
 			<td class="tr"> 上级部门 :</td>
 			<td class="tl">
@@ -22,6 +23,7 @@
 				</select>
 			</td>
 		</tr>
+		-->
 		<tr>
 			<td class="tr"> 缩写 :</td>
 			<td class="tl">
