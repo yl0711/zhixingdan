@@ -14,10 +14,12 @@ use Exception;
 class DocumentsManage
 {
     private $documentModel = null;
+    private $costManage = null;
 
     public function __construct()
     {
         $this->documentModel = new DocumentsModel();
+        $this->costManage = new CostManage();
     }
 
     /**
@@ -57,7 +59,47 @@ class DocumentsManage
     {
         $this->check_submit_data($request);
 
-        return $this->documentModel->add($request);
+        $cost_select = $request['cost_select'];
+        $cost_intro = $request['cost_intro'];
+        $cost_money = $request['cost_money'];
+
+        unset($request['cost_select'], $request['cost_intro'], $request['cost_money']);
+
+        try {
+            $id = $this->documentModel->add($request);
+            $cost_num = 0;
+            foreach ($cost_select as $key=>$value) {
+                if (0 == $value) continue;
+
+                $cost = $this->costManage->getBaseOneById($value)->toArray()[0];
+                if ($cost['review_user']) {
+                    $review_user = $cost['review_user'];
+                    $review = 0;
+                } else {
+                    $review_user = 0;
+                    $review = 1;
+                }
+                $data = [
+                    'document_id' => $id,
+                    'cost_id' => $value,
+                    'money' => $cost_money[$key],
+                    'intro' => $cost_intro[$key],
+                    'review' => $review,
+                    'review_user' => $review_user
+                ];
+                if ($cost_money[$key] > 0) $cost_num += $cost_money[$key];
+                $this->costManage->addDocStructure($data);
+            }
+
+            if ($cost_num > 0) {
+                $this->documentModel->modify($id, ['cost_num'=>$cost_num]);
+            }
+
+
+            return true;
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function modify(array $request)

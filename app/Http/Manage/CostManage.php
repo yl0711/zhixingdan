@@ -10,6 +10,7 @@ namespace App\Http\Manage;
 
 use App\Http\Model\liuchengdan\BaseCostStructureModel;
 use App\Http\Model\liuchengdan\DocumentCostStructureModel;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class CostManage
 {
@@ -75,5 +76,15 @@ class CostManage
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
+    }
+
+    public function addDocStructure(array $data)
+    {
+        return $this->documentCostStructureModel->add($data);
+    }
+
+    public function modifyDocStructure(array $request, $doc_id)
+    {
+
     }
 }

@@ -105,8 +105,13 @@ class DocumentsController extends AdminBaseController
             $userList = $this->adminUserManage->getAllUser();
             if ($userList) {
                 foreach ($userList as $value) {
-                    $value['pm_selected'] = '';
-                    $value['author_selected'] = '';
+                    if ($value['id'] == $this->admin_user['id']) {
+                        $value['pm_selected'] = 'selected="selected"';
+                        $value['author_selected'] = 'selected="selected"';
+                    } else {
+                        $value['pm_selected'] = '';
+                        $value['author_selected'] = '';
+                    }
                 }
             } else {
                 $userList = [];
@@ -114,9 +119,8 @@ class DocumentsController extends AdminBaseController
 
             $costList = $this->costManage->getBaseList()->toArray();
             if ($costList) {
-                $costList = $costList['data'];
+                $costList = json_encode($costList['data']);
             }
-            var_dump(json_encode($costList));
 
             return view('admin.document.add', compact('costList', 'userList', 'status_selected', 'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
         }

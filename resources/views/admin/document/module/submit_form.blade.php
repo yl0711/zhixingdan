@@ -113,28 +113,30 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="tr"> 项目KPI指标 :</td>
-			<td class="tl">
-				<textarea id="kpi" name="kpi" rows="10" cols="75">@if($page_type=='modify'){{$document['kpi']}}@endif</textarea>
-			</td>
-		</tr>
-		<tr>
 			<td class="tr"> 成本预算 :</td>
 			<td class="tl" style="clear: both;">
 				<table border="0" cellpadding="0" cellspacing="0" style="clear: both;">
 					<tr>
-						<td>
-							<select>
-								<option>123123123</option>
-								<option>456456456</option>
-								<option>789789789</option>
-							</select>
-						</td>
-						<td><input style="width: 100px;" id="" name="" /></td>
-						<td><input style="width: 150px;" id="" name="" /></td>
-						<td>增加</td>
+						<td style="text-align: left;">选择成本构成项</td>
+						<td style="text-align: left;">说明</td>
+						<td style="text-align: left;">预算</td>
 					</tr>
+				@for ($i = 0; $i < 5; $i++)
+				    <tr>
+						<td style="text-align: left;">
+							<select id="cost_select_{{$i}}" name="cost_select_{{$i}}"></select>
+						</td>
+						<td><input style="width: 150px;" id="cost_intro_{{$i}}" name="cost_intro_{{$i}}" /></td>
+						<td><input style="width: 100px;" id="cost_money_{{$i}}" name="cost_money_{{$i}}" /></td>
+					</tr>
+				@endfor
 				</table>
+			</td>
+		</tr>
+		<tr>
+			<td class="tr"> 项目KPI指标 :</td>
+			<td class="tl">
+				<textarea id="kpi" name="kpi" rows="10" cols="75">@if($page_type=='modify'){{$document['kpi']}}@endif</textarea>
 			</td>
 		</tr>
 		<tr>

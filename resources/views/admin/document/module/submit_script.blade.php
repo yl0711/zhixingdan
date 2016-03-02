@@ -1,5 +1,8 @@
 <script>
-var costlist = '<?php echo addslashes($costList) ?>';
+var costlist = eval('(<?php echo addslashes($costList) ?>)');
+var costlist_select;
+var costlist_select_html;
+
 /**
  *  设置日期选择控件，用于选择开始和结束日期
  */
@@ -45,6 +48,12 @@ $( "#starttime" ).datepicker( "option", "onClose", function(dateText, inst) {
 } );
 
 $(function() {
+	cost_select_init();
+	
+	$('[id^="cost_select_"]').change(function() {
+		cost_select_init();
+	});
+	
 	$('#form_submit').bind('click', function(){
 		if (false != check_submit_data()) {
 			$.ajax({
@@ -70,7 +79,9 @@ $(function() {
 					'money':$('#money').val(),
 					'author_id':$('#author_id').val(),
 					'moneytime':$('#moneytime').val(),
-					
+					'cost_select':get_cost_select(),
+					'cost_intro':get_cost_intro(),
+					'cost_money':get_cost_money(),
 					'kpi':$('#kpi').val()
 				},
 				async:false,
@@ -87,6 +98,52 @@ $(function() {
 		}
 	});
 });
+
+function cost_select_init() {
+	var costlist_tmp = costlist;
+	costlist_select = ',';
+	
+	$('[id^="cost_select_"]').each(function() {
+		if ($(this).val() > 0) {
+			costlist_select += $(this).val() + ',';
+		}
+	});
+	
+	$('[id^="cost_select_"]').each(function() {
+		costlist_select_html = '';
+		for (var i=0; i<costlist.length; i++) {
+			if ($(this).val() == costlist[i].id) {
+				costlist_select_html += '<option value="' + costlist[i].id + '" selected="selected">' + costlist[i].name + '</option>';
+			} else if (costlist_select.indexOf(costlist[i].id) == -1) {
+				costlist_select_html += '<option value="' + costlist[i].id + '">' + costlist[i].name + '</option>';
+			}
+		}
+		costlist_select_html = '<option value="0">请选择</option>' + costlist_select_html;
+		$(this).html(costlist_select_html);
+	});
+}
+
+function get_cost_select() {
+	var value = new Array();
+	$('[id^="cost_select_"]').each(function() {
+		value.push($(this).val());
+	});
+	return value;
+}
+function get_cost_intro() {
+	var value = new Array();
+	$('[id^="cost_intro_"]').each(function() {
+		value.push($(this).val());
+	});
+	return value;
+}
+function get_cost_money() {
+	var value = new Array();
+	$('[id^="cost_money_"]').each(function() {
+		value.push($(this).val());
+	});
+	return value;
+}
 
 function check_submit_data() {
 	if (0 == $('#gongzuoleibie').val() || 0 == $('#gongzuofenxiang').val() || 0 == $('#gongzuoxiangmu').val()) {

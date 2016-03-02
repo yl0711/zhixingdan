@@ -19,5 +19,12 @@ class DocumentCostStructureModel extends BaseModel
      */
     protected $table = 'document_cost_structure';
 
+    public function add(array $data)
+    {
+        return self::create($data)->id;
+    }
 
+    public function modify(array $data, $id) {
+        return self::where('id', $id)->update($data);
+    }
 }
