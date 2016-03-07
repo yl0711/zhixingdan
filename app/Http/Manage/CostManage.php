@@ -78,6 +78,11 @@ class CostManage
         }
     }
 
+    public function getDocStructureById($docID)
+    {
+        return $this->documentCostStructureModel->getByDocID($docID);
+    }
+
     public function addDocStructure(array $data)
     {
         return $this->documentCostStructureModel->add($data);

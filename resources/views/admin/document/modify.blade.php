@@ -7,7 +7,7 @@
 			<div class="search-box">
 				<div class = "table_tit" style="float: left;padding: 15px;"><h1>{{$navigation}}</h1></div>
 			</div>
-			<div style="width:700px;margin: 0 auto;border-left: 1px solid #ddd; " class="table-con">	
+			<div style="width:900px;margin: 0 auto;border-left: 1px solid #ddd; " class="table-con">	
 				@include('admin/document/module/submit_form', ['page_type'=>'modify'])
 			</div>
 		</div>

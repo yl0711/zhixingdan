@@ -124,10 +124,16 @@
 				@for ($i = 0; $i < 5; $i++)
 				    <tr>
 						<td style="text-align: left;">
-							<select id="cost_select_{{$i}}" name="cost_select_{{$i}}"></select>
+							<select id="cost_select_{{$i}}" name="cost_select_{{$i}}">
+							@if(isset($docCost[$i])) 
+								<option value="{{$docCost[$i]['id']}}" selected="selected">{{$costList[$docCost[$i]['id']]['name']}}</option>
+							@endif
+							</select>
 						</td>
-						<td><input style="width: 150px;" id="cost_intro_{{$i}}" name="cost_intro_{{$i}}" /></td>
-						<td><input style="width: 100px;" id="cost_money_{{$i}}" name="cost_money_{{$i}}" /></td>
+						<td><input style="width: 150px;" id="cost_intro_{{$i}}" name="cost_intro_{{$i}}" 
+							@if(isset($docCost[$i])) value="{{$docCost[$i]['intro']}}" @endif /></td>
+						<td><input style="width: 100px;" id="cost_money_{{$i}}" name="cost_money_{{$i}}" 
+							@if(isset($docCost[$i])) value="{{$docCost[$i]['money']}}" @endif /></td>
 					</tr>
 				@endfor
 				</table>

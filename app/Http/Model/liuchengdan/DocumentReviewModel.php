@@ -19,6 +19,21 @@ class DocumentReviewModel extends BaseModel
      * @var string
      */
     protected $table = 'document_review';
-    
+
+    public function getListByDocID($docID)
+    {
+
+    }
+
+    public function add(Array $data)
+    {
+
+    }
+
+    public function modify($id, Array $data)
+    {
+
+    }
+
 
 }

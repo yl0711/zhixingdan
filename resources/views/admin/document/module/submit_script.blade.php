@@ -1,5 +1,6 @@
 <script>
-var costlist = eval('(<?php echo addslashes($costList) ?>)');
+var costList_json = eval('(<?php echo addslashes($costList_json) ?>)');
+var docCost_json = eval('(<?php echo addslashes($docCost_json) ?>)');
 var costlist_select;
 var costlist_select_html;
 
@@ -100,22 +101,23 @@ $(function() {
 });
 
 function cost_select_init() {
-	var costlist_tmp = costlist;
 	costlist_select = ',';
 	
-	$('[id^="cost_select_"]').each(function() {
-		if ($(this).val() > 0) {
+	$('[id^="cost_select_"]').each(function(index) {
+		if (typeof docCost_json[index] != 'undefined' && docCost_json[index].id > 0) {
+			costlist_select += docCost_json[index].id + ',';
+		} else if ($(this).val() > 0) {
 			costlist_select += $(this).val() + ',';
 		}
 	});
-	
+
 	$('[id^="cost_select_"]').each(function() {
 		costlist_select_html = '';
-		for (var i=0; i<costlist.length; i++) {
-			if ($(this).val() == costlist[i].id) {
-				costlist_select_html += '<option value="' + costlist[i].id + '" selected="selected">' + costlist[i].name + '</option>';
-			} else if (costlist_select.indexOf(costlist[i].id) == -1) {
-				costlist_select_html += '<option value="' + costlist[i].id + '">' + costlist[i].name + '</option>';
+		for (var i=0; i<costList_json.length; i++) {
+			if ($(this).val() == costList_json[i].id) {
+				costlist_select_html += '<option value="' + costList_json[i].id + '" selected="selected">' + costList_json[i].name + '</option>';
+			} else if (costlist_select.indexOf(costList_json[i].id) == -1) {
+				costlist_select_html += '<option value="' + costList_json[i].id + '">' + costList_json[i].name + '</option>';
 			}
 		}
 		costlist_select_html = '<option value="0">请选择</option>' + costlist_select_html;

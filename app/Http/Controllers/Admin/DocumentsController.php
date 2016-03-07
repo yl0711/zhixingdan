@@ -121,8 +121,9 @@ class DocumentsController extends AdminBaseController
             if ($costList) {
                 $costList = json_encode($costList['data']);
             }
+            $docCost = json_encode([]);
 
-            return view('admin.document.add', compact('costList', 'userList', 'status_selected', 'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
+            return view('admin.document.add', compact('costList', 'docCost', 'userList', 'status_selected', 'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
         }
     }
 
@@ -187,7 +188,24 @@ class DocumentsController extends AdminBaseController
                 $userList = [];
             }
 
-            return view('admin.document.modify', compact('document', 'userList', 'status_selected', 'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
+            $costList_data = $this->costManage->getBaseList()->toArray();
+            if ($costList_data) {
+                $costList_json = json_encode($costList_data['data']);
+                foreach ($costList_data['data'] as $value) {
+                    $costList[$value['id']] = $value;
+                }
+            } else {
+                $costList_json = json_encode([]);
+                $costList = [];
+            }
+            $docCost = $this->costManage->getDocStructureById($id)->toArray();
+            if ($docCost) {
+                $docCost_json = json_encode($docCost);
+            } else {
+                $docCost_json = json_encode([]);
+            }
+
+            return view('admin.document.modify', compact('document', 'costList', 'costList_json', 'docCost', 'docCost_json', 'userList', 'status_selected', 'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
         }
     }
 
@@ -224,7 +242,8 @@ class DocumentsController extends AdminBaseController
     {
         try
         {
-            $this->documentsManage->add($request->all());
+            $id = $this->documentsManage->add($request->all());
+            $this->documentsManage->addDocReview($id);
             return json_encode(['status'=>'success']);
         }
         catch (\Exception $e)

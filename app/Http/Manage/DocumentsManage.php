@@ -95,8 +95,7 @@ class DocumentsManage
                 $this->documentModel->modify($id, ['cost_num'=>$cost_num]);
             }
 
-
-            return true;
+            return $id;
         } catch (Exception $e) {
             throw $e;
         }
@@ -118,6 +117,21 @@ class DocumentsManage
         } catch (Exception $e) {
             throw $e;
         }
+    }
+
+    /**
+     * 添加执行单审批记录
+     *
+     * @param $id
+     */
+    public function addDocReview($docId)
+    {
+
+    }
+
+    public function modifyDocReview($id, $docId)
+    {
+
     }
 
 
