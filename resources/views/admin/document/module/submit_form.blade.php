@@ -77,9 +77,9 @@
 		<tr>
 			<td class="tr"> 合同状态 :</td>
 			<td class="tl">
-				<select id="status" name="status" class = "seachByStatus">
-					<option value="0" {{$status_selected[0]}}>未签</option>
-					<option value="1" {{$status_selected[1]}}>已签</option>
+				<select id="issign" name="issign" class = "seachByStatus">
+					<option value="0" {{$issign_selected[0]}}>未签</option>
+					<option value="1" {{$issign_selected[1]}}>已签</option>
 				</select>
 			</td>
 		</tr>
@@ -125,15 +125,15 @@
 				    <tr>
 						<td style="text-align: left;">
 							<select id="cost_select_{{$i}}" name="cost_select_{{$i}}">
-							@if(isset($docCost[$i])) 
-								<option value="{{$docCost[$i]['id']}}" selected="selected">{{$costList[$docCost[$i]['id']]['name']}}</option>
+							@if(isset($docCost[$i]) && isset($docCost[$i]['cost_id'])) 
+								<option value="{{$docCost[$i]['cost_id']}}" selected="selected">{{$costList[$docCost[$i]['cost_id']]['name']}}</option>
 							@endif
 							</select>
 						</td>
 						<td><input style="width: 150px;" id="cost_intro_{{$i}}" name="cost_intro_{{$i}}" 
-							@if(isset($docCost[$i])) value="{{$docCost[$i]['intro']}}" @endif /></td>
+							@if(isset($docCost[$i]) && isset($docCost[$i]['intro'])) value="{{$docCost[$i]['intro']}}" @endif /></td>
 						<td><input style="width: 100px;" id="cost_money_{{$i}}" name="cost_money_{{$i}}" 
-							@if(isset($docCost[$i])) value="{{$docCost[$i]['money']}}" @endif /></td>
+							@if(isset($docCost[$i]) && isset($docCost[$i]['money'])) value="{{$docCost[$i]['money']}}" @endif /></td>
 					</tr>
 				@endfor
 				</table>

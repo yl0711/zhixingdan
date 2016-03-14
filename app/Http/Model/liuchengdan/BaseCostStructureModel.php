@@ -24,6 +24,11 @@ class BaseCostStructureModel extends BaseModel
         return self::where('id', $id)->get();
     }
 
+    public function getMoreByID($ids)
+    {
+        return self::whereIn('id', $ids)->get();
+    }
+
     public function getList($name, $status=2)
     {
         $query = self::orderBy('id', 'asc');

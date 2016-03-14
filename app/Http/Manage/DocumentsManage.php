@@ -8,18 +8,28 @@
 
 namespace App\Http\Manage;
 
+use App\Http\Model\liuchengdan\AreaModel;
+use App\Http\Model\liuchengdan\DepartmentModel;
+use App\Http\Model\liuchengdan\DocumentModifyLogModel;
+use App\Http\Model\liuchengdan\DocumentReviewModel;
 use App\Http\Model\liuchengdan\DocumentsModel;
+use App\Http\Model\liuchengdan\GroupModel;
+use App\Http\Model\liuchengdan\UserModel;
 use Exception;
 
 class DocumentsManage
 {
     private $documentModel = null;
     private $costManage = null;
+    private $docReviewModel = null;
+    private $docModifyLogModel = null;
 
     public function __construct()
     {
         $this->documentModel = new DocumentsModel();
         $this->costManage = new CostManage();
+        $this->docReviewModel = new DocumentReviewModel();
+        $this->docModifyLogModel = new DocumentModifyLogModel();
     }
 
     /**
@@ -29,9 +39,9 @@ class DocumentsManage
      * @param int $status
      * @return mixed
      */
-    public function getList($name='', $company_id=0, $project_id=0, $status=2)
+    public function getList($name='', $cate1=0, $cate2=0, $cate3=0, $status=2)
     {
-        return $this->documentModel->getList($name, $company_id, $project_id, $status);
+        return $this->documentModel->getList($name, $cate1, $cate2, $cate3, $status);
     }
 
     public function getAll()
@@ -101,22 +111,105 @@ class DocumentsManage
         }
     }
 
+    /**
+     * 编辑执行单, 编辑方式为原执行单作废生成一个新的, 在修改日志里添加记录将新旧执行单关联便于查询
+     *
+     * @param array $request
+     * @return mixed
+     * @throws Exception
+     */
     public function modify(array $request)
     {
         if (!$this->documentModel->getOneById($request['id'])->toArray()) {
             throw new Exception('选择的单据不存在');
         }
-        $id = $request['id'];
-
-        $this->check_submit_data($request);
-
+        $old_id = $request['id'];
         unset($request['id']);
 
         try {
-            $this->documentModel->modify($id, $request);
+            $id = $this->add($request);
+            // 旧执行单设为作废
+            $this->documentModel->modify($old_id, ['status' => 0]);
+            // 修改记录中关联到此执行单的都重新关联到新的
+            $this->docModifyLogModel->modify(['new_id' => $old_id], ['new_id' => $id]);
+            // 添加新的修改记录
+            $this->docModifyLogModel->add(['old_id' => $old_id, 'new_id' => $id, 'created_uid' => $request['created_uid']]);
+            return $id;
         } catch (Exception $e) {
             throw $e;
         }
+    }
+
+    public function getDocReviewByDocID($docId)
+    {
+        $review_uid = $department_id = $group_id = $return = [];
+
+        $return['review'] = $return['user'] = $return['department'] = $return['group'] = [];
+
+        $return['review'] = $this->docReviewModel->getListByDocID($docId);
+        foreach ($return['review'] as $item) {
+            $item->review_uid && $review_uid[] = $item->review_uid;
+        }
+
+        if ($review_uid) {
+            $data = UserModel::whereIn('id', $review_uid)->get();
+            foreach ($data as $item) {
+                $return['user'][$item['id']] = $item;
+                $item->department_id && $department_id[] = $item->department_id;
+                $item->group_id && $group_id[] = $item->group_id;
+            }
+        }
+
+        if ($department_id) {
+            $data = DepartmentModel::whereIn('id', $department_id)->get();
+            foreach ($data as $item) {
+                $return['department'][$item['id']] = $item;
+            }
+        }
+
+        if ($group_id) {
+            $data = GroupModel::whereIn('id', $group_id)->get();
+            foreach ($data as $item) {
+                $return['group'][$item['id']] = $item;
+            }
+        }
+
+        return $return;
+    }
+
+    public function getDocReviewByUserID($userid)
+    {
+        $cost_id = $return = [];
+
+        $return['review'] = $return['cost'] = [];
+
+        $return['review'] = $this->docReviewModel->getListByUserID($userid);
+        foreach ($return['review'] as $item) {
+            // 审批状态，1通过，-1拒绝，0待审
+            $item->pre_status = 1;
+            $item->now_review_uid = $userid;
+            if (0 == $item->status) {
+                $docList = $this->docReviewModel->getListByDocID($item->document_id);
+                foreach ($docList as $item1) {
+                    if ($item1->level < $item->level && 1 != $item1->status) {
+                        $item->pre_status = $item1->status;
+                        $item->now_review_uid = $item1->review_uid;
+                        break;
+                    }
+                }
+            }
+            $item->doc = $this->getOneById($item->document_id)->toArray()[0];
+            $item->cost_id && $cost_id[] = $item->cost_id;
+        }
+
+        if ($cost_id) {
+            $data = $this->costManage->getBaseMoreById($cost_id);
+            foreach ($data as $item) {
+                $return['cost'][$item['id']] = $item;
+            }
+        }
+
+        return $return;
     }
 
     /**
@@ -126,7 +219,74 @@ class DocumentsManage
      */
     public function addDocReview($docId)
     {
+        $cost_review_user = $review_user = $review_group = [];
+        $doc = $this->getOneById($docId)->toArray()[0];
 
+        // 计算成本和费用比例, 根据此比例设置不同的审批级别
+        $ratio = ($doc['cost_num'] / $doc['money']) * 100;
+        if ($ratio > 40) {
+            $review_group = 4;
+        } else if ($ratio > 30) {
+            $review_group = 3;
+        } else if ($ratio > 20) {
+            $review_group = 2;
+        } else {
+            $review_group = 1;
+        }
+        // 成本构成项是否有专门审批人
+        $cost = $this->costManage->getDocStructureById($docId)->toArray();
+        foreach ($cost as $value) {
+            if ($value['review_user']) {
+                $cost_review_user[] = [
+                    'review_user' => $value['review_user'],
+                    'cost_id' => $value['cost_id']
+                ];
+            }
+        }
+        // 创建人用户组, 便于设置审批上级
+        $user = UserModel::where('id', $doc['created_uid'])->get()->toArray()[0];
+
+        $cost_review_level = 0;
+        $level = 1;
+        // 根据审批上级, 循环生成审批人
+        while ($user['group_id'] < $review_group && $user['parent_user'] > 0) {
+            $user = UserModel::where('id', $user['parent_user'])->get()->toArray()[0];
+            if ($user['group_id'] == 4) {
+                $cost_review_level = $level;
+                $level++;
+            }
+            $review_user[] = [
+                'document_id' => $docId,
+                'level' => $level,
+                'review_uid' => $user['id'],
+                'department_id' => $user['department_id'],
+                'group_id' => $user['group_id'],
+                'cost_id' => 0,
+            ];
+            $level++;
+        }
+        // 将成本构成项的审批人加入其中
+        if (!$cost_review_level) $cost_review_level = $level;
+        if ($cost_review_user) {
+            foreach ($cost_review_user as $value) {
+                $user = UserModel::where('id', $value['review_user'])->get()->toArray()[0];
+                $review_user[] = [
+                    'document_id' => $docId,
+                    'level' => $cost_review_level,
+                    'review_uid' => $user['id'],
+                    'department_id' => $user['department_id'],
+                    'group_id' => $user['group_id'],
+                    'cost_id' => $value['cost_id'],
+                ];
+            }
+        }
+        // 入库
+        if ($review_user) {
+            foreach ($review_user as $value) {
+                $this->docReviewModel->add($value);
+            }
+        }
+        return;
     }
 
     public function modifyDocReview($id, $docId)

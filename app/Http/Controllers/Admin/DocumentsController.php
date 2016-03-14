@@ -37,6 +37,8 @@ class DocumentsController extends AdminBaseController
         $cate2 = $request->input('cate2', 0);
         $cate3 = $request->input('cate3', 0);
         $status = $request->input('status', 2);
+        // 列表类型, list-我创建的, review-我审核的
+        $type = $request->input('type', 'list');
 
         $document = $this->documentsManage->getList($name, $cate1, $cate2, $cate3, $status);
 
@@ -71,7 +73,7 @@ class DocumentsController extends AdminBaseController
             $userList[$item['id']] = $item;
         }
 
-        return view('admin.document.list', compact('name', 'cate1', 'cate2', 'cate3', 'status',
+        return view('admin.document.list', compact('name', 'cate1', 'cate2', 'cate3', 'status', 'type',
             'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu', 'document', 'userList'));
     }
 
@@ -83,7 +85,7 @@ class DocumentsController extends AdminBaseController
         if ('POST' == $request->method()) {
             return $this->doAdd($request);
         } else {
-            $status_selected = ['', ''];
+            $issign_selected = ['', ''];
 
             $category = $this->categoryModel->getAll();
             $gongzuoleibie = $gongzuofenxiang = $gongzuoxiangmu = [];
@@ -117,13 +119,16 @@ class DocumentsController extends AdminBaseController
                 $userList = [];
             }
 
-            $costList = $this->costManage->getBaseList()->toArray();
+            $costList = $this->costManage->getBaseAll()->toArray();
             if ($costList) {
-                $costList = json_encode($costList['data']);
+                $costList_json = json_encode($costList['data']);
+            } else {
+                $costList_json = json_encode([]);
             }
-            $docCost = json_encode([]);
+            $docCost = [];
+            $docCost_json = json_encode([]);
 
-            return view('admin.document.add', compact('costList', 'docCost', 'userList', 'status_selected', 'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
+            return view('admin.document.add', compact('costList', 'costList_json', 'docCost', 'docCost_json', 'userList', 'issign_selected', 'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
         }
     }
 
@@ -132,17 +137,17 @@ class DocumentsController extends AdminBaseController
      */
     public function modify(Request $request, $id)
     {
+        try {
+            $document = $this->documentsManage->getOneById($id)->toArray()[0];
+        } catch (Exception $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
+
         if ('POST' == $request->method()) {
             return $this->doModify($request, $id);
         } else {
-            try {
-                $document = $this->documentsManage->getOneById($id)->toArray()[0];
-            } catch (Exception $e) {
-                abort($e->getCode(), $e->getMessage());
-            }
-
-            $status_selected = ['', ''];
-            $status_selected[$document['status']] = 'selected="selected"';
+            $issign_selected = ['', ''];
+            $issign_selected[$document['issign']] = 'selected="selected"';
 
             $category = $this->categoryModel->getAll();
             $gongzuoleibie = $gongzuofenxiang = $gongzuoxiangmu = [];
@@ -188,7 +193,7 @@ class DocumentsController extends AdminBaseController
                 $userList = [];
             }
 
-            $costList_data = $this->costManage->getBaseList()->toArray();
+            $costList_data = $this->costManage->getBaseAll()->toArray();
             if ($costList_data) {
                 $costList_json = json_encode($costList_data['data']);
                 foreach ($costList_data['data'] as $value) {
@@ -205,7 +210,7 @@ class DocumentsController extends AdminBaseController
                 $docCost_json = json_encode([]);
             }
 
-            return view('admin.document.modify', compact('document', 'costList', 'costList_json', 'docCost', 'docCost_json', 'userList', 'status_selected', 'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
+            return view('admin.document.modify', compact('document', 'costList', 'costList_json', 'docCost', 'docCost_json', 'userList', 'issign_selected', 'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
         }
     }
 
@@ -220,9 +225,40 @@ class DocumentsController extends AdminBaseController
     /**
      * @Authorization 审批
      */
-    public function review(Request $request, $id)
+    public function review(Request $request)
     {
+        if ('POST' == $request->method()) {
+            $this->doReview($request);
+        } else {
+            $category = $this->categoryModel->getAll();
+            $gongzuoleibie = $gongzuofenxiang = $gongzuoxiangmu = [];
+            foreach ($category as $value) {
+                $value['selected'] = '';
+                switch ($value['type']) {
+                    case '1':
+                        $gongzuoleibie[$value['id']] = $value;
+                        break;
+                    case '2':
+                        $gongzuofenxiang[$value['id']] = $value;
+                        break;
+                    case '3':
+                        $gongzuoxiangmu[$value['id']] = $value;
+                        break;
+                }
+            }
 
+            $data = $this->adminUserManage->getAllUser();
+            foreach ($data as $item) {
+                $userList[$item['id']] = $item;
+            }
+
+            $return = $this->documentsManage->getDocReviewByUserID($this->admin_user['id']);
+            //var_dump($return);
+            $review = $return['review'];
+            $cost = $return['cost'];
+
+            return view('admin.document.review', compact('review', 'cost', 'userList', 'gongzuoleibie', 'gongzuofenxiang', 'gongzuoxiangmu'));
+        }
     }
 
     /**
@@ -230,7 +266,23 @@ class DocumentsController extends AdminBaseController
      */
     public function process($id)
     {
+        try {
+            $document = $this->documentsManage->getOneById($id)->toArray()[0];
+        } catch (Exception $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
+        $data = $this->documentsManage->getDocReviewByDocID($id);
+        $review = $data['review'];
+        $department = $data['department'];
+        $user = $data['user'];
+        $group = $data['group'];
 
+        $data = $this->costManage->getBaseAll()->toArray();
+        foreach ($data as $item) {
+            $costlist[$item['id']] = $item;
+        }
+
+        return view('admin.document.process', compact('document', 'review', 'department', 'user', 'group', 'costlist'));
     }
 
     public function check(Request $request, $id)
@@ -240,28 +292,29 @@ class DocumentsController extends AdminBaseController
 
     private function doAdd(Request $request)
     {
-        try
-        {
+        try {
             $id = $this->documentsManage->add($request->all());
             $this->documentsManage->addDocReview($id);
+
             return json_encode(['status'=>'success']);
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
         }
     }
 
-    private function doModify(Request $request, $id)
+    private function doModify(Request $request)
     {
-        try
-        {
-            $this->documentsManage->modify($request->all());
+        try {
+            $id = $this->documentsManage->modify($request->all());
+            $this->documentsManage->addDocReview($request->all()['id']);
             return json_encode(['status'=>'success']);
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
         }
+    }
+
+    private function doReview(Request $request)
+    {
+        
     }
 }

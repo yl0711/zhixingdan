@@ -25,6 +25,13 @@ $( "#endtime" ).datepicker({
     maxDate: '+2y'
 });
 
+@if ($page_type=='modify')
+$("#endtime").attr('disabled', false);
+// 开始日期选择完毕后，设置结束日期控件属性
+// 首先结束日期不能早于开始日期
+$( "#endtime" ).datepicker( "option", "minDate", $( "#starttime" ).val());
+@endif
+
 $( "#moneytime" ).datepicker({
 	dateFormat: "yy-mm-dd",
 	changeMonth: true,
@@ -63,11 +70,9 @@ $(function() {
 				url: @if ($page_type=='modify') "{{url('documents/modify')}}/{{$document['id']}}" @else "{{url('documents/add')}}" @endif,
 				data:{
 					@if ($page_type=='modify')
-					'id':$('#id').val(),
-					'modify_uid':{{$admin_user['id']}},
-					@else
-					'created_uid':{{$admin_user['id']}},
+					'id':{{$document['id']}},
 					@endif
+					'created_uid':{{$admin_user['id']}},
 					'company_name':$('#company_name').val(),
 					'project_name':$('#project_name').val(),
 					'cate1':$('#gongzuoleibie').val(),
@@ -76,7 +81,7 @@ $(function() {
 					'starttime':$('#starttime').val(),
 					'endtime':$('#endtime').val(),
 					'pm_id':$('#pm_id').val(),
-					'status':$('#status').val(),
+					'issign':$('#issign').val(),
 					'money':$('#money').val(),
 					'author_id':$('#author_id').val(),
 					'moneytime':$('#moneytime').val(),
@@ -104,8 +109,8 @@ function cost_select_init() {
 	costlist_select = ',';
 	
 	$('[id^="cost_select_"]').each(function(index) {
-		if (typeof docCost_json[index] != 'undefined' && docCost_json[index].id > 0) {
-			costlist_select += docCost_json[index].id + ',';
+		if (typeof docCost_json[index] != 'undefined' && docCost_json[index].cost_id > 0) {
+			costlist_select += docCost_json[index].cost_id + ',';
 		} else if ($(this).val() > 0) {
 			costlist_select += $(this).val() + ',';
 		}

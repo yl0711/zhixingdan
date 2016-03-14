@@ -28,6 +28,11 @@ class CostManage
         return $this->baseCostStructureModel->getList($name, $status);
     }
 
+    public function getBaseAll($status=2)
+    {
+        return $this->baseCostStructureModel->getAll($status);
+    }
+
     /**
      * 根据项目ID获取单个项目信息
      *
@@ -37,6 +42,15 @@ class CostManage
     public function getBaseOneById($id, $status=1)
     {
         $data = $this->baseCostStructureModel->getOneById($id, $status);
+        if (empty($data->toArray())) {
+            throw new HttpException('404', '你所访问的内容不存在');
+        }
+        return $data;
+    }
+
+    public function getBaseMoreById($ids)
+    {
+        $data = $this->baseCostStructureModel->getMoreByID($ids);
         if (empty($data->toArray())) {
             throw new HttpException('404', '你所访问的内容不存在');
         }

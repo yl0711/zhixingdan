@@ -6,6 +6,10 @@
 			<div>
 				<div class = "table_tit" style="float: left;padding: 15px;"><h1>{{$navigation}}</h1></div>
 			</div>
+			<div class="table-con" style="text-align: left; padding-top: 5px; padding-left: 10px; padding-bottom: 5px; font-size: 15px;">
+				<span><a href="{{url('documents/index')}}" style="color: #0000FF;">我创建的</a></span>
+				<span><a href="{{url('documents/review')}}">我审批的</a></span>
+			</div>
 			<div class="search-box">
 				<span>&nbsp;</span>
 				<form action = "{{url('documents/index')}}" id = "form_seach" name = "form_seach" method="post" >
@@ -61,7 +65,6 @@
 							<th style="width: 8%;">负责人</th>
 							<th style="width: 10%;">状态</th>
 							<th style="width: 10%;">金额</th>
-							<th style="width: 10%;">当前审批人</th>
 							<th >操作</th>
 						</tr>
 					</thead>
@@ -84,14 +87,13 @@
 							<td class= "_name">{{$userList[$item['pm_id']]['name']}}</td>
 							<td class= "_name">@if(1==$item['status']) 已签 @else 未签 @endif</td>
 							<td class= "_name">{{$item['money']}}</td>
-							<td class= "_name">当前审批人</td>
 							<td >
+							@if(1 == $item['status'])
 								<button target="{{$item['id']}}" type="button" class="modify btn btn-info">修改</button>
 								<button target="{{$item['id']}}" type="button" class="process btn btn-success">流程</button>
-							@if(1 == $item['status'])
-								<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-danger">关闭</button>
+								<!--<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-danger">将此单作废</button>-->
 							@else
-								<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-warning">开启</button>
+								已作废
 							@endif
 							</td>
 						</tr>
@@ -119,6 +121,10 @@ $(function() {
 	
 	$('button[class^="modify"]').click(function() {
 		window.location.href="{{url('documents/modify')}}/" + $(this).attr('target');
+	});
+	
+	$('button[class^="process"]').click(function() {
+		window.location.href="{{url('documents/process')}}/" + $(this).attr('target');
 	});
 	
 	$('button[class^="on-off"]').click(function() {

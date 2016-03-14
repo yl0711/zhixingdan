@@ -22,17 +22,22 @@ class DocumentReviewModel extends BaseModel
 
     public function getListByDocID($docID)
     {
+        return self::where('document_id', $docID)->orderBy('level')->get();
+    }
 
+    public function getListByUserID($userID)
+    {
+        return self::where('review_uid', $userID)->orderBy('created_at')->get();
     }
 
     public function add(Array $data)
     {
-
+        return self::create($data);
     }
 
     public function modify($id, Array $data)
     {
-
+        return self::where('id', $id)->save($data);
     }
 
 
