@@ -2398,6 +2398,8 @@ return array(
     'PhpSpec\\Util\\Filesystem' => $vendorDir . '/phpspec/phpspec/src/PhpSpec/Util/Filesystem.php',
     'PhpSpec\\Util\\Instantiator' => $vendorDir . '/phpspec/phpspec/src/PhpSpec/Util/Instantiator.php',
     'PhpSpec\\Util\\MethodAnalyser' => $vendorDir . '/phpspec/phpspec/src/PhpSpec/Util/MethodAnalyser.php',
+    'PhpSpec\\Util\\NameCheckerInterface' => $vendorDir . '/phpspec/phpspec/src/PhpSpec/Util/NameCheckerInterface.php',
+    'PhpSpec\\Util\\ReservedWordsMethodNameChecker' => $vendorDir . '/phpspec/phpspec/src/PhpSpec/Util/ReservedWordsMethodNameChecker.php',
     'PhpSpec\\Wrapper\\Collaborator' => $vendorDir . '/phpspec/phpspec/src/PhpSpec/Wrapper/Collaborator.php',
     'PhpSpec\\Wrapper\\DelayedCall' => $vendorDir . '/phpspec/phpspec/src/PhpSpec/Wrapper/DelayedCall.php',
     'PhpSpec\\Wrapper\\Subject' => $vendorDir . '/phpspec/phpspec/src/PhpSpec/Wrapper/Subject.php',

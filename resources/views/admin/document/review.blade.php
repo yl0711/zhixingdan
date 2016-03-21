@@ -64,8 +64,8 @@
 								已拒绝
 							@else
 								@if(1 == $item['pre_status'])
-								<button target="{{$item['id']}}" type="button" class="review_ok btn btn-info">审批</button>
-								<button target="{{$item['id']}}" type="button" class="review_cancel btn btn-danger">拒绝</button>
+								<button target="{{$item['id']}}" doc_id = "{{$item['doc']['id']}}" type="button" class="review_ok btn btn-info">审批</button>
+								<button target="{{$item['id']}}" doc_id = "{{$item['doc']['id']}}" type="button" class="review_cancel btn btn-danger">拒绝</button>
 								@elseif (-1 == $item['pre_status'])
 								被之前审批人拒绝
 								@else
@@ -91,29 +91,22 @@
 $(function() {
 	$('button[class^="review_ok"]').click(function() {
 		this_obj = $(this);
-		if (confirm('是否要通过' + this_obj.attr('_name') + $(this).text().trim())) {
+		if (confirm('是否要通过此审批')) {
 			$.ajax({
 				type:"post",
 				dataType:"json",
 				url: "{{url('documents/review')}}/",
 				data:{
-					'type': 'review_ok',
-					'id': $(this).attr('target')
+					'type': 'ok',
+					'id': $(this).attr('target'),
+					'doc_id': $(this).attr('doc_id')
 				},
 				success:function($data) {
 					if ($data.status == 'error') {
 						alert($data.info);
 					} else {
-						alert(this_obj.attr('_name') + '状态修改成功');
-						if (1 == $data.data) {
-							this_obj.text('关闭');
-							this_obj.removeClass("btn-warning");
-							this_obj.addClass("btn-danger");
-						} else {
-							this_obj.text('开启');
-							this_obj.removeClass("btn-danger");
-							this_obj.addClass("btn-warning");
-						}
+						alert('已审批');
+						this_obj.parent().html('已审批');
 					}
 				}
 			});	
@@ -122,29 +115,22 @@ $(function() {
 	
 	$('button[class^="review_cancel"]').click(function() {
 		this_obj = $(this);
-		if (confirm('是否要拒绝' + this_obj.attr('_name') + $(this).text().trim())) {
+		if (confirm('是否要拒绝此审批')) {
 			$.ajax({
 				type:"post",
 				dataType:"json",
 				url: "{{url('documents/review')}}/",
 				data:{
-					'type': 'review_cancel',
-					'id': $(this).attr('target')
+					'type': 'cancel',
+					'id': $(this).attr('target'),
+					'doc_id': $(this).attr('doc_id')
 				},
 				success:function($data) {
 					if ($data.status == 'error') {
 						alert($data.info);
 					} else {
-						alert(this_obj.attr('_name') + '状态修改成功');
-						if (1 == $data.data) {
-							this_obj.text('关闭');
-							this_obj.removeClass("btn-warning");
-							this_obj.addClass("btn-danger");
-						} else {
-							this_obj.text('开启');
-							this_obj.removeClass("btn-danger");
-							this_obj.addClass("btn-warning");
-						}
+						alert('已拒绝');
+						this_obj.parent().html('已拒绝');
 					}
 				}
 			});	

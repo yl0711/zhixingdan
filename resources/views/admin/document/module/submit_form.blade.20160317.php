@@ -3,12 +3,32 @@
 		<tr>
 			<td class="tr"> <span style="color: #FF0000;">*</span> 项目分类 :</td>
 			<td class="tl">
+				<select id="gongzuoleibie" name="gongzuoleibie" class = "seachByStatus">
+					<option value="0" >选择工作类别</option>
 				@if (count($gongzuoleibie))
 					@foreach($gongzuoleibie as $item)
-					<input type="checkbox" id="cate1[{{$item['id']}}]" value="{{$item['id']}}" {{$item['checked']}} />
-					<label for="cate1[{{$item['id']}}]">{{$item['name']}}</label>
+					<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
 					@endforeach
 				@endif
+				</select>
+				&nbsp;
+				<select id="gongzuofenxiang" name="gongzuofenxiang" class = "seachByStatus">
+					<option value="0" >选择工作分项</option>
+				@if (count($gongzuofenxiang))
+					@foreach($gongzuofenxiang as $item)
+					<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
+					@endforeach
+				@endif
+				</select>
+				&nbsp;
+				<select id="gongzuoxiangmu" name="gongzuoxiangmu" class = "seachByStatus">
+					<option value="0" >选择工作项目</option>
+				@if (count($gongzuoxiangmu))
+					@foreach($gongzuoxiangmu as $item)
+					<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
+					@endforeach
+				@endif
+				</select>
 			</td>
 		</tr>
 		<tr>

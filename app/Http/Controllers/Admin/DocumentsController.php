@@ -91,6 +91,7 @@ class DocumentsController extends AdminBaseController
             $gongzuoleibie = $gongzuofenxiang = $gongzuoxiangmu = [];
             foreach ($category as $value) {
                 $value['selected'] = '';
+                $value['checked'] = '';
                 switch ($value['type']) {
                     case '1':
                         $gongzuoleibie[$value['id']] = $value;
@@ -121,7 +122,7 @@ class DocumentsController extends AdminBaseController
 
             $costList = $this->costManage->getBaseAll()->toArray();
             if ($costList) {
-                $costList_json = json_encode($costList['data']);
+                $costList_json = json_encode($costList);
             } else {
                 $costList_json = json_encode([]);
             }
@@ -153,22 +154,26 @@ class DocumentsController extends AdminBaseController
             $gongzuoleibie = $gongzuofenxiang = $gongzuoxiangmu = [];
             foreach ($category as $value) {
                 $value['selected'] = '';
+                $value['checked'] = '';
                 switch ($value['type']) {
                     case '1':
                         if ($value['id'] == $document['cate1']) {
                             $value['selected'] = 'selected="selected"';
+                            $value['checked'] = 'checked="checked"';
                         }
                         $gongzuoleibie[$value['id']] = $value;
                         break;
                     case '2':
                         if ($value['id'] == $document['cate2']) {
                             $value['selected'] = 'selected="selected"';
+                            $value['checked'] = 'checked="checked"';
                         }
                         $gongzuofenxiang[$value['id']] = $value;
                         break;
                     case '3':
                         if ($value['id'] == $document['cate3']) {
                             $value['selected'] = 'selected="selected"';
+                            $value['checked'] = 'checked="checked"';
                         }
                         $gongzuoxiangmu[$value['id']] = $value;
                         break;
@@ -195,8 +200,8 @@ class DocumentsController extends AdminBaseController
 
             $costList_data = $this->costManage->getBaseAll()->toArray();
             if ($costList_data) {
-                $costList_json = json_encode($costList_data['data']);
-                foreach ($costList_data['data'] as $value) {
+                $costList_json = json_encode($costList_data);
+                foreach ($costList_data as $value) {
                     $costList[$value['id']] = $value;
                 }
             } else {
@@ -228,7 +233,7 @@ class DocumentsController extends AdminBaseController
     public function review(Request $request)
     {
         if ('POST' == $request->method()) {
-            $this->doReview($request);
+            return $this->doReview($request);
         } else {
             $category = $this->categoryModel->getAll();
             $gongzuoleibie = $gongzuofenxiang = $gongzuoxiangmu = [];
@@ -315,6 +320,13 @@ class DocumentsController extends AdminBaseController
 
     private function doReview(Request $request)
     {
-        
+        $data = $request->all();
+        try {
+            $this->documentsManage->modifyDocReview($data['id'], $data['doc_id'], $data['type']);
+            return json_encode(['status'=>'success']);
+        } catch (\Exception $e) {
+            return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
+
     }
 }

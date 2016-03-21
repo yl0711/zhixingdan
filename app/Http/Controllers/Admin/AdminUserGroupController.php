@@ -25,7 +25,10 @@ class AdminUserGroupController extends AdminBaseController
         $parentid = $request->input('parentid', 0);
         $status = $request->input('status', 2);
 
-        $list = $this->adminUserManage->getUserGroupList($name, $parentid, $status);
+        $data = $this->adminUserManage->getUserGroupList($name, $parentid, $status);
+        foreach ($data as $item) {
+            $list[$item['id']] = $item;
+        }
         $grouplist = $this->adminUserManage->getUserGroupAll();
         if ($grouplist)
         {

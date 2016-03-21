@@ -37,8 +37,8 @@ class GroupModel extends BaseModel
         {
             $query = $query->where('status', $status);
         }
-
-        return $query->paginate(config('global.PAGE_SIZE'));
+        return $query->get();
+        //return $query->paginate(config('global.PAGE_SIZE'));
     }
 
 

@@ -42,7 +42,7 @@
 						</tr>
 					</thead>
 					<tbody id= "dataListTable"　>
-					@if ($list->count())
+					@if (count($list))
 						@foreach ($list as $item)
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
 							<td class= "_id" >{{$item['id']}}</td>
@@ -66,10 +66,7 @@
 					</tbody>
 				</table>
 			</div>
-			@if($list->count())
-			{!! $list->appends(['name'=>$name, 'status'=>$status, 'parentid'=>$parentid, 'pageSize'=>$pageSize])->render() !!}
-			@endif
- 		</div>
+		</div>
 		<!--//网页备注-->	
 	</div>
 	@include('admin/static/footer')

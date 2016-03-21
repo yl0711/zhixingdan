@@ -8,7 +8,6 @@
 
 namespace App\Http\Manage;
 
-use App\Http\Model\liuchengdan\AreaModel;
 use App\Http\Model\liuchengdan\DepartmentModel;
 use App\Http\Model\liuchengdan\DocumentModifyLogModel;
 use App\Http\Model\liuchengdan\DocumentReviewModel;
@@ -289,9 +288,15 @@ class DocumentsManage
         return;
     }
 
-    public function modifyDocReview($id, $docId)
+    public function modifyDocReview($id, $docId, $review_type)
     {
-
+        if ('ok' == $review_type) {
+            return DocumentReviewModel::where('id', $id)->where('document_id', $docId)->update(['status'=>1]);
+        } else if ('cancel' == $review_type) {
+            return DocumentReviewModel::where('id', $id)->where('document_id', $docId)->update(['status'=>0]);
+        } else {
+            throw new Exception('审批操作类型错误');
+        }
     }
 
 
