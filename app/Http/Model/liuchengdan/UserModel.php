@@ -42,7 +42,9 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
      */
 	public function getList($name='', $group_id=0, $department_id=0, $status=2)
     {
-        $query = self::where('superadmin', '!=', 1);
+        //$query = self::where('superadmin', '!=', 1);
+
+        $query = self::orderBy('created_at', 'desc');
 
         if (!empty($name)) {
             $query = $query->where('name', 'like', '%'.$name.'%');
@@ -61,7 +63,7 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
             $query = $query->where('status', $status);
         }
 
-        return $query->orderBy('created_at', 'desc')->paginate(config('global.PAGE_SIZE'));
+        return $query->paginate(config('global.PAGE_SIZE'));
 	}
 
     public function getCount(array $where)

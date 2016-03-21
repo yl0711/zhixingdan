@@ -64,6 +64,15 @@
 				</select>
 			</td>
 		</tr>
+		@if (1 == $admin_user['superadmin'])
+		<tr>
+			<td class="tr"> 超级管理员权限 :</td>
+			<td class="tl">
+				<input type="radio" id="superadmin" name="superadmin" value="0" {{$superadmin_checked[0]}} /> 否
+				<input type="radio" id="superadmin" name="superadmin" value="1" {{$superadmin_checked[1]}} /> 是
+			</td>
+		</tr>
+		@endif
 		<tr>
 			<th colspan = "2" >
 				<button type="button" id="admin_user_submit" class="btn btn-success" >确认提交</button>

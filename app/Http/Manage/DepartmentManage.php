@@ -89,7 +89,7 @@ class DepartmentManage
         {
             if ($data['name'] != $data['oldname'])
             {
-                if ($this->nameExists($data['name']))
+                if ($this->nameExists($data['name'], $data['id']))
                 {
                     throw new \Exception('部门名称已经存在, 请重新填写');
                 }
@@ -104,7 +104,7 @@ class DepartmentManage
         {
             if ($data['alias'] != $data['oldalias'])
             {
-                if ($this->aliasExists($data['alias']))
+                if ($this->aliasExists($data['alias'], $data['id']))
                 {
                     throw new \Exception('部门缩写已经存在, 请重新填写');
                 }
@@ -157,22 +157,19 @@ class DepartmentManage
         }
     }
 
-    public function nameExists($name)
+    public function nameExists($name, $id=0)
     {
-        $exists = $this->departmentModel->getOneByName($name)->toArray();
-        if ($exists)
-        {
+        $exists = $this->departmentModel->getOneByName($name, $id)->toArray();
+        if ($exists) {
             return 1;
-        }
-        else
-        {
+        } else {
             return 0;
         }
     }
 
-    public function aliasExists($alias)
+    public function aliasExists($alias, $id=0)
     {
-        $exists = $this->departmentModel->getOneByElias($alias)->toArray();
+        $exists = $this->departmentModel->getOneByElias($alias, $id)->toArray();
         if ($exists)
         {
             return 1;

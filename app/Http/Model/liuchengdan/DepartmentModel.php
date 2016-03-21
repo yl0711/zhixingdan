@@ -73,9 +73,13 @@ class DepartmentModel extends BaseModel
      *
      * @param string $name
      */
-    public function getOneByName($name)
+    public function getOneByName($name, $id=0)
     {
-        return self::where('name', $name)->get();
+        $query = self::where('name', $name);
+        if ($id) {
+            $query = $query->where('id', '<>', $id);
+        }
+        return $query->get();
     }
 
     /**
@@ -83,9 +87,13 @@ class DepartmentModel extends BaseModel
      *
      * @param string $name
      */
-    public function getOneByElias($alias)
+    public function getOneByElias($alias, $id=0)
     {
-        return self::where('alias', $alias)->get();
+        $query = self::where('alias', $alias);
+        if ($id) {
+            $query = $query->where('id', '<>', $id);
+        }
+        return $query->get();
     }
 
     public function add(array $data)

@@ -16,7 +16,7 @@ Route::group(['namespace'=>'Admin'], function() {
     Route::get('logout', ['as'=>'logout', 'uses'=>'AuthController@logout']);
 
     // 需要进行用户身份验证
-    Route::group(['middleware'=>'adminauth'], function() {
+    Route::group(['middleware'=>['adminauth', 'adminAccessLog']], function() {
 
         Route::get('/', 'AuthController@index');
 
