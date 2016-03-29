@@ -8,6 +8,7 @@
 
 namespace App\Http\Manage;
 
+use App\Http\Model\liuchengdan\AttachmentModel;
 use App\Http\Model\liuchengdan\DepartmentModel;
 use App\Http\Model\liuchengdan\DocumentModifyLogModel;
 use App\Http\Model\liuchengdan\DocumentReviewModel;
@@ -22,6 +23,7 @@ class DocumentsManage
     private $costManage = null;
     private $docReviewModel = null;
     private $docModifyLogModel = null;
+    private $attachmentModel = null;
 
     public function __construct()
     {
@@ -29,6 +31,7 @@ class DocumentsManage
         $this->costManage = new CostManage();
         $this->docReviewModel = new DocumentReviewModel();
         $this->docModifyLogModel = new DocumentModifyLogModel();
+        $this->attachmentModel = new AttachmentModel();
     }
 
     /**
@@ -38,9 +41,9 @@ class DocumentsManage
      * @param int $status
      * @return mixed
      */
-    public function getList($name='', $cate1=0, $cate2=0, $cate3=0, $status=2)
+    public function getList($name='', $cate1=0, $status=2)
     {
-        return $this->documentModel->getList($name, $cate1, $cate2, $cate3, $status);
+        return $this->documentModel->getList($name, $cate1, $status);
     }
 
     public function getAll()
@@ -71,8 +74,10 @@ class DocumentsManage
         $cost_select = $request['cost_select'];
         $cost_intro = $request['cost_intro'];
         $cost_money = $request['cost_money'];
+        $cost_attach = $request['cost_attach'];
+        $request['cate1'] = ',' . implode(',', $request['cate1']) . ',';
 
-        unset($request['cost_select'], $request['cost_intro'], $request['cost_money']);
+        unset($request['cost_select'], $request['cost_intro'], $request['cost_money'], $request['cost_attach']);
 
         try {
             $id = $this->documentModel->add($request);
@@ -91,13 +96,22 @@ class DocumentsManage
                 $data = [
                     'document_id' => $id,
                     'cost_id' => $value,
+                    'attach_id' => $cost_attach[$key],
                     'money' => $cost_money[$key],
                     'intro' => $cost_intro[$key],
                     'review' => $review,
                     'review_user' => $review_user
                 ];
                 if ($cost_money[$key] > 0) $cost_num += $cost_money[$key];
-                $this->costManage->addDocStructure($data);
+                $document_cost_id = $this->costManage->addDocStructure($data);
+
+                if ($cost_attach[$key]) {
+                    $this->attachmentModel->modify($cost_attach[$key], [
+                        'document_cost_id' => $document_cost_id,
+                        'document_id' => $id,
+                        'cost_id' => $value,
+                    ]);
+                }
             }
 
             if ($cost_num > 0) {
@@ -315,8 +329,8 @@ class DocumentsManage
 
     private function check_submit_data($request)
     {
-        if (empty($request['cate1']) || empty($request['cate2']) || empty($request['cate3'])) {
-            throw new Exception('项目分类必须全部选择');
+        if (empty($request['cate1'])) {
+            throw new Exception('项目分类没有选择');
         }
         if (empty($request['company_name'])) {
             throw new Exception('请填写客户名称');

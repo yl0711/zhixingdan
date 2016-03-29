@@ -1,9 +1,4 @@
 <script>
-var costList_json = eval('(<?php echo addslashes($costList_json) ?>)');
-var docCost_json = eval('(<?php echo addslashes($docCost_json) ?>)');
-var costlist_select;
-var costlist_select_html;
-
 /**
  *  设置日期选择控件，用于选择开始和结束日期
  */
@@ -56,10 +51,9 @@ $( "#starttime" ).datepicker( "option", "onClose", function(dateText, inst) {
 } );
 
 $(function() {
-	cost_select_init();
-	
-	$('[id^="cost_select_"]').change(function() {
-		cost_select_init();
+	$('#add-cost').on('click',function(){
+		modalView('show' ,true, '添加成本构成');
+		$('.modal-body').load("{{url('documents/cost')}}");
 	});
 	
 	$('#form_submit').bind('click', function(){
@@ -75,9 +69,7 @@ $(function() {
 					'created_uid':{{$admin_user['id']}},
 					'company_name':$('#company_name').val(),
 					'project_name':$('#project_name').val(),
-					'cate1':$('#gongzuoleibie').val(),
-					'cate2':$('#gongzuofenxiang').val(),
-					'cate3':$('#gongzuoxiangmu').val(),
+					'cate1':get_cate1(),
 					'starttime':$('#starttime').val(),
 					'endtime':$('#endtime').val(),
 					'pm_id':$('#pm_id').val(),
@@ -88,6 +80,7 @@ $(function() {
 					'cost_select':get_cost_select(),
 					'cost_intro':get_cost_intro(),
 					'cost_money':get_cost_money(),
+					'cost_attach':get_cost_attach(),
 					'kpi':$('#kpi').val()
 				},
 				async:false,
@@ -105,58 +98,74 @@ $(function() {
 	});
 });
 
-function cost_select_init() {
-	costlist_select = ',';
-	
-	$('[id^="cost_select_"]').each(function(index) {
-		if (typeof docCost_json[index] != 'undefined' && docCost_json[index].cost_id > 0) {
-			costlist_select += docCost_json[index].cost_id + ',';
-		} else if ($(this).val() > 0) {
-			costlist_select += $(this).val() + ',';
+function docmentsCostCallback(data) {
+	if (data.status == 'error') {
+		alert(data.info);
+	} else {
+		var html = '<tr>';
+		html += '<td>'+data.data.cost_name+'<input type="hidden" id="select_cost_id[]" name="select_cost_id[]" value="'+data.data.cost_id+'" /></td>';
+		html += '<td>'+data.data.money+'<input type="hidden" id="select_cost_money[]" name="select_cost_money[]" value="'+data.data.money+'" /></td>';
+		html += '<td>'+data.data.intro+'<input type="hidden" id="select_cost_intro[]" name="select_cost_intro[]" value="'+data.data.intro+'" /></td>';
+		if (data.data.attach) {
+			html += '<td><a href="'+data.data.attach.imageUrl+'" target="_blank">查看</a><input type="hidden" id="select_cost_attach[]" name="select_cost_attach[]" value="'+data.data.attach.attach_id+'" /></td>';
+		} else {
+			html += '<td>无<input type="hidden" id="select_cost_attach[]" name="select_cost_attach[]" value="" /></td>';
 		}
-	});
+		html += '<td name="delcost">删除</td>';
+		html += '</tr>';
+		$('#cost-list').append(html);
+		del_cost_data();
+		modalView('hide');
+	}
+}
 
-	$('[id^="cost_select_"]').each(function() {
-		costlist_select_html = '';
-		for (var i=0; i<costList_json.length; i++) {
-			if ($(this).val() == costList_json[i].id) {
-				costlist_select_html += '<option value="' + costList_json[i].id + '" selected="selected">' + costList_json[i].name + '</option>';
-			} else if (costlist_select.indexOf(costList_json[i].id) == -1) {
-				costlist_select_html += '<option value="' + costList_json[i].id + '">' + costList_json[i].name + '</option>';
-			}
-		}
-		costlist_select_html = '<option value="0">请选择</option>' + costlist_select_html;
-		$(this).html(costlist_select_html);
+function del_cost_data() {
+	$('td[name=delcost]').unbind('click');
+	$('td[name=delcost]').click(function() {
+		$(this).parent().remove();
 	});
+}
+
+function get_cate1() {
+	var value = new Array();
+	$('[id^="cate1"]').each(function() {
+		if ($(this).prop('checked') == true) {
+			value.push($(this).val());
+		}
+	});
+	return value;
 }
 
 function get_cost_select() {
 	var value = new Array();
-	$('[id^="cost_select_"]').each(function() {
+	$('[id^="select_cost_id"]').each(function() {
 		value.push($(this).val());
 	});
 	return value;
 }
 function get_cost_intro() {
 	var value = new Array();
-	$('[id^="cost_intro_"]').each(function() {
+	$('[id^="select_cost_intro"]').each(function() {
 		value.push($(this).val());
 	});
 	return value;
 }
 function get_cost_money() {
 	var value = new Array();
-	$('[id^="cost_money_"]').each(function() {
+	$('[id^="select_cost_money"]').each(function() {
+		value.push($(this).val());
+	});
+	return value;
+}
+function get_cost_attach() {
+	var value = new Array();
+	$('[id^="select_cost_attach"]').each(function() {
 		value.push($(this).val());
 	});
 	return value;
 }
 
 function check_submit_data() {
-	if (0 == $('#gongzuoleibie').val() || 0 == $('#gongzuofenxiang').val() || 0 == $('#gongzuoxiangmu').val()) {
-		alert('项目分类必须全部选择');
-		return false;
-	}
 	if (0 == $('#company_name').val().trim().length) {
 		alert('请填写客户名称');
 		$('#company_name').focus();

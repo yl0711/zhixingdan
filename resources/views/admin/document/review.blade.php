@@ -41,13 +41,9 @@
 					@if($review->count())
 						@foreach($review as $item)
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
-							<td class= "_id" >{{$item['id']}}</td>
-							<td class= "_name">{{$item['identifier']}}</td>
-							<td class= "_name">
-								{{$gongzuoleibie[$item['doc']['cate1']]['name']}}<br />
-								{{$gongzuofenxiang[$item['doc']['cate2']]['name']}}<br />
-								{{$gongzuoxiangmu[$item['doc']['cate3']]['name']}}
-							</td>
+							<td class= "_id" >{{$item['doc']['id']}}</td>
+							<td class= "_name">{{$item['doc']['identifier']}}</td>
+							<td class= "_name">{{$doc_cate1[$item['doc']['id']]}}</td>
 							<td class= "_name">{{$item['doc']['project_name']}}</td>
 							<td class= "_name">{{$item['doc']['company_name']}}</td>
 							<td class= "_name">

@@ -19,7 +19,7 @@ class DocumentsModel extends BaseModel
      */
     protected $table = 'base_document';
 
-    public function getList($name='', $cate1=0, $cate2=0, $cate3=0, $status=2, array $where=[])
+    public function getList($name='', $cate1=0, $status=2, array $where=[])
     {
         $query = self::orderBy('id', 'asc');
 
@@ -27,13 +27,7 @@ class DocumentsModel extends BaseModel
             $query = $query->where('name', 'like', '%'.$name.'%');
         }
         if (0 < $cate1) {
-            $query = $query->where('cate1', $cate1);
-        }
-        if (0 < $cate2) {
-            $query = $query->where('cate2', $cate2);
-        }
-        if (0 < $cate3) {
-            $query = $query->where('cate3', $cate3);
+            $query = $query->where('cate1', 'like', '%,' . $cate1 . ',%');
         }
         if (2 != $status) {
             $query = $query->where('status', $status);

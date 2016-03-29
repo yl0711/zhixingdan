@@ -93,29 +93,30 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="tr"> 成本预算 :</td>
+			<td class="tr"> 成本预算 : </td>
 			<td class="tl" style="clear: both;">
-				<table border="0" cellpadding="0" cellspacing="0" style="clear: both;">
+				<div id="add-cost">添加</div>
+				<table id="cost-list" border="0" cellpadding="0" cellspacing="0" style="clear: both;">
 					<tr>
-						<td style="text-align: left;">选择成本构成项</td>
-						<td style="text-align: left;">说明</td>
-						<td style="text-align: left;">预算</td>
+						<td style="width: 30%; font-weight: bold;">选择成本构成项</td>
+						<td style="width: 10%; font-weight: bold;">预算</td>
+						<td style="width: 40%; font-weight: bold;">说明</td>
+						<td style="width: 10%; font-weight: bold;">附件</td>
+						<td style="width: 10%; font-weight: bold;">操作</td>
 					</tr>
-				@for ($i = 0; $i < 5; $i++)
-				    <tr>
-						<td style="text-align: left;">
-							<select id="cost_select_{{$i}}" name="cost_select_{{$i}}">
-							@if(isset($docCost[$i]) && isset($docCost[$i]['cost_id'])) 
-								<option value="{{$docCost[$i]['cost_id']}}" selected="selected">{{$costList[$docCost[$i]['cost_id']]['name']}}</option>
-							@endif
-							</select>
-						</td>
-						<td><input style="width: 150px;" id="cost_intro_{{$i}}" name="cost_intro_{{$i}}" 
-							@if(isset($docCost[$i]) && isset($docCost[$i]['intro'])) value="{{$docCost[$i]['intro']}}" @endif /></td>
-						<td><input style="width: 100px;" id="cost_money_{{$i}}" name="cost_money_{{$i}}" 
-							@if(isset($docCost[$i]) && isset($docCost[$i]['money'])) value="{{$docCost[$i]['money']}}" @endif /></td>
+				@if (count($docCost))
+					@foreach ($docCost as $item)
+					<tr>
+						<td>{{$costList[$item['cost_id']]['name']}}</td>
+						<td>{{$item['money']}}</td>
+						<td>{{$item['intro']}}</td>
+						<td>@if ($item['attach_id'] && isset($attach_list[$item['attach_id']]))
+						<a href="http://{{config('global.DOMAIN.IMAGE')}}{{$attach_list[$item['attach_id']]}}" target="_blank">查看</a>
+						@endif</td>
+						<td></td>
 					</tr>
-				@endfor
+					@endforeach
+				@endif
 				</table>
 			</td>
 		</tr>

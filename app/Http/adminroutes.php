@@ -98,6 +98,8 @@ Route::group(['namespace'=>'Admin'], function() {
             Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'DocumentsController@modify'])->where('id', '[0-9]+');
             Route::match(['get', 'post'], 'review', ['uses'=>'DocumentsController@review']);
 
+            Route::match(['get', 'post'], 'cost/{id?}', ['uses'=>'DocumentsController@docmentsCost'])->where('id', '[0-9]+');
+
             Route::get('status/{id}', ['uses'=>'DocumentsController@modifyStatus'])->where('id', '[0-9]+');
             Route::get('process/{id}', ['uses'=>'DocumentsController@process'])->where('id', '[0-9]+');
         });

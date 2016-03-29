@@ -277,12 +277,12 @@ var loginView = {
 * */
 
 
-function modalView(view,big){
+function modalView(view, big, title='标题'){
 	var myModal = document.getElementById("myModal");
 	if(! myModal ){
 		myModal = "" ;
 		myModal +=' <!-- Modal模态框 --> ' ;
-		myModal +=' <div class="modal fade" id="myModal"    role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">' ;
+		myModal +=' <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">' ;
 		if(big){
 			myModal +=' <div class="modal-dialog  modal-lg">' ;
 		}else{
@@ -291,7 +291,7 @@ function modalView(view,big){
 		myModal +='  <div class="modal-content">' ;
 		myModal +='  <div class="modal-header">' ;
 		myModal +='  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' ;
-		myModal +=' <h4 class="modal-title" data-dismiss="modal" >标题</h4>' ;
+		myModal +=' <h4 class="modal-title" data-dismiss="modal" >' + title + '</h4>' ;
 		myModal +='  </div>' ;
 		myModal +=' <div class="modal-body">' ;
 		myModal +=' </div>' ;
