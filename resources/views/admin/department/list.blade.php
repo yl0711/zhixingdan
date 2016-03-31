@@ -53,7 +53,7 @@
 							<td >{{$item['updated_at']}}</td>
 							<td >
 								<button target="{{$item['id']}}" type="button" class="modify btn btn-info">修改</button>
-								<button target="{{$item['id']}}" type="button" class="authority btn btn-success" >权限</button>
+								<!--<button target="{{$item['id']}}" type="button" class="authority btn btn-success" >权限</button>-->
 								@if(1 == $item['status'])
 								<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-danger">关闭</button>
 								@else
@@ -87,11 +87,11 @@ $(function() {
 	$('button[class^="modify"]').click(function() {
 		window.location.href="{{url('department/modify')}}/" + $(this).attr('target');
 	});
-	
+	/*
 	$('button[class^="authority"]').click(function() {
 		window.location.href="{{url('authority/department')}}/" + $(this).attr('target');
 	});
-	
+	*/
 	$('button[class^="on-off"]').click(function() {
 		this_obj = $(this);
 		if (confirm('是否要将' + this_obj.attr('_name') + $(this).text().trim())) {

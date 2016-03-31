@@ -16,6 +16,8 @@ use App\Http\Model\liuchengdan\AttachmentModel;
 use App\Http\Model\liuchengdan\CategoryModel;
 use Illuminate\Http\Request;
 use Exception;
+use View;
+use PDF;
 
 class DocumentsController extends AdminBaseController
 {
@@ -272,6 +274,146 @@ class DocumentsController extends AdminBaseController
         }
 
         return view('admin.document.process', compact('document', 'review', 'department', 'user', 'group', 'costlist'));
+    }
+
+    /**
+     * @Authorization 预览
+     */
+    public function show($id)
+    {
+        try {
+            $document = $this->documentsManage->getOneById($id)->toArray()[0];
+        } catch (Exception $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
+        $document['cate1_name'] = '';
+        $document['pm'] = '';
+        $document['author'] = '';
+
+        $doc_cate1 = explode(',', trim($document['cate1'], ','));
+
+        $category = $this->categoryModel->getAll();
+        $gongzuoleibie = [];
+        foreach ($category as $value) {
+            if ($value['type'] == 1) {
+                if (in_array($value['id'], $doc_cate1)) {
+                    $gongzuoleibie[] = $value['name'];
+                }
+            }
+        }
+        if ($gongzuoleibie) {
+            $document['cate1_name'] = implode(', ', $gongzuoleibie);
+        }
+
+        $userList = $this->adminUserManage->getAllUser();
+        if ($userList) {
+            foreach ($userList as $value) {
+                if ($value['id'] == $document['pm_id']) {
+                    $document['pm'] = $value['name'];
+                }
+                if ($value['id'] == $document['author_id']) {
+                    $document['author'] = $value['name'];
+                }
+            }
+        }
+
+        $costList_data = $this->costManage->getBaseAll()->toArray();
+        if ($costList_data) {
+            foreach ($costList_data as $value) {
+                $costList[$value['id']] = $value;
+            }
+        } else {
+            $costList = [];
+        }
+        $docCost = $this->costManage->getDocStructureById($id)->toArray();
+        $attach_ids = $attach_list = [];
+        foreach ($docCost as $item) {
+            if ($item['attach_id']) {
+                $attach_ids[] = $item['attach_id'];
+            }
+        }
+
+        if ($attach_ids) {
+            $attachment = AttachmentModel::whereIn('id', $attach_ids)->get();
+            if ($attachment->count()) {
+                foreach ($attachment as $item) {
+                    $attach_list[$item['id']] = $item['path'];
+                }
+            }
+        }
+
+        return view('admin.document.show', compact('document', 'costList', 'docCost', 'attach_list'));
+    }
+
+    /**
+     * @Authorization 预览
+     */
+    public function download($id)
+    {
+        try {
+            $document = $this->documentsManage->getOneById($id)->toArray()[0];
+        } catch (Exception $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
+        $document['cate1_name'] = '';
+        $document['pm'] = '';
+        $document['author'] = '';
+
+        $doc_cate1 = explode(',', trim($document['cate1'], ','));
+
+        $category = $this->categoryModel->getAll();
+        $gongzuoleibie = [];
+        foreach ($category as $value) {
+            if ($value['type'] == 1) {
+                if (in_array($value['id'], $doc_cate1)) {
+                    $gongzuoleibie[] = $value['name'];
+                }
+            }
+        }
+        if ($gongzuoleibie) {
+            $document['cate1_name'] = implode(', ', $gongzuoleibie);
+        }
+
+        $userList = $this->adminUserManage->getAllUser();
+        if ($userList) {
+            foreach ($userList as $value) {
+                if ($value['id'] == $document['pm_id']) {
+                    $document['pm'] = $value['name'];
+                }
+                if ($value['id'] == $document['author_id']) {
+                    $document['author'] = $value['name'];
+                }
+            }
+        }
+
+        $costList_data = $this->costManage->getBaseAll()->toArray();
+        if ($costList_data) {
+            foreach ($costList_data as $value) {
+                $costList[$value['id']] = $value;
+            }
+        } else {
+            $costList = [];
+        }
+        $docCost = $this->costManage->getDocStructureById($id)->toArray();
+        $attach_ids = $attach_list = [];
+        foreach ($docCost as $item) {
+            if ($item['attach_id']) {
+                $attach_ids[] = $item['attach_id'];
+            }
+        }
+
+        if ($attach_ids) {
+            $attachment = AttachmentModel::whereIn('id', $attach_ids)->get();
+            if ($attachment->count()) {
+                foreach ($attachment as $item) {
+                    $attach_list[$item['id']] = $item['path'];
+                }
+            }
+        }
+
+        $html = View::make('admin.document.show', compact('document', 'costList', 'docCost', 'attach_list'));
+        //return $html;
+        return PDF::loadHTML($html)->download('document.pdf');
     }
 
     /**

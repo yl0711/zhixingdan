@@ -69,6 +69,7 @@
 							<td class= "_name">{{$item['money']}}</td>
 							<td >
 							@if(1 == $item['status'])
+								<button target="{{$item['id']}}" type="button" class="show btn btn-danger">预览</button>
 								<button target="{{$item['id']}}" type="button" class="modify btn btn-info">修改</button>
 								<button target="{{$item['id']}}" type="button" class="process btn btn-success">流程</button>
 								<!--<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-danger">将此单作废</button>-->
@@ -105,6 +106,10 @@ $(function() {
 	
 	$('button[class^="process"]').click(function() {
 		window.location.href="{{url('documents/process')}}/" + $(this).attr('target');
+	});
+	
+	$('button[class^="show"]').click(function() {
+		window.location.href="{{url('documents/show')}}/" + $(this).attr('target');
 	});
 	
 	$('button[class^="on-off"]').click(function() {
