@@ -1002,6 +1002,7 @@ return array(
     'Illuminate\\Foundation\\Bus\\DispatchesCommands' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Bus/DispatchesCommands.php',
     'Illuminate\\Foundation\\Bus\\DispatchesJobs' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Bus/DispatchesJobs.php',
     'Illuminate\\Foundation\\Composer' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Composer.php',
+    'Illuminate\\Foundation\\ComposerScripts' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/ComposerScripts.php',
     'Illuminate\\Foundation\\Console\\AppNameCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Console/AppNameCommand.php',
     'Illuminate\\Foundation\\Console\\ClearCompiledCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Console/ClearCompiledCommand.php',
     'Illuminate\\Foundation\\Console\\CommandMakeCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/Console/CommandMakeCommand.php',
