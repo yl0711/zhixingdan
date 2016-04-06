@@ -67,11 +67,13 @@
 							<td class= "_name">{{$userList[$item['pm_id']]['name']}}</td>
 							<td class= "_name">@if(1==$item['issign']) 已签 @else 未签 @endif</td>
 							<td class= "_name">{{$item['money']}}</td>
-							<td >
+							<td align="center">
 							@if(1 == $item['status'])
-								<button target="{{$item['id']}}" type="button" class="show btn btn-danger">预览</button>
-								<button target="{{$item['id']}}" type="button" class="modify btn btn-info">修改</button>
-								<button target="{{$item['id']}}" type="button" class="process btn btn-success">流程</button>
+								<a target="{{$item['id']}}" class="btn_show">预览</a>
+								@if($admin_user['id'] == $item['created_uid'])
+								<a target="{{$item['id']}}" class="btn_modify">修改</span>
+								@endif
+								<a target="{{$item['id']}}" class="btn_process">流程</span>
 								<!--<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-danger">将此单作废</button>-->
 							@else
 								已作废
@@ -100,15 +102,15 @@ $(function() {
 		window.location.href="{{url('documents/add')}}";
 	});
 	
-	$('button[class^="modify"]').click(function() {
+	$('a[class="btn_modify"]').click(function() {
 		window.location.href="{{url('documents/modify')}}/" + $(this).attr('target');
 	});
 	
-	$('button[class^="process"]').click(function() {
+	$('a[class="btn_process"]').click(function() {
 		window.location.href="{{url('documents/process')}}/" + $(this).attr('target');
 	});
 	
-	$('button[class^="show"]').click(function() {
+	$('a[class="btn_show"]').click(function() {
 		window.location.href="{{url('documents/show')}}/" + $(this).attr('target');
 	});
 	

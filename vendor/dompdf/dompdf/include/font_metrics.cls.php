@@ -298,7 +298,7 @@ class Font_Metrics {
     $names = array();
     
     foreach($files as $file) {
-      $font = Font::load($file);
+      $font = \FontLib\Font::load($file);
       $records = $font->getData("name", "records");
       $type = self::get_type($records[2]);
       $names[mb_strtolower($records[1])][$type] = $file;
@@ -353,7 +353,7 @@ class Font_Metrics {
       // Download the remote file
       file_put_contents($local_temp_file, file_get_contents($remote_file, null, $context));
       
-      $font = Font::load($local_temp_file);
+      $font = \FontLib\Font::load($local_temp_file);
       
       if (!$font) {
         unlink($local_temp_file);

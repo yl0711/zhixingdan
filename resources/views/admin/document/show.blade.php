@@ -79,11 +79,13 @@
 							<td class="tr"> 项目KPI指标 :</td>
 							<td class="tl">{{$document['kpi']}}</td>
 						</tr>
+						<!--
 						<tr>
 							<th colspan = "2" >
 								<button type="button" id="download" class="btn btn-success">下载</button>
 							</th>
 						</tr>
+						-->
 					</tbody>
 				</table>
 			</div>

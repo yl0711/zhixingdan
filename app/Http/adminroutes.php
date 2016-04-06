@@ -103,7 +103,9 @@ Route::group(['namespace'=>'Admin'], function() {
             Route::get('status/{id}', ['uses'=>'DocumentsController@modifyStatus'])->where('id', '[0-9]+');
             Route::get('process/{id}', ['uses'=>'DocumentsController@process'])->where('id', '[0-9]+');
             Route::get('show/{id}', ['uses'=>'DocumentsController@show'])->where('id', '[0-9]+');
-            Route::get('download/{id}', ['uses'=>'DocumentsController@download'])->where('id', '[0-9]+');
+            Route::get('download/{id}', ['uses'=>'DocumentsController@download'], function () {
+                return (new Response($content, $status))->header('Content-Type', 'text/html; charset=GBK');
+            })->where('id', '[0-9]+');
         });
 
         //项目类型管理

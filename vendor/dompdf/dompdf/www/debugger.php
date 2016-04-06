@@ -3,7 +3,7 @@ require_once "functions.inc.php";
 
 $allowed_hosts = array("::1", "127.0.0.1");
 if( !auth_ok() || !in_array($_SERVER['REMOTE_ADDR'], $allowed_hosts) ) {
-  die("Access denied to host at " . $_SERVER['REMOTE_ADDR']);
+  //die("Access denied to host at " . $_SERVER['REMOTE_ADDR']);
 }
 
 

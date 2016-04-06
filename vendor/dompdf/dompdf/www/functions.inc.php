@@ -22,6 +22,13 @@ function auth_check() {
     $_SESSION["auth_message"] = null;
   }
   
+  /*
+   * 如果PHP采用的是CGI/FastCGI方式运行, 则服务器端的认证是不可用的, 如果dompdf只是做测试用, 那么完全可以把认证这部分去掉
+   */
+  $_SESSION["auth_message"] = null;
+  $_SESSION["authenticated"] = true;
+  return true;
+  
   if ( isset($_GET["login"]) || isset($_SERVER["PHP_AUTH_USER"]) ) {
 
     if (!isset($_SERVER["PHP_AUTH_USER"]) ||

@@ -190,7 +190,7 @@ class PDF{
     public function stream($filename = 'document.pdf' ){
         $output = $this->output();
         return new Response($output, 200, array(
-            'Content-Type' => 'application/pdf',
+            'Content-Type' => 'application/pdf; charset=UTF-8',
             'Content-Disposition' =>  'inline; filename="'.$filename.'"',
         ));
     }

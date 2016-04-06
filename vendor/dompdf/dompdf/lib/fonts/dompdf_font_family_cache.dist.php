@@ -108,4 +108,11 @@
     'italic' => DOMPDF_DIR . '/lib/fonts/DejaVuSerifCondensed-Italic',
     'normal' => DOMPDF_DIR . '/lib/fonts/DejaVuSerifCondensed',
   ),
+  'SimSun' =>
+      array (
+          'bold' => DOMPDF_DIR . '/lib/fonts/SimSun',
+          'bold_italic' => DOMPDF_DIR . '/lib/fonts/SimSun',
+          'italic' => DOMPDF_DIR . '/lib/fonts/SimSun',
+          'normal' => DOMPDF_DIR . '/lib/fonts/SimSun',
+      ),
 ) ?>
