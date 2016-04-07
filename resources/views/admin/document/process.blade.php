@@ -29,12 +29,29 @@
 							<td class= "_name">@if($item['cost_id']) {{$costlist[$item['cost_id']]['name']}} @endif</td>
 							<td class= "_name">{{$item['intro']}}</td>
 							<td class= "_name">
-								@if(1 == $item['status']) 通过 @elseif(0 == $item['status']) 待审 @else 拒绝 @endif
+								@if(1 == $item['status'])
+								已审批
+							@elseif (-1 == $item['status'])
+								已拒绝
+							@else
+								待审批
+							@endif
 							</td>
 							<td class= "_name">{{$item['review_at']}}</td>
 							<td >
 							@if(0 == $item['status'])
-								<button target="{{$item['id']}}" type="button" class="modify btn btn-info">催促</button>
+								@if($item['review_uid'] == $admin_user['id'])
+								<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_ok btn btn-info">通过</button>
+								<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_cancel btn btn-info">拒绝</button>
+								@else
+								<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_mail btn btn-info">催促</button>
+								@endif
+							@elseif(1 == $item['status'])
+								审核通过
+							@elseif(-1 == $item['status'])
+								被拒绝
+							@elseif(-2 == $item['status'])
+								之前审批人未审
 							@endif
 							</td>
 						</tr>
@@ -53,36 +70,69 @@
 </body>
 <script>
 $(function() {
-	$('#btn_add_admin_documents').click(function() {
-		window.location.href="{{url('documents/add')}}";
-	});
-	
-	$('button[class^="modify"]').click(function() {
-		window.location.href="{{url('documents/modify')}}/" + $(this).attr('target');
-	});
-	
-	$('button[class^="on-off"]').click(function() {
+	$('button[class^="review_mail"]').click(function() {
 		this_obj = $(this);
-		if (confirm('是否要将' + this_obj.attr('_name') + $(this).text().trim())) {
-			$.ajax({
-				type:"get",
+		$.ajax({
+				type:"post",
 				dataType:"json",
-				url: "{{url('documents/status')}}/" + $(this).attr('target'),
-				async:false,
+				url: "{{url('documents/review')}}/",
+				data:{
+					'type': 'mail',
+					'id': $(this).attr('target'),
+					'doc_id': $(this).attr('doc_id')
+				},
 				success:function($data) {
 					if ($data.status == 'error') {
 						alert($data.info);
 					} else {
-						alert(this_obj.attr('_name') + '状态修改成功');
-						if (1 == $data.data) {
-							this_obj.text('关闭');
-							this_obj.removeClass("btn-warning");
-							this_obj.addClass("btn-danger");
-						} else {
-							this_obj.text('开启');
-							this_obj.removeClass("btn-danger");
-							this_obj.addClass("btn-warning");
-						}
+						alert('邮件已发出，请等待审批');
+					}
+				}
+			});	
+	});
+	
+	$('button[class^="review_ok"]').click(function() {
+		this_obj = $(this);
+		if (confirm('是否要通过此审批')) {
+			$.ajax({
+				type:"post",
+				dataType:"json",
+				url: "{{url('documents/review')}}/",
+				data:{
+					'type': 'ok',
+					'id': $(this).attr('target'),
+					'doc_id': $(this).attr('doc_id')
+				},
+				success:function($data) {
+					if ($data.status == 'error') {
+						alert($data.info);
+					} else {
+						alert('已审批');
+						this_obj.parent().html('已审批');
+					}
+				}
+			});	
+		}
+	});
+	
+	$('button[class^="review_cancel"]').click(function() {
+		this_obj = $(this);
+		if (confirm('是否要拒绝此审批')) {
+			$.ajax({
+				type:"post",
+				dataType:"json",
+				url: "{{url('documents/review')}}/",
+				data:{
+					'type': 'cancel',
+					'id': $(this).attr('target'),
+					'doc_id': $(this).attr('doc_id')
+				},
+				success:function($data) {
+					if ($data.status == 'error') {
+						alert($data.info);
+					} else {
+						alert('已拒绝');
+						this_obj.parent().html('已拒绝');
 					}
 				}
 			});	

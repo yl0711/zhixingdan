@@ -160,7 +160,17 @@ class DocumentsManage
         $return['review'] = $return['user'] = $return['department'] = $return['group'] = [];
 
         $return['review'] = $this->docReviewModel->getListByDocID($docId);
-        foreach ($return['review'] as $item) {
+        $pre_level = 0;
+        foreach ($return['review'] as $key=>$item) {
+            if (0 == $item['status']) {
+                if (0 == $pre_level) {
+                    $pre_level = $item['level'];
+                } else if ($item['level'] > $pre_level) {
+                    $return['review'][$key]['status'] = -2;
+                } else {
+                    $pre_level = $item['level'];
+                }
+            }
             $item->review_uid && $review_uid[] = $item->review_uid;
         }
 
@@ -232,20 +242,10 @@ class DocumentsManage
      */
     public function addDocReview($docId)
     {
+        //项目经理-》项目总监-》区域总监-》成本构成负责人-》事业部总经理-》运营管理部
         $cost_review_user = $review_user = $review_group = [];
         $doc = $this->getOneById($docId)->toArray()[0];
 
-        // 计算成本和费用比例, 根据此比例设置不同的审批级别
-        $ratio = ($doc['cost_num'] / $doc['money']) * 100;
-        if ($ratio > 40) {
-            $review_group = 4;
-        } else if ($ratio > 30) {
-            $review_group = 3;
-        } else if ($ratio > 20) {
-            $review_group = 2;
-        } else {
-            $review_group = 1;
-        }
         // 成本构成项是否有专门审批人
         $cost = $this->costManage->getDocStructureById($docId)->toArray();
         foreach ($cost as $value) {
@@ -262,7 +262,7 @@ class DocumentsManage
         $cost_review_level = 0;
         $level = 1;
         // 根据审批上级, 循环生成审批人
-        while ($user['group_id'] < $review_group && $user['parent_user'] > 0) {
+        while ($user['parent_user'] > 0) {
             $user = UserModel::where('id', $user['parent_user'])->get()->toArray()[0];
             if ($user['group_id'] == 4) {
                 $cost_review_level = $level;

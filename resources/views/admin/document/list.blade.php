@@ -65,11 +65,17 @@
 								{{$item['starttime']}}<br />至<br />{{$item['endtime']}}
 							</td>
 							<td class= "_name">{{$userList[$item['pm_id']]['name']}}</td>
-							<td class= "_name">@if(1==$item['issign']) 已签 @else 未签 @endif</td>
+							<td class= "_name">@if(1 == $item['status'])
+								已审批
+							@elseif (-1 == $item['status'])
+								已拒绝
+							@else
+								待审批
+							@endif</td>
 							<td class= "_name">{{$item['money']}}</td>
 							<td align="center">
-							@if(1 == $item['status'])
 								<a target="{{$item['id']}}" class="btn_show">预览</a>
+							@if(1 == $item['status'])
 								@if($admin_user['id'] == $item['created_uid'])
 								<a target="{{$item['id']}}" class="btn_modify">修改</span>
 								@endif

@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Exception;
 use View;
 use PDF;
+use Mail;
 
 class DocumentsController extends AdminBaseController
 {
@@ -482,7 +483,7 @@ class DocumentsController extends AdminBaseController
     private function doModify(Request $request)
     {
         try {
-            $id = $this->documentsManage->modify($request->all());
+            $this->documentsManage->modify($request->all());
             $this->documentsManage->addDocReview($request->all()['id']);
             return json_encode(['status'=>'success']);
         } catch (\Exception $e) {
@@ -494,11 +495,23 @@ class DocumentsController extends AdminBaseController
     {
         $data = $request->all();
         try {
-            $this->documentsManage->modifyDocReview($data['id'], $data['doc_id'], $data['type']);
+            if ('mail' == $data['type']) {
+                $this->reviewMail($request);
+            } else {
+                $this->documentsManage->modifyDocReview($data['id'], $data['doc_id'], $data['type']);
+            }
             return json_encode(['status'=>'success']);
         } catch (\Exception $e) {
             return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
         }
+    }
 
+    /**
+     * 发送审批提醒邮件
+     * @param Request $request
+     */
+    private function reviewMail(Request $request)
+    {
+        Mail::send('email.document_review_mail');
     }
 }

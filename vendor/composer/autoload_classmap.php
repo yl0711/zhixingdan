@@ -58,6 +58,7 @@ return array(
     'App\\Http\\Model\\liuchengdan\\DepartmentModel' => $baseDir . '/app/Http/Model/liuchengdan/DepartmentModel.php',
     'App\\Http\\Model\\liuchengdan\\DocumentCostStructureModel' => $baseDir . '/app/Http/Model/liuchengdan/DocumentCostStructureModel.php',
     'App\\Http\\Model\\liuchengdan\\DocumentModifyLogModel' => $baseDir . '/app/Http/Model/liuchengdan/DocumentModifyLogModel.php',
+    'App\\Http\\Model\\liuchengdan\\DocumentReviewMailModel' => $baseDir . '/app/Http/Model/liuchengdan/DocumentReviewMailModel.php',
     'App\\Http\\Model\\liuchengdan\\DocumentReviewModel' => $baseDir . '/app/Http/Model/liuchengdan/DocumentReviewModel.php',
     'App\\Http\\Model\\liuchengdan\\DocumentsModel' => $baseDir . '/app/Http/Model/liuchengdan/DocumentsModel.php',
     'App\\Http\\Model\\liuchengdan\\GroupModel' => $baseDir . '/app/Http/Model/liuchengdan/GroupModel.php',
