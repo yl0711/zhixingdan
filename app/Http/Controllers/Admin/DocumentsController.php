@@ -512,6 +512,78 @@ class DocumentsController extends AdminBaseController
      */
     private function reviewMail(Request $request)
     {
-        Mail::send('email.document_review_mail');
+        $data = ['email'=>config('mail.from.address'), 'name'=>config('mail.from.name')];
+
+        try {
+            $document = $this->documentsManage->getOneById($request->input('doc_id'))->toArray()[0];
+        } catch (Exception $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
+        $document['cate1_name'] = '';
+        $document['pm'] = '';
+        $document['author'] = '';
+
+        $doc_cate1 = explode(',', trim($document['cate1'], ','));
+
+        $category = $this->categoryModel->getAll();
+        $gongzuoleibie = [];
+        foreach ($category as $value) {
+            if ($value['type'] == 1) {
+                if (in_array($value['id'], $doc_cate1)) {
+                    $gongzuoleibie[] = $value['name'];
+                }
+            }
+        }
+        if ($gongzuoleibie) {
+            $document['cate1_name'] = implode(', ', $gongzuoleibie);
+        }
+
+        $userList = $this->adminUserManage->getAllUser();
+        if ($userList) {
+            foreach ($userList as $value) {
+                if ($value['id'] == $document['pm_id']) {
+                    $document['pm'] = $value['name'];
+                }
+                if ($value['id'] == $document['author_id']) {
+                    $document['author'] = $value['name'];
+                }
+            }
+        }
+
+        $costList_data = $this->costManage->getBaseAll()->toArray();
+        if ($costList_data) {
+            foreach ($costList_data as $value) {
+                $costList[$value['id']] = $value;
+            }
+        } else {
+            $costList = [];
+        }
+        $docCost = $this->costManage->getDocStructureById($request->input('id'))->toArray();
+        $attach_ids = $attach_list = [];
+        foreach ($docCost as $item) {
+            if ($item['attach_id']) {
+                $attach_ids[] = $item['attach_id'];
+            }
+        }
+
+        if ($attach_ids) {
+            $attachment = AttachmentModel::whereIn('id', $attach_ids)->get();
+            if ($attachment->count()) {
+                foreach ($attachment as $item) {
+                    $attach_list[$item['id']] = $item['path'];
+                }
+            }
+        }
+
+        $data['document'] = $document;
+        $data['costList'] = $costList;
+        $data['docCost'] = $docCost;
+        $data['attach_list'] = $attach_list;
+        $data['activationcode'] = '123456';
+
+        Mail::send('email.document_review_mail', $data, function($message) use($data)
+        {
+            $message->to($data['email'], $data['name'])->subject('欢迎注册我们的网站，请激活您的账号！');
+        });
     }
 }
