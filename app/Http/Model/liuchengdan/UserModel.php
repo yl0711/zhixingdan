@@ -105,6 +105,7 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
     public function add(Array $data)
     {
         try {
+            $data = $this->filter($data);
             $obj = self::create($data);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
@@ -114,8 +115,12 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
 
     public function modify($id, Array $data)
     {
-        $data = $this->filter($data);
-        self::where('id', $id)->update($data);
+        try {
+            $data = $this->filter($data);
+            self::where('id', $id)->update($data);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
     }
 
     public function state($id)

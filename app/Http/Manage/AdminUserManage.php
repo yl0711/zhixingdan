@@ -151,7 +151,11 @@ class AdminUserManage
         unset($request['id']);
         unset($request['oldname']);
 
-        $this->userModel->modify($uid, $request);
+        try {
+            $this->userModel->modify($uid, $request);
+        } catch (\Exception $e) {
+            throw new $e;
+        }
     }
 
     /**
