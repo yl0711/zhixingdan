@@ -116,7 +116,8 @@ class AdminAuthorityController extends AdminBaseController
     public function modifyAuthority(Request $request)
     {
         try {
-            $this->adminAuthorityManage->modifyAuthority($request->all());
+            $data = $request->except(['s']);
+            $this->adminAuthorityManage->modifyAuthority($data);
         } catch (\Exception $e) {
             return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
         }

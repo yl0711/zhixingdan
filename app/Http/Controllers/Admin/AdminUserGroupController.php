@@ -105,7 +105,8 @@ class AdminUserGroupController extends AdminBaseController
     private function doAdd(Request $request)
     {
         try {
-            $this->adminUserManage->addUserGroup($request->all());
+            $data = $request->except(['s']);
+            $this->adminUserManage->addUserGroup($data);
             echo json_encode(['status'=>'success']);
         } catch (\Exception $e) {
             echo json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
@@ -115,7 +116,8 @@ class AdminUserGroupController extends AdminBaseController
     private function doModify(Request $request)
     {
         try {
-            $this->adminUserManage->modifyUserGroup($request->all());
+            $data = $request->except(['s']);
+            $this->adminUserManage->modifyUserGroup($data);
             echo json_encode(['status'=>'success']);
         } catch (\Exception $e) {
             echo json_encode(['status'=>'error', 'info'=>$e->getMessage()]);

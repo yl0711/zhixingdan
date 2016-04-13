@@ -241,7 +241,8 @@ class AdminUserController extends AdminBaseController
     {
         try
         {
-            $id = $this->adminUserManage->addUser($request->all())->id;
+            $data = $request->except(['s']);
+            $id = $this->adminUserManage->addUser($data)->id;
             return json_encode(['status'=>'success', 'data'=>['id'=>$id]]);
         }
         catch (\Exception $e)
@@ -252,7 +253,8 @@ class AdminUserController extends AdminBaseController
 
     private function doModify(Request $request, $id)
     {
-        $this->adminUserManage->modifyUser($request->all());
+        $data = $request->except(['s']);
+        $this->adminUserManage->modifyUser($data);
         return json_encode(['status'=>'success', 'data'=>['id'=>$id]]);
     }
 }

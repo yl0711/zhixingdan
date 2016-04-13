@@ -233,7 +233,7 @@ class ProjectController extends AdminBaseController
     {
         try
         {
-            $data = $request->all();
+            $data = $request->except(['s']);
             $project_id = $this->projectManage->add($data);
             if ($project_id) {
                 $pm_id = $data['pm_id'];
@@ -307,7 +307,8 @@ class ProjectController extends AdminBaseController
     {
         try
         {
-            $this->projectManage->modify($request->all());
+            $data = $request->except(['s']);
+            $this->projectManage->modify($data);
             return json_encode(['status'=>'success']);
         }
         catch (\Exception $e)
@@ -326,7 +327,7 @@ class ProjectController extends AdminBaseController
         if (0 == $project['status']) {
             return json_encode(['status'=>'error', 'info'=>'你访问的项目已经关闭, 请先启动再设置']);
         }
-        $data = $request->all();
+        $data = $request->except(['s']);
         if ($this->projectManage->userExists($id, $data['user_id'])) {
             return json_encode(['status'=>'error', 'info'=>'用户已经在此项目中']);
         }

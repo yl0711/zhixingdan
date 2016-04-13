@@ -89,7 +89,8 @@ class CompanyController extends AdminBaseController
     {
         try
         {
-            $this->companyManage->add($request->all());
+            $data = $request->except(['s']);
+            $this->companyManage->add($data);
             return json_encode(['status'=>'success']);
         }
         catch (\Exception $e)
@@ -101,7 +102,8 @@ class CompanyController extends AdminBaseController
     private function doModify(Request $request)
     {
         try {
-            $this->companyManage->modify($request->all());
+            $data = $request->except(['s']);
+            $this->companyManage->modify($data);
             return json_encode(['status'=>'success']);
         } catch (\Exception $e) {
             return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);

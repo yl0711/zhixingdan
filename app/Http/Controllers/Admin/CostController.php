@@ -102,7 +102,8 @@ class CostController extends AdminBaseController
     private function doAdd(Request $request)
     {
         try {
-            $this->costManage->addBase($request->all());
+            $data = $request->except(['s']);
+            $this->costManage->addBase($data);
             return json_encode(['status'=>'success']);
         } catch (\Exception $e) {
             return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
@@ -112,7 +113,8 @@ class CostController extends AdminBaseController
     private function doModify($request, $id)
     {
         try {
-            $this->costManage->modifyBase($request->all());
+            $data = $request->except(['s']);
+            $this->costManage->modifyBase($data);
             return json_encode(['status'=>'success']);
         } catch (\Exception $e) {
             return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);

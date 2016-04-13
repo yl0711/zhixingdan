@@ -132,8 +132,8 @@ class AdminDepartmentController extends AdminBaseController
     {
         try
         {
-            unset($request->all()['s']);
-            $this->departmentManage->add($request->all());
+            $data = $request->except(['s']);
+            $this->departmentManage->add($data);
             return json_encode(['status'=>'success']);
         }
         catch (\Exception $e)
@@ -146,8 +146,8 @@ class AdminDepartmentController extends AdminBaseController
     {
         try
         {
-            unset($request->all()['s']);
-            $this->departmentManage->modify($request->all());
+            $data = $request->except(['s']);
+            $this->departmentManage->modify($data);
             return json_encode(['status'=>'success']);
         }
         catch (\Exception $e)

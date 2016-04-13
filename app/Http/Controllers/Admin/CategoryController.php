@@ -40,7 +40,8 @@ class CategoryController extends AdminBaseController
     public function add(Request $request)
     {
         if ('POST' == $request->method()) {
-            return $this->doAdd($request->all());
+            $data = $request->except(['s']);
+            return $this->doAdd($data);
         } else {
             $category_type = ['','','',''];
 
@@ -63,7 +64,8 @@ class CategoryController extends AdminBaseController
     public function modify(Request $request, $id)
     {
         if ('POST' == $request->method()) {
-            return $this->doModify($request->all(), $id);
+            $data = $request->except(['s']);
+            return $this->doModify($data, $id);
         } else {
             $category = $this->categoryManage->getOneByID($id)->toArray();
             if (!$category) {

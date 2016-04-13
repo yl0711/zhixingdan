@@ -187,7 +187,8 @@ class DocumentsController extends AdminBaseController
     {
         try
         {
-            $this->documentsManage->add($request->all());
+            $data = $request->except(['s']);
+            $this->documentsManage->add($data);
             return json_encode(['status'=>'success']);
         }
         catch (\Exception $e)
@@ -200,7 +201,8 @@ class DocumentsController extends AdminBaseController
     {
         try
         {
-            $this->documentsManage->modify($request->all());
+            $data = $request->except(['s']);
+            $this->documentsManage->modify($data);
             return json_encode(['status'=>'success']);
         }
         catch (\Exception $e)

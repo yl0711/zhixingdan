@@ -46,7 +46,7 @@ class AuthController extends AdminBaseController
 
     public function dologin(Request $request)
     {
-        $data = $request->all();
+        $data = $request->except(['s']);
         $validator = $this->validator($data);
 
         if ($validator->fails()) {

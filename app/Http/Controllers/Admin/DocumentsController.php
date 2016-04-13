@@ -428,7 +428,7 @@ class DocumentsController extends AdminBaseController
         if ('POST' == $request->method()) {
             \Debugbar::disable();
 
-            $data = $request->all();
+            $data = $request->except(['s']);
             if (!$data['cost_id']) {
                 $result = json_encode(['status'=>'error', 'info'=>'没有选择成本构成项']);
             } else {
@@ -471,7 +471,8 @@ class DocumentsController extends AdminBaseController
     private function doAdd(Request $request)
     {
         try {
-            $id = $this->documentsManage->add($request->all());
+            $data = $request->except(['s']);
+            $id = $this->documentsManage->add($data);
             $this->documentsManage->addDocReview($id);
 
             return json_encode(['status'=>'success']);
@@ -483,8 +484,9 @@ class DocumentsController extends AdminBaseController
     private function doModify(Request $request)
     {
         try {
-            $this->documentsManage->modify($request->all());
-            $this->documentsManage->addDocReview($request->all()['id']);
+            $data = $request->except(['s']);
+            $this->documentsManage->modify($data);
+            $this->documentsManage->addDocReview($data['id']);
             return json_encode(['status'=>'success']);
         } catch (\Exception $e) {
             return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
@@ -493,7 +495,7 @@ class DocumentsController extends AdminBaseController
 
     private function doReview(Request $request)
     {
-        $data = $request->all();
+        $data = $request->except(['s']);
         try {
             if ('mail' == $data['type']) {
                 $this->reviewMail($request);

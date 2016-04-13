@@ -49,7 +49,6 @@ class AdminAreaController extends AdminBaseController
     public function modify(Request $request, $id)
     {
         if ('POST' == $request->method()) {
-            unset($request->all()['s']);
             return $this->doModify($request, $id);
         } else {
             $area = $this->areaManage->getOneById($id)->toArray()[0];
@@ -60,8 +59,8 @@ class AdminAreaController extends AdminBaseController
     private function doAdd(Request $request)
     {
         try {
-            unset($request->all()['s']);
-            $this->areaManage->add($request->all());
+            $data = $request->except(['s']);
+            $this->areaManage->add($data);
             return json_encode(['status'=>'success']);
         } catch (\Exception $e){
             return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
@@ -71,8 +70,8 @@ class AdminAreaController extends AdminBaseController
     private function doModify(Request $request, $id)
     {
         try {
-            unset($request->all()['s']);
-            $this->areaManage->modify($id, $request->all());
+            $data = $request->except(['s']);
+            $this->areaManage->modify($id, $data);
             return json_encode(['status'=>'success']);
         } catch (\Exception $e){
             return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
