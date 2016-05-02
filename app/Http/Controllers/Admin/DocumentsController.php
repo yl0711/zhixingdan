@@ -347,8 +347,9 @@ class DocumentsController extends AdminBaseController
     }
 
     /**
-     * @Authorization 预览
+     * @Authorization 下载
      */
+    /*
     public function download($id)
     {
         try {
@@ -415,7 +416,7 @@ class DocumentsController extends AdminBaseController
         $html = View::make('admin.document.show', compact('document', 'costList', 'docCost', 'attach_list'));
         //return $html;
         return PDF::loadHTML($html, 'UTF-8')->download('document.pdf');
-    }
+    }*/
 
     /**
      * @Authorization 设置成本构成
