@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b9c2e4c6-5970-4a71-800c-a818b05b986f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/adminroutes.php" afterPath="$PROJECT_DIR$/app/Http/adminroutes.php" />
     </list>
     <ignored path="zhixingdan.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -75,11 +75,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DocumentsController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DocumentsController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="538">
-              <caret line="418" column="7" selection-start-line="418" selection-start-column="7" selection-end-line="418" selection-end-column="7" />
+            <state relative-caret-position="223">
+              <caret line="280" column="24" selection-start-line="280" selection-start-column="22" selection-end-line="280" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="adminroutes.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/adminroutes.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="297">
+              <caret line="62" column="90" selection-start-line="62" selection-start-column="90" selection-end-line="62" selection-end-column="90" />
               <folding />
             </state>
           </provider>
@@ -128,7 +138,6 @@
         <option value="$PROJECT_DIR$/app/Http/Manage/UploadManage.php" />
         <option value="$PROJECT_DIR$/app/Http/Model/liuchengdan/DocumentsModel.php" />
         <option value="$PROJECT_DIR$/bootstrap/app.php" />
-        <option value="$PROJECT_DIR$/app/Http/adminroutes.php" />
         <option value="$PROJECT_DIR$/vendor/dompdf/dompdf/www/debugger.php" />
         <option value="$PROJECT_DIR$/vendor/dompdf/dompdf/www/head.inc" />
         <option value="$PROJECT_DIR$/vendor/dompdf/dompdf/lib/fonts/dompdf_font_family_cache.dist.php" />
@@ -154,6 +163,7 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/ProjectController.php" />
         <option value="$PROJECT_DIR$/app/Http/Manage/AdminAuthorityManage.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" />
+        <option value="$PROJECT_DIR$/app/Http/adminroutes.php" />
       </list>
     </option>
   </component>
@@ -174,7 +184,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="817" />
+    <option name="height" value="815" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -201,7 +211,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -409,6 +418,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -489,15 +499,17 @@
       <workItem from="1460682224255" duration="644000" />
       <workItem from="1460769356229" duration="636000" />
       <workItem from="1460856875949" duration="341000" />
-      <workItem from="1462155804374" duration="3285000" />
+      <workItem from="1462155804374" duration="3973000" />
+      <workItem from="1462267764356" duration="598000" />
+      <workItem from="1462339300113" duration="680000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21844000" />
+    <option name="totallyTimeSpent" value="23810000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="817" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="815" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -812,13 +824,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/adminroutes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="65" column="65" selection-start-line="65" selection-start-column="65" selection-end-line="65" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/AdminAuthorityController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1590">
@@ -863,15 +868,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2910">
           <caret line="204" column="48" selection-start-line="204" selection-start-column="48" selection-end-line="204" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ProjectController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4785">
-          <caret line="331" column="73" selection-start-line="331" selection-start-column="73" selection-end-line="331" selection-end-column="73" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -886,7 +882,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -894,14 +889,29 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="415">
           <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="538">
-          <caret line="418" column="7" selection-start-line="418" selection-start-column="7" selection-end-line="418" selection-end-column="7" />
+        <state relative-caret-position="223">
+          <caret line="280" column="24" selection-start-line="280" selection-start-column="22" selection-end-line="280" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ProjectController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4785">
+          <caret line="331" column="73" selection-start-line="331" selection-start-column="73" selection-end-line="331" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/adminroutes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="62" column="90" selection-start-line="62" selection-start-column="90" selection-end-line="62" selection-end-column="90" />
           <folding />
         </state>
       </provider>

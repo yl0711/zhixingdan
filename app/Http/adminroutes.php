@@ -59,8 +59,8 @@ Route::group(['namespace'=>'Admin'], function() {
             Route::get('index', ['uses'=>'AdminAuthorityController@index']);
             Route::get('refresh', ['uses'=>'AdminAuthorityController@refreshList']);
 
-            Route::get('user/{uid}', ['uses'=>'AdminAuthorityController@userAuthority'])->where('uid','[1-9]+');
-            Route::get('group/{gid}', ['uses'=>'AdminAuthorityController@groupAuthority'])->where('gid','[1-9]+');
+            Route::get('user/{uid}', ['uses'=>'AdminAuthorityController@userAuthority']);
+            Route::get('group/{gid}', ['uses'=>'AdminAuthorityController@groupAuthority']);
 
             Route::post('user/{uid?}', ['uses'=>'AdminAuthorityController@userAuthority']);
             Route::post('group/{gid?}', ['uses'=>'AdminAuthorityController@groupAuthority']);
