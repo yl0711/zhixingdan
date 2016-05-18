@@ -166,7 +166,7 @@ class AdminUserController extends AdminBaseController
                     $value['selected'] = '';
                 }
             }
-            $user_area = explode(',', $user['area_id']);
+            $user_area = explode(',', trim($user['area_id'], ','));
             $area = $this->areaManage->getList();
             foreach ($area as $value)
             {

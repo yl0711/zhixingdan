@@ -40,8 +40,11 @@ function check_submit_data() {
 	area_id = '';
 	$("input[name='area_id']").each(function(){
         if($(this).attr("checked"))
-            area_id += $(this).val() + ",";
+            area_id += $(this).val() + ',';
     });
+    if (area_id) {
+    		area_id = ',' + area_id;
+    }
 	
 	if (0 == $('#name').val().trim().length) {
 		alert('账号不能为空');

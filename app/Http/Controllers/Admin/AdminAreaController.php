@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminBaseController;
 use App\Http\Manage\AreaManage;
+use App\Http\Model\liuchengdan\UserModel;
 use Illuminate\Http\Request;
 
 class AdminAreaController extends AdminBaseController
@@ -25,7 +26,11 @@ class AdminAreaController extends AdminBaseController
 
     public function index()
     {
-        $areaList = $this->areaManage->getList();
+        $data = $this->areaManage->getList();
+        foreach ($data as $item) {
+            $item['person'] = UserModel::where('area_id', 'LIKE', '%,' . $item['id'] . ',%')->where('status', '!=', '-1')->count();
+            $areaList[] = $item;
+        }
 
         return view('admin.admin_area.list', compact('areaList'));
     }

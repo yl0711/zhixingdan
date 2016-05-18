@@ -277,7 +277,7 @@ class AdminUserManage
             }
 
             $data = [];
-            $department = $this->groupModel->getOneById($id)->toArray()[0];
+            $department = $this->groupModel->getByGid($id)->toArray()[0];
             $data['status'] = abs(1 - $department['status']);
             $this->groupModel->modify($id, $data);
             return $data['status'];

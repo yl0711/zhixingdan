@@ -56,9 +56,9 @@
 							<td >
 								<button target="{{$item['id']}}" type="button" class="modify btn btn-info">修改</button>
 							@if(1 == $item['status'])
-								<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-danger">关闭</button>
+								<button target="{{$item['id']}}" data="0" _name="{{$item['name']}}" type="button" class="on-off btn btn-danger">关闭</button>
 							@else
-								<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-warning">开启</button>
+								<button target="{{$item['id']}}" data="1" _name="{{$item['name']}}" type="button" class="on-off btn btn-warning">开启</button>
 							@endif
 								</a>
 							</td>
@@ -95,7 +95,7 @@ $(function() {
 			$.ajax({
 				type:"get",
 				dataType:"json",
-				url: "{{url('category/status')}}/" + $(this).attr('target'),
+				url: "{{url('category/status')}}/" + $(this).attr('target') + '/?status=' + this_obj.attr('data'),
 				async:false,
 				success:function($data) {
 					if ($data.status == 'error') {

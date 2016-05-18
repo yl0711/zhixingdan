@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminBaseController;
 use App\Http\Manage\CategoryManage;
+use App\Http\Model\liuchengdan\CategoryModel;
 use Illuminate\Http\Request;
 
 class CategoryController extends AdminBaseController
@@ -97,7 +98,16 @@ class CategoryController extends AdminBaseController
      */
     public function modifyStatus(Request $request, $id)
     {
-
+        $data = $request->all();
+        if (!isset($data['status'])) {
+            return json_encode(['status'=>'error', 'info'=>'参数错误']);
+        }
+        try {
+            CategoryModel::where('id', $id)->update(['status'=>$data['status']]);
+            return json_encode(['status'=>'success']);
+        } catch (\Exception $e) {
+            return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
     }
 
     private function doAdd(array $data)

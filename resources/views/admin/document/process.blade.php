@@ -44,7 +44,9 @@
 								<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_ok btn btn-info">通过</button>
 								<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_cancel btn btn-info">拒绝</button>
 								@else
+									@if($admin_user['id'] == $item['created_uid'])
 								<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_mail btn btn-info">催促</button>
+									@endif
 								@endif
 							@elseif(1 == $item['status'])
 								审核通过

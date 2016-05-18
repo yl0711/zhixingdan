@@ -23,7 +23,7 @@
 						</tr>
 					</thead>
 					<tbody id= "dataListTable"　>
-					@if($areaList->count())
+					@if(count($areaList))
 						@foreach($areaList as $item)
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
 							<td class= "_id" >{{$item['id']}}</td>
