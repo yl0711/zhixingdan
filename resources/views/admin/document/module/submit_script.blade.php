@@ -66,7 +66,12 @@ $(function() {
 					@if ($page_type=='modify')
 					'id':{{$document['id']}},
 					@endif
+					@if ($page_type=='modify')
+					'created_uid':{{$document['created_uid']}},
+					'modify_uid':{{$admin_user['id']}},
+					@else
 					'created_uid':{{$admin_user['id']}},
+					@endif
 					'company_name':$('#company_name').val(),
 					'project_name':$('#project_name').val(),
 					'cate1':get_cate1(),
@@ -81,7 +86,8 @@ $(function() {
 					'cost_intro':get_cost_intro(),
 					'cost_money':get_cost_money(),
 					'cost_attach':get_cost_attach(),
-					'kpi':$('#kpi').val()
+					'kpi':$('#kpi').val(),
+					'old_id':{{$document['old_id']}}
 				},
 				async:false,
 				success:function($data) {

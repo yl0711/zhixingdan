@@ -19,7 +19,7 @@ class DocumentsModel extends BaseModel
      */
     protected $table = 'base_document';
 
-    public function getList($name='', $cate1=0, $status=2, array $where=[])
+    public function getList($name='', $cate1=0, $status=2, $uids=[])
     {
         $query = self::orderBy('id', 'asc');
 
@@ -32,8 +32,8 @@ class DocumentsModel extends BaseModel
         if (2 != $status) {
             $query = $query->where('status', $status);
         }
-        if (!empty($where)) {
-            $query = $query->where($where);
+        if (!empty($uids)) {
+            $query = $query->whereIn('created_uid', $uids);
         }
 
         return $query->paginate(config('global.PAGE_SIZE'));

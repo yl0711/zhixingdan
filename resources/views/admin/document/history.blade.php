@@ -6,36 +6,6 @@
 			<div>
 				<div class = "table_tit" style="float: left;padding: 15px;"><h1>{{$navigation}}</h1></div>
 			</div>
-			<div class="table-con" style="text-align: left; padding-top: 5px; padding-left: 10px; padding-bottom: 5px; font-size: 15px;">
-				<span><a href="{{url('documents/index')}}" style="color: #0000FF;">我创建的</a></span>
-				<span><a href="{{url('documents/review')}}">我审批的</a></span>
-			</div>
-			<div class="search-box">
-				<span>&nbsp;</span>
-				<form action = "{{url('documents/index')}}" id = "form_seach" name = "form_seach" method="post" >
-					<input style="width: 150px;" type="text" name="name" placeholder="输入名称" value="{{$name}}" />
-					<select id="cate1" name="cate1" class = "seachByStatus">
-						<option value="0" >选择工作类别</option>
-					@if (count($gongzuoleibie))
-						@foreach($gongzuoleibie as $item)
-						<option value="{{$item['id']}}" {{$item['selected']}}>{{$item['name']}}</option>
-						@endforeach
-					@endif
-					</select>
-					<select  class = "seachByStatus" name="status">
-						<option value="2" @if($status==2) selected @endif>全部</option>
-						<option value="1" @if($status==1) selected @endif>已打开</option>
-						<option value="0" @if($status==0) selected @endif>已关闭</option>
-					</select>
-					<button class = "btn_seach" onclick="form_seach.submit();">查询</button>
-					<!--每页显示条数-->
-					<span class = "pageSizeSpan" >条/页</span>
-					<input type="text"  action = "{{url('documents/index')}}/?name={{$name}}&status={{$status}}&cate1＝{{$cate1}}" class = "pageSize" name = "pageSize"  value="{{$pageSize}}" >
-				</form>	
-				<div class="fr top-r">
-					<i class="add-ico" id = "btn_add_admin_documents" >添加执行单 </i>
-				</div>
-			</div>
 			<div class="table-con">	
 				<table>
 					<thead>
@@ -47,14 +17,14 @@
 							<th style="width: 10%;">客户名称</th>
 							<th style="width: 10%;">项目周期</th>
 							<th style="width: 8%;">创建人</th>
-							<th style="width: 10%;">状态</th>
+							<th style="width: 8%;">修改人</th>
 							<th style="width: 10%;">金额</th>
 							<th >操作</th>
 						</tr>
 					</thead>
 					<tbody id= "dataListTable"　>
-					@if($document->count())
-						@foreach($document as $item)
+					@if($history->count())
+						@foreach($history as $item)
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
 							<td class= "_id" >{{$item['id']}}</td>
 							<td class= "_name">{{$item['identifier']}}</td>
@@ -65,23 +35,10 @@
 								{{$item['starttime']}}<br />至<br />{{$item['endtime']}}
 							</td>
 							<td class= "_name">{{$userList[$item['created_uid']]['name']}}</td>
-							<td class= "_name">@if(1 == $item['status'])
-								已审批
-							@elseif (-1 == $item['status'])
-								已拒绝
-							@else
-								待审批
-							@endif</td>
+							<td class= "_name">@if($item['modify_uid']) {{$userList[$item['modify_uid']]['name']}} @endif</td>
 							<td class= "_name">{{$item['money']}}</td>
 							<td align="center">
 								<a target="{{$item['id']}}" class="btn_show">预览</a>
-							@if(1 == $item['status'])
-								<a target="{{$item['id']}}" class="btn_modify">修改</span>
-								<a target="{{$item['id']}}" class="btn_process">流程</span>
-								<a target="{{$item['id']}}" class="btn_history">历史记录</span>
-							@else
-								已作废
-							@endif
 							</td>
 						</tr>
 						@endforeach
@@ -91,9 +48,6 @@
 					</tbody>
 				</table>
 			</div>
-			@if($document->count())
-			{!! $document->appends(['name'=>$name, 'status'=>$status, 'cate1'=>$cate1, 'pageSize'=>$pageSize])->render() !!}
-			@endif
  		</div>
 		<!--//网页备注-->	
 	</div>
@@ -116,10 +70,6 @@ $(function() {
 	
 	$('a[class="btn_show"]').click(function() {
 		window.location.href="{{url('documents/show')}}/" + $(this).attr('target');
-	});
-	
-	$('a[class="btn_history"]').click(function() {
-		window.location.href="{{url('documents/history')}}/" + $(this).attr('target');
 	});
 	
 	$('button[class^="on-off"]').click(function() {

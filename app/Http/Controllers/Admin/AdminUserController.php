@@ -187,7 +187,7 @@ class AdminUserController extends AdminBaseController
     public function parentUser(Request $request, $id)
     {
         try {
-            $user = $this->adminUserManage->getUser($id)->toarray()[0];
+            $user = $this->adminUserManage->getUser($id)->toArray()[0];
         }  catch (\Exception $e) {
             abort('404', $e->getMessage());
         }
@@ -211,6 +211,7 @@ class AdminUserController extends AdminBaseController
                 abort('404', '用户 ' . $user['name'] . ' 所在区域或部门已经没有人级别比他高了!');
             }
 
+            //$userList = $this->adminUserManage->getUserList('', $parentids, $user['department_id'], explode(',', $user['area_id']));
             $userList = $this->adminUserManage->getUserList('', $parentids, $user['department_id'], explode(',', $user['area_id']));
             if (!$userList->count()) {
                 abort('404', '用户 ' . $user['name'] . ' 所在区域或部门没有其他用户了!');

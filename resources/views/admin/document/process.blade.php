@@ -25,7 +25,7 @@
 					@if($review->count())
 						@foreach($review as $item)
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
-							<td class= "_id" ><a title="部门：{{$department[$item['department_id']]['name']}}；级别：{{$group[$item['group_id']]['name']}}">{{$user[$item['review_uid']]['name']}}</a></td>
+							<td class= "_id" ><a title="部门：{{$department[$user[$item['review_uid']]['department_id']]['name']}}；级别：{{$group[$user[$item['review_uid']]['group_id']]['name']}}">{{$user[$item['review_uid']]['name']}}</a></td>
 							<td class= "_name">@if($item['cost_id']) {{$costlist[$item['cost_id']]['name']}} @endif</td>
 							<td class= "_name">{{$item['intro']}}</td>
 							<td class= "_name">

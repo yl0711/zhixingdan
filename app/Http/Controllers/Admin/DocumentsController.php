@@ -9,11 +9,13 @@
 namespace app\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminBaseController;
+use App\Http\Manage\AdminUserManage;
 use App\Http\Manage\CostManage;
 use App\Http\Manage\DocumentsManage;
 use App\Http\Manage\UploadManage;
 use App\Http\Model\liuchengdan\AttachmentModel;
 use App\Http\Model\liuchengdan\CategoryModel;
+use App\Http\Model\liuchengdan\DocumentsModel;
 use Illuminate\Http\Request;
 use Exception;
 use View;
@@ -25,6 +27,7 @@ class DocumentsController extends AdminBaseController
     private $documentsManage = null;
     private $categoryModel = null;
     private $costManage = null;
+    private $userManage = null;
 
     public function __construct()
     {
@@ -33,17 +36,21 @@ class DocumentsController extends AdminBaseController
         $this->documentsManage = new DocumentsManage();
         $this->categoryModel = new CategoryModel();
         $this->costManage = new CostManage();
+        $this->userManage = new AdminUserManage();
     }
 
     public function index(Request $request)
     {
         $name = $request->input('name', '');
         $cate1 = $request->input('cate1', 0);
-        $status = $request->input('status', 2);
+        $status = $request->input('status', 1);
         // 列表类型, list-我创建的, review-我审核的
         $type = $request->input('type', 'list');
 
-        $document = $this->documentsManage->getList($name, $cate1, $status);
+        $branch_ids = $this->userManage->getBranchUser($this->admin_user['id']);
+        array_push($branch_ids, $this->admin_user['id']);
+
+        $document = $this->documentsManage->getList($name, $cate1, $status, $branch_ids);
 
         $category = $this->categoryModel->getAll();
         $gongzuoleibie = [];
@@ -129,6 +136,9 @@ class DocumentsController extends AdminBaseController
     {
         try {
             $document = $this->documentsManage->getOneById($id)->toArray()[0];
+            if (!$document['old_id']) {
+                $document['old_id'] = $document['id'];
+            }
         } catch (Exception $e) {
             abort($e->getCode(), $e->getMessage());
         }
@@ -344,6 +354,54 @@ class DocumentsController extends AdminBaseController
         }
 
         return view('admin.document.show', compact('document', 'costList', 'docCost', 'attach_list'));
+    }
+
+    /**
+     * @Authorization 历史记录
+     */
+    public function history($id)
+    {
+        try {
+            $document = $this->documentsManage->getOneById($id)->toArray()[0];
+        } catch (Exception $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
+        if ($document['old_id'] > 0) {
+            $history = DocumentsModel::where(function($query) use($document){
+                $query->where('old_id', $document['old_id'])->orWhere('id', $document['old_id']);
+            })->where('id', '!=', $id)->get();
+
+            $category = $this->categoryModel->getAll();
+            $gongzuoleibie = [];
+            foreach ($category as $value) {
+                if ($value['type'] == 1) {
+                    $gongzuoleibie[$value['id']] = $value;
+                }
+            }
+
+            $data = $this->adminUserManage->getAllUser();
+            foreach ($data as $item) {
+                $userList[$item['id']] = $item;
+            }
+
+            foreach ($history as $key=>$value) {
+                if ($value['cate1']) {
+                    $tmp_id = explode(',', trim($value['cate1'], ','));
+                    $tpm_arr = [];
+                    foreach ($tmp_id as $id) {
+                        $tpm_arr[] = $gongzuoleibie[$id]['name'];
+                    }
+                    if ($tpm_arr) {
+                        $value['cate1'] = implode('; ', $tpm_arr);
+                    }
+                } else {
+                    $value['cate1'] = '';
+                }
+            }
+        } else {
+            $history = [];
+        }
+        return view('admin.document.history', compact('document', 'history', 'userList'));
     }
 
     /**

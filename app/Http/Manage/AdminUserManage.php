@@ -65,6 +65,35 @@ class AdminUserManage
         }
     }
 
+    public function getParentUser($uid)
+    {
+        $ids = [];
+        $parent_user = $this->userModel->where('id', $uid)->select('parent_user')->get()->toArray();
+
+        while ($parent_user && isset($parent_user[0]['parent_user']) && $parent_user[0]['parent_user']) {
+            $ids[] = $parent_user[0]['parent_user'];
+            $parent_user = $this->userModel->where('uid', $uid)->select('parent_user')->get()->toArray();
+        }
+        return $ids;
+    }
+
+    public function getBranchUser($uid)
+    {
+        $ids = $branch_ids = [];
+        $branch_user = $this->userModel->where('parent_user', $uid)->select('id')->get()->toArray();
+
+        while ($branch_user) {
+            $branch_ids = [];
+            foreach ($branch_user as $item) {
+                $ids[] = $item['id'];
+                $branch_ids[] = $item['id'];
+            }
+            $branch_user = $this->userModel->whereIn('parent_user', $branch_ids)->select('id')->get()->toArray();
+        }
+        $ids = array_unique($ids);
+        return $ids;
+    }
+
     /**
      * 添加管理员
      * @param array $request

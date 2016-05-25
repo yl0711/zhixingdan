@@ -107,11 +107,23 @@
 				@if (count($docCost))
 					@foreach ($docCost as $item)
 					<tr>
-						<td>{{$costList[$item['cost_id']]['name']}}</td>
-						<td>{{$item['money']}}</td>
-						<td>{{$item['intro']}}</td>
+						<td>
+							{{$costList[$item['cost_id']]['name']}}
+							<input type="hidden" id="select_cost_id[]" name="select_cost_id[]" value="{{$item['cost_id']}}" />
+						</td>
+						<td>
+							{{$item['money']}}
+							<input type="hidden" id="select_cost_money[]" name="select_cost_money[]" value="{{$item['money']}}" />
+						</td>
+						<td>
+							{{$item['intro']}}
+							<input type="hidden" id="select_cost_intro[]" name="select_cost_intro[]" value="{{$item['intro']}}" />
+						</td>
 						<td>@if ($item['attach_id'] && isset($attach_list[$item['attach_id']]))
 						<a href="http://{{config('global.DOMAIN.IMAGE')}}{{$attach_list[$item['attach_id']]}}" target="_blank">查看</a>
+						<input type="hidden" id="select_cost_attach[]" name="select_cost_attach[]" value="{{$item['attach_id']}}" />
+						@else
+						<input type="hidden" id="select_cost_attach[]" name="select_cost_attach[]" value="" />
 						@endif</td>
 						<td></td>
 					</tr>

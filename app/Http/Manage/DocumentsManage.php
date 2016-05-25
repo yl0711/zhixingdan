@@ -41,9 +41,9 @@ class DocumentsManage
      * @param int $status
      * @return mixed
      */
-    public function getList($name='', $cate1=0, $status=2)
+    public function getList($name='', $cate1=0, $status=2, $uids=[])
     {
-        return $this->documentModel->getList($name, $cate1, $status);
+        return $this->documentModel->getList($name, $cate1, $status, $uids);
     }
 
     public function getAll()
@@ -146,7 +146,12 @@ class DocumentsManage
             // 修改记录中关联到此执行单的都重新关联到新的
             $this->docModifyLogModel->modify(['new_id' => $old_id], ['new_id' => $id]);
             // 添加新的修改记录
-            $this->docModifyLogModel->add(['old_id' => $old_id, 'new_id' => $id, 'created_uid' => $request['created_uid']]);
+            $this->docModifyLogModel->add([
+                'old_id' => $old_id,
+                'new_id' => $id,
+                'created_uid' => $request['created_uid'],
+                'modify_uid' => $request['modify_uid'],
+            ]);
             return $id;
         } catch (Exception $e) {
             throw $e;
