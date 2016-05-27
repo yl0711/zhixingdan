@@ -1047,6 +1047,7 @@ return array(
     'Illuminate\\Database\\Schema\\Grammars\\SQLiteGrammar' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Schema/Grammars/SQLiteGrammar.php',
     'Illuminate\\Database\\Schema\\Grammars\\SqlServerGrammar' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Schema/Grammars/SqlServerGrammar.php',
     'Illuminate\\Database\\Schema\\MySqlBuilder' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Schema/MySqlBuilder.php',
+    'Illuminate\\Database\\Schema\\PostgresBuilder' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Schema/PostgresBuilder.php',
     'Illuminate\\Database\\SeedServiceProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Database/SeedServiceProvider.php',
     'Illuminate\\Database\\Seeder' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Seeder.php',
     'Illuminate\\Database\\SqlServerConnection' => $vendorDir . '/laravel/framework/src/Illuminate/Database/SqlServerConnection.php',
