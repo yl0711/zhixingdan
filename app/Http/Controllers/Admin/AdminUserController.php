@@ -226,6 +226,37 @@ class AdminUserController extends AdminBaseController
     }
 
     /**
+     * @Authorization 权限转移
+     */
+    public function transferUser(Request $request, $id)
+    {
+        try {
+            $user = $this->adminUserManage->getUser($id)->toArray()[0];
+        }  catch (\Exception $e) {
+            abort('404', $e->getMessage());
+        }
+
+        if ('POST' == $request->method()) {
+            try {
+                $this->adminUserManage->transferUser($id, $request->all()['transfer']);
+                echo json_encode(['status'=>'success']);
+            } catch (\Exception $e) {
+                echo json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+            }
+        } else {
+            $userGroup = $this->adminUserManage->getUserGroup($user['group_id'])->toarray()[0];
+
+            $userList = $this->adminUserManage->getUserList();
+
+            $data = $this->adminUserManage->getUserGroupAll();
+            foreach ($data as $value) {
+                $grouplist[$value['id']] = $value['name'];
+            }
+            return view('admin.admin_user.transfer', compact('user', 'userGroup', 'userList', 'grouplist'));
+        }
+    }
+
+    /**
      * @Authorization 修改状态
      */
     public function modifyStatus($id)

@@ -107,7 +107,7 @@ $(function() {
 	});
 	
 	$('button[class^=transfer]').click(function() {
-		
+		window.location.href="{{url('user/transfer')}}/" + $(this).attr('target');
 	});
 	
 	$('button[class^="on-off"]').click(function() {

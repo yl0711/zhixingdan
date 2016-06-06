@@ -321,6 +321,18 @@ class AdminUserManage
     }
 
     /**
+     * 用户权限转移
+     *
+     * @param $id
+     * @param $parentid
+     */
+    public function transferUser($id, $parentid)
+    {
+
+    }
+
+
+    /**
      * 获取发文是否需要审核的描述信息
      * @param $state 状态码, 1不需要，0需要
      *
