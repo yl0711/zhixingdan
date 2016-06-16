@@ -92,6 +92,9 @@ class DocumentsController extends AdminBaseController
      */
     public function add(Request $request)
     {
+        if (!$this->admin_user['department_id']) {
+            abort(400, '用户没有部门, 不能创建执行单');
+        }
         if ('POST' == $request->method()) {
             return $this->doAdd($request);
         } else {
@@ -218,49 +221,69 @@ class DocumentsController extends AdminBaseController
     }
 
     /**
-     * @Authorization 审批
+     * @Authorization 执行单审批
      */
     public function review(Request $request)
     {
+        $id = intval($request->input('id', 0));
+        $doc_id = intval($request->input('doc_id', 0));
+        if (!$id || !$doc_id) {
+            abort('400', '参数错误');
+        }
+
+        try {
+            $document = $this->documentsManage->getOneById($id)->toArray()[0];
+        } catch (Exception $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
+
         if ('POST' == $request->method()) {
             return $this->doReview($request);
         } else {
-            $category = $this->categoryModel->getAll();
-            $gongzuoleibie = [];
-            foreach ($category as $value) {
-                $value['selected'] = '';
-                if ($value['type'] == 1) {
-                    $gongzuoleibie[$value['id']] = $value;
-                }
-            }
-
-            $data = $this->adminUserManage->getAllUser();
-            foreach ($data as $item) {
-                $userList[$item['id']] = $item;
-            }
-
-            $return = $this->documentsManage->getDocReviewByUserID($this->admin_user['id']);
-            $review = $return['review'];
-            $cost = $return['cost'];
-
-            $doc_cate1 = [];
-            foreach ($review as $key=>$value) {
-                $doc_cate1_str = '';
-                if ($value['doc']['cate1']) {
-                    $tmp_id = explode(',', trim($value['doc']['cate1'], ','));
-                    $tpm_arr = [];
-                    foreach ($tmp_id as $id) {
-                        $tpm_arr[] = $gongzuoleibie[$id]['name'];
-                    }
-                    if ($tpm_arr) {
-                        $doc_cate1_str = implode('; ', $tpm_arr);
-                    }
-                }
-                $doc_cate1[$value['doc']['id']] = $doc_cate1_str;
-            }
-
-            return view('admin.document.review', compact('review', 'cost', 'userList', 'doc_cate1', 'gongzuoleibie'));
+            return view('admin.document.module.reviewInfo', compact('id', 'doc_id', 'document'));
         }
+    }
+
+    /**
+     * @Authorization 我审批的列表
+     */
+    public function myReviewList(Request $request)
+    {
+        $category = $this->categoryModel->getAll();
+        $gongzuoleibie = [];
+        foreach ($category as $value) {
+            $value['selected'] = '';
+            if ($value['type'] == 1) {
+                $gongzuoleibie[$value['id']] = $value;
+            }
+        }
+
+        $data = $this->adminUserManage->getAllUser();
+        foreach ($data as $item) {
+            $userList[$item['id']] = $item;
+        }
+
+        $return = $this->documentsManage->getDocReviewByUserID($this->admin_user['id']);
+        $review = $return['review'];
+        $cost = $return['cost'];
+
+        $doc_cate1 = [];
+        foreach ($review as $key=>$value) {
+            $doc_cate1_str = '';
+            if ($value['doc']['cate1']) {
+                $tmp_id = explode(',', trim($value['doc']['cate1'], ','));
+                $tpm_arr = [];
+                foreach ($tmp_id as $id) {
+                    $tpm_arr[] = $gongzuoleibie[$id]['name'];
+                }
+                if ($tpm_arr) {
+                    $doc_cate1_str = implode('; ', $tpm_arr);
+                }
+            }
+            $doc_cate1[$value['doc']['id']] = $doc_cate1_str;
+        }
+
+        return view('admin.document.review', compact('review', 'cost', 'userList', 'doc_cate1', 'gongzuoleibie'));
     }
 
     /**
@@ -357,7 +380,7 @@ class DocumentsController extends AdminBaseController
     }
 
     /**
-     * @Authorization 历史记录
+     * @Authorization 修改记录
      */
     public function history($id)
     {
@@ -369,7 +392,7 @@ class DocumentsController extends AdminBaseController
         if ($document['old_id'] > 0) {
             $history = DocumentsModel::where(function($query) use($document){
                 $query->where('old_id', $document['old_id'])->orWhere('id', $document['old_id']);
-            })->where('id', '!=', $id)->get();
+            })->where('id', '!=', $id)->get()->toArray();
 
             $category = $this->categoryModel->getAll();
             $gongzuoleibie = [];
@@ -392,16 +415,28 @@ class DocumentsController extends AdminBaseController
                         $tpm_arr[] = $gongzuoleibie[$id]['name'];
                     }
                     if ($tpm_arr) {
-                        $value['cate1'] = implode('; ', $tpm_arr);
+                        $history[$key]['cate1'] = implode('; ', $tpm_arr);
                     }
                 } else {
-                    $value['cate1'] = '';
+                    $history[$key]['cate1'] = '';
                 }
             }
         } else {
             $history = [];
         }
         return view('admin.document.history', compact('document', 'history', 'userList'));
+    }
+
+    /**
+     * @Authorization 审批记录
+     */
+    public function reviewLog()
+    {
+        try {
+            $document = $this->documentsManage->getOneById($id)->toArray()[0];
+        } catch (Exception $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
     }
 
     /**
@@ -554,16 +589,16 @@ class DocumentsController extends AdminBaseController
 
     private function doReview(Request $request)
     {
-        $data = $request->except(['s']);
+        $id = intval($request->input('id', 0));
+        $doc_id = intval($request->input('doc_id', 0));
+        $review_type = $request->input('review_type', 1);
+        $reiew_intro = $request->input('reiew_intro', '');
         try {
-            if ('mail' == $data['type']) {
-                $this->reviewMail($request);
-            } else {
-                $this->documentsManage->modifyDocReview($data['id'], $data['doc_id'], $data['type']);
-            }
+            $this->documentsManage->modifyDocReview($id, $doc_id, $review_type, $this->admin_user['id'], $reiew_intro);
+
             return json_encode(['status'=>'success']);
         } catch (\Exception $e) {
-            return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+            return json_encode(['status'=>'error', 'code'=>$e->getCode(), 'info'=>$e->getMessage()]);
         }
     }
 

@@ -2,16 +2,97 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9c2e4c6-5970-4a71-800c-a818b05b986f" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Context.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Description.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Location.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Serializer.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/AuthorTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/CoversTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/DeprecatedTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ExampleTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/LinkTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/MethodTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ParamTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyReadTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyWriteTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ReturnTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SeeTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SinceTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SourceTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ThrowsTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/UsesTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VarTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VersionTag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Type/Collection.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/DescriptionTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/CoversTagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/DeprecatedTagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ExampleTagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/LinkTagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/MethodTagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ParamTagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ReturnTagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SeeTagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SinceTagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SourceTagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ThrowsTagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/UsesTagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/VarTagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/VersionTagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/TagTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Type/CollectionTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlockTest.php" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_ide_helper.php" afterPath="$PROJECT_DIR$/_ide_helper.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AdminUserController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AdminUserController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php" afterPath="$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/adminroutes.php" afterPath="$PROJECT_DIR$/app/Http/adminroutes.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/admin_authority.php" afterPath="$PROJECT_DIR$/config/admin_authority.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/app.php" afterPath="$PROJECT_DIR$/config/app.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/admin_user/list.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/admin_user/list.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/document/history.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/document/history.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/document/list.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/document/list.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/document/module/submit_script.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/document/module/submit_script.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/document/review.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/document/review.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/composer.json" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/composer.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/readme.md" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/readme.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Alias.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Alias.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Console/GeneratorCommand.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Console/GeneratorCommand.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Console/MetaCommand.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Console/MetaCommand.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Console/ModelsCommand.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Console/ModelsCommand.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Generator.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Generator.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/IdeHelperServiceProvider.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/IdeHelperServiceProvider.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Method.php" afterPath="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper/src/Method.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/composer/autoload_files.php" afterPath="$PROJECT_DIR$/vendor/composer/autoload_files.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/composer/autoload_namespaces.php" afterPath="$PROJECT_DIR$/vendor/composer/autoload_namespaces.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" afterPath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/composer/installed.json" afterPath="$PROJECT_DIR$/vendor/composer/installed.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php" afterPath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Foundation/Application.php" afterPath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Foundation/Application.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Mail/Mailer.php" afterPath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Mail/Mailer.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Session/CookieSessionHandler.php" afterPath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Session/CookieSessionHandler.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Session/DatabaseSessionHandler.php" afterPath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Session/DatabaseSessionHandler.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Session/FileSessionHandler.php" afterPath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Session/FileSessionHandler.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Session/SessionManager.php" afterPath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Session/SessionManager.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Str.php" afterPath="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Str.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/.travis.yml" afterPath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/.travis.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/README.md" afterPath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/composer.json" afterPath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/composer.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/composer.lock" afterPath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/composer.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/phpunit.xml.dist" afterPath="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/phpunit.xml.dist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/symfony/yaml/Dumper.php" afterPath="$PROJECT_DIR$/vendor/symfony/yaml/Dumper.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/symfony/yaml/Inline.php" afterPath="$PROJECT_DIR$/vendor/symfony/yaml/Inline.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/symfony/yaml/Parser.php" afterPath="$PROJECT_DIR$/vendor/symfony/yaml/Parser.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/symfony/yaml/Tests/InlineTest.php" afterPath="$PROJECT_DIR$/vendor/symfony/yaml/Tests/InlineTest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/symfony/yaml/Tests/ParserTest.php" afterPath="$PROJECT_DIR$/vendor/symfony/yaml/Tests/ParserTest.php" />
     </list>
     <ignored path="zhixingdan.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,9 +117,21 @@
       <file leaf-file-name="adminroutes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/adminroutes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="102" column="88" selection-start-line="102" selection-start-column="82" selection-end-line="102" selection-end-column="88" />
+            <state relative-caret-position="523">
+              <caret line="149" column="31" selection-start-line="149" selection-start-column="25" selection-end-line="149" selection-end-column="31" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SettingController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/SettingController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="538">
+              <caret line="50" column="72" selection-start-line="50" selection-start-column="72" selection-end-line="50" selection-end-column="72" />
+              <folding>
+                <element signature="e#130#175#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -46,18 +139,18 @@
       <file leaf-file-name="DocumentsController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="582" column="43" selection-start-line="582" selection-start-column="36" selection-end-line="582" selection-end-column="51" />
+            <state relative-caret-position="1110">
+              <caret line="91" column="7" selection-start-line="89" selection-start-column="4" selection-end-line="91" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DocumentsManage.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DocumentsManage.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="304" column="13" selection-start-line="304" selection-start-column="13" selection-end-line="304" selection-end-column="13" />
+            <state relative-caret-position="1890">
+              <caret line="138" column="26" selection-start-line="138" selection-start-column="18" selection-end-line="138" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -71,13 +164,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Http/Controllers/AdminBaseController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Model/liuchengdan/ProjectModel.php" />
-        <option value="$PROJECT_DIR$/app/Http/Manage/ProjectManage.php" />
-        <option value="$PROJECT_DIR$/app/Http/Model/liuchengdan/CategoryModel.php" />
         <option value="$PROJECT_DIR$/app/Http/Manage/CategoryManage.php" />
         <option value="$PROJECT_DIR$/app/Http/Model/liuchengdan/CostModel.php" />
-        <option value="$PROJECT_DIR$/config/admin_authority.php" />
         <option value="$PROJECT_DIR$/app/Http/Manage/AreaManage.php" />
         <option value="$PROJECT_DIR$/app/Http/Model/liuchengdan/AreaModel.php" />
         <option value="$PROJECT_DIR$/app/Http/Model/liuchengdan/DocumentCostStructureModel.php" />
@@ -104,7 +192,6 @@
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/app/Http/Model/liuchengdan/UserModel.php" />
         <option value="$PROJECT_DIR$/config/global.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/AdminAuthorityController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/AdminDepartmentController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/AuthController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/CompanyController.php" />
@@ -119,9 +206,15 @@
         <option value="$PROJECT_DIR$/app/Http/Manage/AdminUserManage.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/AdminUserController.php" />
         <option value="$PROJECT_DIR$/config/app.php" />
-        <option value="$PROJECT_DIR$/app/Http/adminroutes.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/document/process.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" />
         <option value="$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php" />
+        <option value="$PROJECT_DIR$/app/Http/Model/liuchengdan/SettingModel.php" />
+        <option value="$PROJECT_DIR$/config/admin_authority.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/AdminAuthorityController.php" />
+        <option value="$PROJECT_DIR$/app/Http/adminroutes.php" />
+        <option value="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/SettingController.php" />
       </list>
     </option>
   </component>
@@ -143,7 +236,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="821" />
+    <option name="height" value="815" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -170,7 +263,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -186,6 +278,144 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vendor" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vendor" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="laravel" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="framework" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vendor" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="laravel" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="framework" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Illuminate" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vendor" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="laravel" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="framework" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Illuminate" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Database" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vendor" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="laravel" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="framework" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Illuminate" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Database" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Query" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -218,6 +448,54 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Http" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Http" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Model" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zhixingdan" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Http" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Model" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="liuchengdan" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -293,6 +571,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -300,6 +579,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="js.buildTools.gulp.gulp_package_dir" value="" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -425,14 +705,20 @@
       <workItem from="1465031684363" duration="354000" />
       <workItem from="1465179041310" duration="4932000" />
       <workItem from="1465199352529" duration="2612000" />
-      <workItem from="1465263588374" duration="1668000" />
+      <workItem from="1465263588374" duration="2219000" />
+      <workItem from="1465349474678" duration="1459000" />
+      <workItem from="1465535801964" duration="94000" />
+      <workItem from="1465692559825" duration="3872000" />
+      <workItem from="1465733560345" duration="125000" />
+      <workItem from="1465782904477" duration="436000" />
+      <workItem from="1466043222277" duration="3734000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60301000" />
+    <option name="totallyTimeSpent" value="70572000" />
   </component>
-  <component name="TodoView" selected-index="3">
+  <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -442,19 +728,19 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="821" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="815" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22031474" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22031474" sideWeight="0.50715744" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23748212" sideWeight="0.49284253" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921812" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293011" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921812" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31275168" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31172413" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921812" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921812" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22031474" sideWeight="0.50715744" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -484,41 +770,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/_ide_helper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="7500" column="40" selection-start-line="7500" selection-start-column="40" selection-end-line="7500" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/document/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="102" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/email/document_review_mail.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="81" column="24" selection-start-line="81" selection-start-column="24" selection-end-line="81" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Mail/Mailer.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
@@ -562,13 +813,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/admin_authority.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Http/Request.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7155">
@@ -580,13 +824,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="386">
           <caret line="149" column="49" selection-start-line="149" selection-start-column="49" selection-end-line="149" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/AdminAuthorityController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1590">
-          <caret line="119" column="62" selection-start-line="119" selection-start-column="62" selection-end-line="119" selection-end-column="62" />
         </state>
       </provider>
     </entry>
@@ -618,13 +855,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ProjectController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4785">
-          <caret line="331" column="73" selection-start-line="331" selection-start-column="73" selection-end-line="331" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Manage/CategoryManage.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-176">
@@ -653,13 +883,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Model/liuchengdan/UserModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="104" column="20" selection-start-line="104" selection-start-column="20" selection-end-line="104" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Model/liuchengdan/AreaModel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -678,13 +901,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="31" column="32" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Model/liuchengdan/DocumentsModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="35" column="52" selection-start-line="35" selection-start-column="52" selection-end-line="35" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -723,13 +939,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bootstrap/cache/services.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1713">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/bootstrap/cache/services.json" />
     <entry file="file://$PROJECT_DIR$/bootstrap/cache/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -737,13 +947,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bootstrap/cache/compiled.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134115">
-          <caret line="9642" column="4" selection-start-line="9642" selection-start-column="4" selection-end-line="9642" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/bootstrap/cache/compiled.php" />
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/AdminUserController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
@@ -755,7 +959,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
           <caret line="292" column="5" selection-start-line="292" selection-start-column="5" selection-end-line="292" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -794,6 +997,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/AdminAuthenticate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="39" column="35" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/global.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="17" column="38" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/document/process.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="39" column="65" selection-start-line="39" selection-start-column="56" selection-end-line="39" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AdminBaseController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -802,42 +1026,101 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/AdminAuthenticate.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Model/liuchengdan/DocumentsModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="39" column="35" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/adminroutes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="102" column="88" selection-start-line="102" selection-start-column="82" selection-end-line="102" selection-end-column="88" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="582" column="43" selection-start-line="582" selection-start-column="36" selection-end-line="582" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/global.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="17" column="38" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="38" />
+        <state relative-caret-position="493">
+          <caret line="82" column="20" selection-start-line="82" selection-start-column="20" selection-end-line="82" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="304" column="13" selection-start-line="304" selection-start-column="13" selection-end-line="304" selection-end-column="13" />
+        <state relative-caret-position="1890">
+          <caret line="138" column="26" selection-start-line="138" selection-start-column="18" selection-end-line="138" selection-end-column="26" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ProjectController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="331" column="73" selection-start-line="331" selection-start-column="73" selection-end-line="331" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Model/liuchengdan/UserModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1395">
+          <caret line="104" column="20" selection-start-line="104" selection-start-column="20" selection-end-line="104" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Model/liuchengdan/ProjectModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="20" column="38" selection-start-line="15" selection-start-column="4" selection-end-line="20" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Model/liuchengdan/SettingModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="20" column="36" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1110">
+          <caret line="91" column="7" selection-start-line="89" selection-start-column="4" selection-end-line="91" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/adminroutes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="149" column="31" selection-start-line="149" selection-start-column="25" selection-end-line="149" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="1333" column="22" selection-start-line="1333" selection-start-column="19" selection-end-line="1333" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/admin_authority.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="33" column="67" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/AdminAuthorityController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="121" column="78" selection-start-line="121" selection-start-column="12" selection-end-line="121" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/SettingController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="50" column="72" selection-start-line="50" selection-start-column="72" selection-end-line="50" selection-end-column="72" />
+          <folding>
+            <element signature="e#130#175#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -30,4 +30,8 @@ return [
         '成本构成' => 'App\\Http\\Controllers\\Admin\\CostController',
     ],
 
+    '参数设置' => [
+        '系统设置' => 'App\\Http\\Controllers\\Admin\\SettingController',
+    ],
+
 ];

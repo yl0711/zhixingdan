@@ -225,11 +225,9 @@ class AdminUserController extends AdminBaseController
         }
     }
 
-    /**
-     * @Authorization 权限转移
-     */
     public function transferUser(Request $request, $id)
     {
+        //@Authorization 权限转移
         try {
             $user = $this->adminUserManage->getUser($id)->toArray()[0];
         }  catch (\Exception $e) {

@@ -69,7 +69,7 @@
 								@else
 								<button target="{{$item['id']}}" _name="{{$item['name']}}" type="button" class="on-off btn btn-warning">开启</button>
 								@endif
-								<button target="{{$item['id']}}" type="button" class="transfer btn btn-success" >权限转移</button>
+								<!--<button target="{{$item['id']}}" type="button" class="transfer btn btn-success" >权限转移</button>-->
 							</td>
 						</tr>
 						@endforeach
@@ -105,11 +105,11 @@ $(function() {
 	$('button[class^="parent"]').click(function() {
 		window.location.href="{{url('user/parent')}}/" + $(this).attr('target');
 	});
-	
+	/*
 	$('button[class^=transfer]').click(function() {
 		window.location.href="{{url('user/transfer')}}/" + $(this).attr('target');
 	});
-	
+	*/
 	$('button[class^="on-off"]').click(function() {
 		this_obj = $(this);
 		if (confirm('是否要将' + this_obj.attr('_name') + $(this).text().trim())) {

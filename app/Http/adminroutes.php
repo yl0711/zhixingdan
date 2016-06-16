@@ -98,6 +98,8 @@ Route::group(['namespace'=>'Admin'], function() {
 
             Route::match(['get', 'post'], 'add', ['uses' => 'DocumentsController@add']);
             Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'DocumentsController@modify'])->where('id', '[0-9]+');
+            Route::match(['get', 'post'], 'myreview', ['uses'=>'DocumentsController@myReviewList']);
+
             Route::match(['get', 'post'], 'review', ['uses'=>'DocumentsController@review']);
 
             Route::match(['get', 'post'], 'cost/{id?}', ['uses'=>'DocumentsController@docmentsCost'])->where('id', '[0-9]+');
@@ -106,6 +108,7 @@ Route::group(['namespace'=>'Admin'], function() {
             Route::get('process/{id}', ['uses'=>'DocumentsController@process'])->where('id', '[0-9]+');
             Route::get('show/{id}', ['uses'=>'DocumentsController@show'])->where('id', '[0-9]+');
             Route::get('history/{id}', ['uses'=>'DocumentsController@history'])->where('id', '[0-9]+');
+            Route::get('reviewlog/{id}', ['uses'=>'DocumentsController@reviewLog'])->where('id', '[0-9]+');
 
             Route::get('download/{id}', ['uses'=>'DocumentsController@download'], function () {
                 return (new Response($content, $status))->header('Content-Type', 'text/html; charset=GBK');
@@ -138,6 +141,13 @@ Route::group(['namespace'=>'Admin'], function() {
 
             Route::match(['get', 'post'], 'add', ['uses' => 'AdminAreaController@add']);
             Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'AdminAreaController@modify'])->where('id', '[0-9]+');
+        });
+
+        //系统设置
+        Route::group(['prefix' => 'setting'], function() {
+            Route::get('index', ['uses'=>'SettingController@index']);
+
+            Route::post('setSys', ['uses'=>'SettingController@setSystem']);
         });
     });
 

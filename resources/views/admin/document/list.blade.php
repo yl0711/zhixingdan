@@ -8,7 +8,7 @@
 			</div>
 			<div class="table-con" style="text-align: left; padding-top: 5px; padding-left: 10px; padding-bottom: 5px; font-size: 15px;">
 				<span><a href="{{url('documents/index')}}" style="color: #0000FF;">我创建的</a></span>
-				<span><a href="{{url('documents/review')}}">我审批的</a></span>
+				<span><a href="{{url('documents/myreview')}}">我审批的</a></span>
 			</div>
 			<div class="search-box">
 				<span>&nbsp;</span>
@@ -33,7 +33,9 @@
 					<input type="text"  action = "{{url('documents/index')}}/?name={{$name}}&status={{$status}}&cate1＝{{$cate1}}" class = "pageSize" name = "pageSize"  value="{{$pageSize}}" >
 				</form>	
 				<div class="fr top-r">
+				@if ($admin_user['department_id'])
 					<i class="add-ico" id = "btn_add_admin_documents" >添加执行单 </i>
+				@endif
 				</div>
 			</div>
 			<div class="table-con">	
@@ -78,7 +80,8 @@
 							@if(1 == $item['status'])
 								<a target="{{$item['id']}}" class="btn_modify">修改</span>
 								<a target="{{$item['id']}}" class="btn_process">流程</span>
-								<a target="{{$item['id']}}" class="btn_history">历史记录</span>
+								<a target="{{$item['id']}}" class="btn_history">修改记录</span>
+								<a target="{{$item['id']}}" class="btn_review_log">审批记录</span>
 							@else
 								已作废
 							@endif
@@ -120,6 +123,10 @@ $(function() {
 	
 	$('a[class="btn_history"]').click(function() {
 		window.location.href="{{url('documents/history')}}/" + $(this).attr('target');
+	});
+	
+	$('a[class="btn_review_log"]').click(function() {
+		window.location.href="{{url('documents/reviewlog')}}/" + $(this).attr('target');
 	});
 	
 	$('button[class^="on-off"]').click(function() {

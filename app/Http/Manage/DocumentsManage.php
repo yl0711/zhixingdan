@@ -142,7 +142,7 @@ class DocumentsManage
         try {
             $id = $this->add($request);
             // 旧执行单设为作废
-            $this->documentModel->modify($old_id, ['status' => 0]);
+            $this->documentModel->modify($old_id, ['status' => 0, 'modify_at' => date('Y-m-d H:i:s', time())]);
             // 修改记录中关联到此执行单的都重新关联到新的
             $this->docModifyLogModel->modify(['new_id' => $old_id], ['new_id' => $id]);
             // 添加新的修改记录
@@ -307,14 +307,31 @@ class DocumentsManage
         return;
     }
 
-    public function modifyDocReview($id, $docId, $review_type)
+    public function modifyDocReview($id, $docId, $review_type, $uid, $intro)
     {
-        if ('ok' == $review_type) {
-            return DocumentReviewModel::where('id', $id)->where('document_id', $docId)->update(['status'=>1]);
-        } else if ('cancel' == $review_type) {
-            return DocumentReviewModel::where('id', $id)->where('document_id', $docId)->update(['status'=>0]);
-        } else {
-            throw new Exception('审批操作类型错误');
+        try {
+            $updateArr = [];
+            if (1 == $review_type) {
+                $updateArr['status'] = 1;
+            } else if (0 == $review_type) {
+                $updateArr['status'] = 0;
+            } else {
+                throw new Exception('审批操作类型错误');
+            }
+            $updateArr['intro'] = $intro;
+            $updateArr['review_at'] = date('Y-m-d H:i:s', time());
+            $result = DocumentReviewModel::where('id', $id)->where('document_id', $docId)->update($updateArr);
+
+            if ($result) {
+                // 被拒绝需要修改执行单状态
+                if (0 == $review_type) {
+
+                } else {
+
+                }
+            }
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 

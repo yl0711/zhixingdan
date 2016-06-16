@@ -58,11 +58,10 @@
 							@endif</td>
 							<td class= "_name">{{$item['doc']['money']}}</td>
 							<td >
-								<a target="{{$item['id']}}" class="btn_show">预览</a>
+								<a target="{{$item['id']}}" doc_id = "{{$item['doc']['id']}}" class="btn_show">预览</a>
 							@if(0 == $item['status'])
 								@if(1 == $item['pre_status'])
-								<button target="{{$item['id']}}" doc_id = "{{$item['doc']['id']}}" type="button" class="review_ok btn btn-info">审批</button>
-								<button target="{{$item['id']}}" doc_id = "{{$item['doc']['id']}}" type="button" class="review_cancel btn btn-danger">拒绝</button>
+								<button target="{{$item['id']}}" doc_id = "{{$item['doc']['id']}}" type="button" class="review btn btn-info">审批</button>
 								@endif
 							@endif
 							</td>
@@ -83,18 +82,25 @@
 <script>
 $(function() {
 	$('a[class="btn_show"]').click(function() {
-		window.location.href="{{url('documents/show')}}/" + $(this).attr('target');
+		window.location.href="{{url('documents/show')}}/" + $(this).attr('doc_id');
 	});
 	
-	$('button[class^="review_ok"]').click(function() {
+	$('button[class^="review"]').on('click',function(){
+		if (!$(this).attr('target') || $(this).attr('doc_id')) {
+			alert('参数异常');return false;
+		}
+		modalView('show' ,true, '审批');
+		$('.modal-body').load("{{url('documents/review')}}/?id=" + $(this).attr('target') + '&doc_id=' + $(this).attr('doc_id'));
+	});
+	/*
+	$('button[class^="review"]').click(function() {
 		this_obj = $(this);
 		if (confirm('是否要通过此审批')) {
 			$.ajax({
-				type:"post",
+				type:"get",
 				dataType:"json",
 				url: "{{url('documents/review')}}/",
 				data:{
-					'type': 'ok',
 					'id': $(this).attr('target'),
 					'doc_id': $(this).attr('doc_id')
 				},
@@ -108,30 +114,6 @@ $(function() {
 				}
 			});	
 		}
-	});
-	
-	$('button[class^="review_cancel"]').click(function() {
-		this_obj = $(this);
-		if (confirm('是否要拒绝此审批')) {
-			$.ajax({
-				type:"post",
-				dataType:"json",
-				url: "{{url('documents/review')}}/",
-				data:{
-					'type': 'cancel',
-					'id': $(this).attr('target'),
-					'doc_id': $(this).attr('doc_id')
-				},
-				success:function($data) {
-					if ($data.status == 'error') {
-						alert($data.info);
-					} else {
-						alert('已拒绝');
-						this_obj.parent().html('已拒绝');
-					}
-				}
-			});	
-		}
-	});
+	});*/
 });
 </script>

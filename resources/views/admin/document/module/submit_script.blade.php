@@ -87,7 +87,11 @@ $(function() {
 					'cost_money':get_cost_money(),
 					'cost_attach':get_cost_attach(),
 					'kpi':$('#kpi').val(),
+					@if ($page_type=='modify')
 					'old_id':{{$document['old_id']}}
+					@else
+					'old_id':0
+					@endif
 				},
 				async:false,
 				success:function($data) {

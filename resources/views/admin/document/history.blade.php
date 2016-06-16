@@ -11,7 +11,6 @@
 					<thead>
 						<tr>
 							<th style="width: 5%;">ID</th>
-							<th style="width: 10%;">编号</th>
 							<th style="width: 15%;">分类</th>
 							<th style="width: 10%;">项目名称</th>
 							<th style="width: 10%;">客户名称</th>
@@ -19,15 +18,15 @@
 							<th style="width: 8%;">创建人</th>
 							<th style="width: 8%;">修改人</th>
 							<th style="width: 10%;">金额</th>
+							<th style="width: 10%;">修改时间</th>
 							<th >操作</th>
 						</tr>
 					</thead>
 					<tbody id= "dataListTable"　>
-					@if($history->count())
+					@if(count($history))
 						@foreach($history as $item)
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
 							<td class= "_id" >{{$item['id']}}</td>
-							<td class= "_name">{{$item['identifier']}}</td>
 							<td class= "_name">{{$item['cate1']}}</td>
 							<td class= "_name">{{$item['project_name']}}</td>
 							<td class= "_name">{{$item['company_name']}}</td>
@@ -37,6 +36,7 @@
 							<td class= "_name">{{$userList[$item['created_uid']]['name']}}</td>
 							<td class= "_name">@if($item['modify_uid']) {{$userList[$item['modify_uid']]['name']}} @endif</td>
 							<td class= "_name">{{$item['money']}}</td>
+							<td class= "_name">{{$item['modify_at']}}</td>
 							<td align="center">
 								<a target="{{$item['id']}}" class="btn_show">预览</a>
 							</td>
