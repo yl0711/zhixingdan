@@ -8,7 +8,15 @@
 			@if ($page_type=='modify')
 				<input id="id" type="hidden" value="{{$area['id']}}" />
 				<input id="oldname" type="hidden" value="{{$area['name']}}" />
+				<input id="oldalias" type="hidden" value="{{$area['alias']}}" />
 			@endif
+			</td>
+		</tr>
+		<tr>
+			<td class="tr"> 缩写 :</td>
+			<td class="tl">
+				<input name="alias" id="alias" class="form-control" placeholder="缩写" 
+					@if ($page_type=='modify') value="{{$area['alias']}}" @endif>
 			</td>
 		</tr>
 		<tr>

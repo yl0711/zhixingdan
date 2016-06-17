@@ -98,6 +98,7 @@ Route::group(['namespace'=>'Admin'], function() {
 
             Route::match(['get', 'post'], 'add', ['uses' => 'DocumentsController@add']);
             Route::match(['get', 'post'], 'modify/{id}', ['uses'=>'DocumentsController@modify'])->where('id', '[0-9]+');
+            Route::match(['get', 'post'], 'copy/{id}', ['uses'=>'DocumentsController@copy'])->where('id', '[0-9]+');
             Route::match(['get', 'post'], 'myreview', ['uses'=>'DocumentsController@myReviewList']);
 
             Route::match(['get', 'post'], 'review', ['uses'=>'DocumentsController@review']);

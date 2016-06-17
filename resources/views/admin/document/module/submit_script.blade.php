@@ -20,7 +20,7 @@ $( "#endtime" ).datepicker({
     maxDate: '+2y'
 });
 
-@if ($page_type=='modify')
+@if ($page_type=='modify' || $page_type=='copy')
 $("#endtime").attr('disabled', false);
 // 开始日期选择完毕后，设置结束日期控件属性
 // 首先结束日期不能早于开始日期
@@ -106,6 +106,8 @@ $(function() {
 			});
 		}
 	});
+	
+	del_cost_data();
 });
 
 function docmentsCostCallback(data) {

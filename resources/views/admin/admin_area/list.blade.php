@@ -18,6 +18,7 @@
 						<tr>
 							<th style="width: 10%;">ID</th>
 							<th style="width: 40%;">区域名称</th>
+							<th style="width: 10%;">缩写</th>
 							<th style="width: 15%;">本区人数</th>
 							<th >操作</th>
 						</tr>
@@ -28,6 +29,7 @@
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
 							<td class= "_id" >{{$item['id']}}</td>
 							<td class= "_name">{{$item['name']}}</td>
+							<td class= "_name">{{$item['alias']}}</td>
 							<td >{{$item['person']}}</td>
 							<td >
 								<button target="{{$item['id']}}" type="button" class="modify btn btn-info">修改</button>

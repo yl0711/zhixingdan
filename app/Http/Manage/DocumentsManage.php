@@ -8,6 +8,7 @@
 
 namespace App\Http\Manage;
 
+use App\Http\Model\liuchengdan\AreaModel;
 use App\Http\Model\liuchengdan\AttachmentModel;
 use App\Http\Model\liuchengdan\DepartmentModel;
 use App\Http\Model\liuchengdan\DocumentModifyLogModel;
@@ -41,7 +42,7 @@ class DocumentsManage
      * @param int $status
      * @return mixed
      */
-    public function getList($name='', $cate1=0, $status=2, $uids=[])
+    public function getList($name='', $cate1=0, $status=0, $uids=[])
     {
         return $this->documentModel->getList($name, $cate1, $status, $uids);
     }
@@ -142,7 +143,7 @@ class DocumentsManage
         try {
             $id = $this->add($request);
             // 旧执行单设为作废
-            $this->documentModel->modify($old_id, ['status' => 0, 'modify_at' => date('Y-m-d H:i:s', time())]);
+            $this->documentModel->modify($old_id, ['status' => -1, 'modify_at' => date('Y-m-d H:i:s', time())]);
             // 修改记录中关联到此执行单的都重新关联到新的
             $this->docModifyLogModel->modify(['new_id' => $old_id], ['new_id' => $id]);
             // 添加新的修改记录
@@ -166,17 +167,24 @@ class DocumentsManage
 
         $return['review'] = $this->docReviewModel->getListByDocID($docId);
         $pre_level = 0;
+        $pre_status = 0;
         foreach ($return['review'] as $key=>$item) {
-            if (0 == $item['status']) {
+            $item->review_uid && $review_uid[] = $item->review_uid;
+            if (-2 == $pre_status) {
+                $return['review'][$key]['status'] = 0;
+                continue;
+            }
+            if (-2 == $item['status']) {
+                $pre_status = -2;
+            } else if (1 == $item['status']) {
                 if (0 == $pre_level) {
                     $pre_level = $item['level'];
                 } else if ($item['level'] > $pre_level) {
-                    $return['review'][$key]['status'] = -2;
+                    $return['review'][$key]['status'] = 0;
                 } else {
                     $pre_level = $item['level'];
                 }
             }
-            $item->review_uid && $review_uid[] = $item->review_uid;
         }
 
         if ($review_uid) {
@@ -213,13 +221,13 @@ class DocumentsManage
 
         $return['review'] = $this->docReviewModel->getListByUserID($userid);
         foreach ($return['review'] as $item) {
-            // 审批状态，1通过，-1拒绝，0待审
-            $item->pre_status = 1;
+            // 审批状态，2通过，-2拒绝，1待审
+            $item->pre_status = 2;
             $item->now_review_uid = $userid;
-            if (0 == $item->status) {
+            if (1 == $item->status) {
                 $docList = $this->docReviewModel->getListByDocID($item->document_id);
                 foreach ($docList as $item1) {
-                    if ($item1->level < $item->level && 1 != $item1->status) {
+                    if ($item1->level < $item->level && 2 != $item1->status) {
                         $item->pre_status = $item1->status;
                         $item->now_review_uid = $item1->review_uid;
                         break;
@@ -311,23 +319,34 @@ class DocumentsManage
     {
         try {
             $updateArr = [];
-            if (1 == $review_type) {
-                $updateArr['status'] = 1;
-            } else if (0 == $review_type) {
-                $updateArr['status'] = 0;
-            } else {
-                throw new Exception('审批操作类型错误');
+            if (2 != $review_type && -2 != $review_type) {
+                throw new Exception('审批操作类型错误', 400);
             }
+            $updateArr['status'] = $review_type;
             $updateArr['intro'] = $intro;
             $updateArr['review_at'] = date('Y-m-d H:i:s', time());
+            $updateArr['real_review_uid'] = $uid;
             $result = DocumentReviewModel::where('id', $id)->where('document_id', $docId)->update($updateArr);
 
             if ($result) {
                 // 被拒绝需要修改执行单状态
-                if (0 == $review_type) {
-
+                if (-2 == $review_type) {
+                    DocumentsModel::where('id', $docId)->update(['status'=>$review_type]);
                 } else {
+                    $count = DocumentReviewModel::where(['document_id'=>$docId, 'status'=>1])->count();
+                    if (0 == $count) {
+                        // 完成所有审批流程, 生成单号
+                        $docData = DocumentsModel::where('id', $docId)->get()->toArray()[0];
+                        $createdTime = date('Ymd', strtotime($docData['created_at']));
 
+                        $userData = UserModel::where('id', $docData['created_uid'])->get()->toArray()[0];
+
+                        $departmentData = DepartmentModel::where('id', $userData['department_id'])->get()->toArray()[0];
+                        $areaData = AreaModel::where('id', $userData['area_id'])->get()->toArray()[0];
+                        $identifier = zhixingdan_code($departmentData['alias'], $createdTime, $docId, $areaData['alias']);
+
+                        DocumentsModel::where('id', $docId)->update(['identifier'=>$identifier, 'status'=>2]);
+                    }
                 }
             }
         } catch (Exception $e) {

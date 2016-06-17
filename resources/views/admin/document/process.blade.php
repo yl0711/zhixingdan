@@ -29,31 +29,25 @@
 							<td class= "_name">@if($item['cost_id']) {{$costlist[$item['cost_id']]['name']}} @endif</td>
 							<td class= "_name">{{$item['intro']}}</td>
 							<td class= "_name">
-								@if(1 == $item['status'])
+							@if(2 == $item['status'])
 								已审批
-							@elseif (-1 == $item['status'])
+							@elseif (-2 == $item['status'])
 								已拒绝
-							@else
+							@elseif (0 != $item['status'])
 								待审批
 							@endif
 							</td>
 							<td class= "_name">{{$item['review_at']}}</td>
 							<td >
-							@if(0 == $item['status'])
+							@if(1 == $item['status'])
 								@if($item['review_uid'] == $admin_user['id'])
+								<!-- 当前待审的阶段：我是审批人，这里是审核功能 -->
 								<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_ok btn btn-info">通过</button>
 								<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_cancel btn btn-info">拒绝</button>
-								@else
-									@if($admin_user['id'] == $item['created_uid'])
+								@elseif($admin_user['id'] == $document['created_uid'])
+								<!-- 当前待审的阶段：我是发布人，这里是催单功能 -->
 								<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_mail btn btn-info">催促</button>
-									@endif
 								@endif
-							@elseif(1 == $item['status'])
-								审核通过
-							@elseif(-1 == $item['status'])
-								被拒绝
-							@elseif(-2 == $item['status'])
-								之前审批人未审
 							@endif
 							</td>
 						</tr>

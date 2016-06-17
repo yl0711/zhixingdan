@@ -30,6 +30,11 @@ class AreaModel extends BaseModel
         return self::where('name', $name)->count();
     }
 
+    public function aliasExists($alias)
+    {
+        return self::where('alias', $alias)->count();
+    }
+
     public function add(Array $data)
     {
         return self::create($data)->id;

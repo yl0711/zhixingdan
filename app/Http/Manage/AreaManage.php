@@ -35,11 +35,17 @@ class AreaManage
         if (!isset($request['name']) || empty($request['name'])) {
             throw new \Exception('名称不能为空');
         }
-
         if ($this->areaModel->nameExists($request['name'])) {
             throw new \Exception('名称已经存在');
         }
+        if (!isset($request['alias']) || empty($request['alias'])) {
+            throw new \Exception('缩写不能为空');
+        }
+        if ($this->areaModel->aliasExists($request['alias'])) {
+            throw new \Exception('缩写已经存在');
+        }
         $data['name'] = $request['name'];
+        $data['alias'] = $request['alias'];
 
         return $this->areaModel->add($data);
     }
@@ -52,7 +58,14 @@ class AreaManage
         if ($request['oldname']!=$request['name'] && $this->areaModel->nameExists($request['name'])) {
             throw new \Exception('名称已经存在');
         }
+        if (!isset($request['alias']) || empty($request['alias'])) {
+            throw new \Exception('缩写不能为空');
+        }
+        if ($request['oldalias']!=$request['alias'] && $this->areaModel->aliasExists($request['alias'])) {
+            throw new \Exception('缩写已经存在');
+        }
         $data['name'] = $request['name'];
+        $data['alias'] = $request['alias'];
 
         return $this->areaModel->modify($id, $data);
     }

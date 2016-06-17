@@ -31,8 +31,8 @@
 							<th style="width: 10%;">客户名称</th>
 							<th style="width: 10%;">项目周期</th>
 							<th style="width: 8%;">负责人</th>
-							<th style="width: 10%;">状态</th>
 							<th style="width: 10%;">金额</th>
+							<th style="width: 10%;">状态</th>
 							<th >操作</th>
 						</tr>
 					</thead>
@@ -49,18 +49,18 @@
 								{{$item['doc']['starttime']}}<br />至<br />{{$item['doc']['endtime']}}
 							</td>
 							<td class= "_name">{{$userList[$item['doc']['pm_id']]['name']}}</td>
-							<td class= "_name">@if(1 == $item['status'])
+							<td class= "_name">{{$item['doc']['money']}}</td>
+							<td class= "_name">@if(2 == $item['status'])
 								已审批
-							@elseif (-1 == $item['status'])
+							@elseif (-2 == $item['status'])
 								已拒绝
 							@else
 								待审批
 							@endif</td>
-							<td class= "_name">{{$item['doc']['money']}}</td>
 							<td >
 								<a target="{{$item['id']}}" doc_id = "{{$item['doc']['id']}}" class="btn_show">预览</a>
-							@if(0 == $item['status'])
-								@if(1 == $item['pre_status'])
+							@if(1 == $item['status'])
+								@if(2 == $item['pre_status'])
 								<button target="{{$item['id']}}" doc_id = "{{$item['doc']['id']}}" type="button" class="review btn btn-info">审批</button>
 								@endif
 							@endif
@@ -86,11 +86,12 @@ $(function() {
 	});
 	
 	$('button[class^="review"]').on('click',function(){
-		if (!$(this).attr('target') || $(this).attr('doc_id')) {
+		if ($(this).attr('target') && $(this).attr('doc_id')) {
+			modalView('show' ,true, '审批');
+			$('.modal-body').load("{{url('documents/review')}}/?id=" + $(this).attr('target') + '&doc_id=' + $(this).attr('doc_id'));
+		} else {
 			alert('参数异常');return false;
 		}
-		modalView('show' ,true, '审批');
-		$('.modal-body').load("{{url('documents/review')}}/?id=" + $(this).attr('target') + '&doc_id=' + $(this).attr('doc_id'));
 	});
 	/*
 	$('button[class^="review"]').click(function() {
@@ -116,4 +117,13 @@ $(function() {
 		}
 	});*/
 });
+
+function docmentsReviewCallback(data) {
+	if (data.status == 'error') {
+		alert(data.info);
+	} else {
+		alert('完成审批');
+		window.location.href = '{{url("documents/myreview")}}';
+	}
+}
 </script>

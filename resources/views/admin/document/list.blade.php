@@ -23,9 +23,10 @@
 					@endif
 					</select>
 					<select  class = "seachByStatus" name="status">
-						<option value="2" @if($status==2) selected @endif>全部</option>
-						<option value="1" @if($status==1) selected @endif>已打开</option>
-						<option value="0" @if($status==0) selected @endif>已关闭</option>
+						<option value="0" @if(0==$status) selected @endif>全部</option>
+						<option value="2" @if(2==$status) selected @endif>审核通过</option>
+						<option value="-2" @if(-2==$status) selected @endif>审核拒绝</option>
+						<option value="1" @if($status==1) selected @endif>待审核</option>
 					</select>
 					<button class = "btn_seach" onclick="form_seach.submit();">查询</button>
 					<!--每页显示条数-->
@@ -67,9 +68,9 @@
 								{{$item['starttime']}}<br />至<br />{{$item['endtime']}}
 							</td>
 							<td class= "_name">{{$userList[$item['created_uid']]['name']}}</td>
-							<td class= "_name">@if(1 == $item['status'])
+							<td class= "_name">@if(2 == $item['status'])
 								已审批
-							@elseif (-1 == $item['status'])
+							@elseif (-2 == $item['status'])
 								已拒绝
 							@else
 								待审批
@@ -77,14 +78,16 @@
 							<td class= "_name">{{$item['money']}}</td>
 							<td align="center">
 								<a target="{{$item['id']}}" class="btn_show">预览</a>
+							@if(-2 == $item['status'])
+							<!-- 被拒绝的情况下可以复制重建 -->
+								<a target="{{$item['id']}}" class="btn_copy">复制</span>
+							@endif
 							@if(1 == $item['status'])
+							<!-- 未审核过可以修改 -->
 								<a target="{{$item['id']}}" class="btn_modify">修改</span>
+							@endif
 								<a target="{{$item['id']}}" class="btn_process">流程</span>
 								<a target="{{$item['id']}}" class="btn_history">修改记录</span>
-								<a target="{{$item['id']}}" class="btn_review_log">审批记录</span>
-							@else
-								已作废
-							@endif
 							</td>
 						</tr>
 						@endforeach
@@ -111,6 +114,10 @@ $(function() {
 	
 	$('a[class="btn_modify"]').click(function() {
 		window.location.href="{{url('documents/modify')}}/" + $(this).attr('target');
+	});
+	
+	$('a[class="btn_copy"]').click(function() {
+		window.location.href="{{url('documents/copy')}}/" + $(this).attr('target');
 	});
 	
 	$('a[class="btn_process"]').click(function() {

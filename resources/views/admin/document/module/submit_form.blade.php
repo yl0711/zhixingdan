@@ -15,21 +15,21 @@
 			<td class="tr"> <span style="color: #FF0000;">*</span> 客户名称 :</td>
 			<td class="tl">
 				<input name="company_name" id="company_name" class="form-control" placeholder="客户名称" 
-					@if ($page_type=='modify') value="{{$document['company_name']}}" @endif>
+					@if ($page_type=='modify' || $page_type=='copy') value="{{$document['company_name']}}" @endif>
 			</td>
 		</tr>
 		<tr>
 			<td class="tr"> <span style="color: #FF0000;">*</span> 项目名称 :</td>
 			<td class="tl">
 				<input name="project_name" id="project_name" class="form-control" placeholder="项目名称" 
-					@if ($page_type=='modify') value="{{$document['project_name']}}" @endif>
+					@if ($page_type=='modify' || $page_type=='copy') value="{{$document['project_name']}}" @endif>
 			</td>
 		</tr>
 		<tr>
 			<td class="tr"> <span style="color: #FF0000;">*</span> 项目开始日期 :</td>
 			<td class="tl">
 				<input style="width: 150px;" name="starttime" id="starttime" class="form-control" placeholder="项目开始日期" 
-					@if ($page_type=='modify') value="{{$document['starttime']}}" @endif>
+					@if ($page_type=='modify' || $page_type=='copy') value="{{$document['starttime']}}" @endif>
 				<span id="starttime_warning" style="color: #FF0000;"></span>
 			</td>
 		</tr>
@@ -37,7 +37,7 @@
 			<td class="tr"> <span style="color: #FF0000;">*</span> 项目结束日期 :</td>
 			<td class="tl">
 				<input disabled="disabled" style="width: 150px;" name="endtime" id="endtime" class="form-control" placeholder="项目结束日期" 
-					@if ($page_type=='modify') value="{{$document['endtime']}}" @endif>
+					@if ($page_type=='modify' || $page_type=='copy') value="{{$document['endtime']}}" @endif>
 				<span style="color: #FF0000;"></span>
 			</td>
 		</tr>
@@ -68,7 +68,7 @@
 			<td class="tl">
 				<input name="money" id="money" class="form-control" placeholder="金额"
 				    style="width: 200px;"
-					@if ($page_type=='modify') value="{{$document['money']}}" @endif>
+					@if ($page_type=='modify' || $page_type=='copy') value="{{$document['money']}}" @endif>
 			</td>
 		</tr>
 		<tr>
@@ -88,7 +88,7 @@
 			<td class="tr"> <span style="color: #FF0000;">*</span> 回款日期 :</td>
 			<td class="tl">
 				<input style="width: 150px;" name="moneytime" id="moneytime" class="form-control" placeholder="回款日期" 
-					@if ($page_type=='modify') value="{{$document['moneytime']}}" @endif>
+					@if ($page_type=='modify' || $page_type=='copy') value="{{$document['moneytime']}}" @endif>
 				<span id="starttime_warning" style="color: #FF0000;"></span>
 			</td>
 		</tr>
@@ -125,7 +125,7 @@
 						@else
 						<input type="hidden" id="select_cost_attach[]" name="select_cost_attach[]" value="" />
 						@endif</td>
-						<td></td>
+						<td name="delcost">删除</td>
 					</tr>
 					@endforeach
 				@endif
@@ -135,7 +135,7 @@
 		<tr>
 			<td class="tr"> 项目KPI指标 :</td>
 			<td class="tl">
-				<textarea id="kpi" name="kpi" rows="10" cols="75">@if($page_type=='modify'){{$document['kpi']}}@endif</textarea>
+				<textarea id="kpi" name="kpi" rows="10" cols="75">@if($page_type=='modify' || $page_type=='copy'){{$document['kpi']}}@endif</textarea>
 			</td>
 		</tr>
 		<tr>

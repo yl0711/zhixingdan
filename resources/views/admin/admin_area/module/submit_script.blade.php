@@ -10,8 +10,10 @@ $(function() {
 					@if ($page_type=='modify')
 					'id':$('#id').val(),
 					'oldname':$('#oldname').val(),
+					'oldalias':$('#oldalias').val(),
 					@endif
-					'name':$('#name').val()
+					'name':$('#name').val(),
+					'alias':$('#alias').val()
 				},
 				async:false,
 				success:function($data) {

@@ -1,11 +1,19 @@
-@include('admin/static/header')
+<!doctype html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>管理后台</title>
+	<link rel="stylesheet" href = "{{ asset('css/admin/bootstrap.min.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/admin/common.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/admin/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('js/plugin/jquery-ui/jquery-ui.min.css') }}">
+</head>
+<body >
 <div id="wrapper">
-@include('admin/static/leftside')
-
 	<div class="content-r">
 		<div class="table-box">
 			<div class="search-box">
-				<div class = "table_tit" style="float: left;padding: 15px;"><h1>{{$navigation}}</h1></div>
+				<div class = "table_tit" style="float: left;"><h1></h1></div>
 			</div>
 			<div style="width:900px;margin: 0 auto;border-left: 1px solid #ddd; " class="table-con">	
 				<table class ="prodict_edit">
@@ -79,25 +87,14 @@
 							<td class="tr"> 项目KPI指标 :</td>
 							<td class="tl">{{$document['kpi']}}</td>
 						</tr>
-						
-						<tr>
-							<th colspan = "2" >
-								<button type="button" id="download" class="btn btn-success">下载</button>
-							</th>
-						</tr>
-						
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
-	@include('admin/static/footer')
+<script src="{{ asset('js/admin/jquery-1.8.3.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}" ></script>
+<script src="{{ asset('js/admin/base.js') }}"></script>
+<script src="{{ asset('js/plugin/jquery-ui/jquery-ui.min.js') }}"></script>
 </div>
 </body>
-<script>
-$(function() {
-	$('#download').click(function() {
-		window.location.href="{{url('documents/download')}}/{{$document['id']}}";
-	});
-});
-</script>

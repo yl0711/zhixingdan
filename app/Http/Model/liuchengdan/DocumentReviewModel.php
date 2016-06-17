@@ -27,7 +27,7 @@ class DocumentReviewModel extends BaseModel
 
     public function getListByUserID($userID)
     {
-        return self::where('review_uid', $userID)->orderBy('created_at')->get();
+        return self::where('review_uid', $userID)->where('status', '!=', '-1')->orderBy('created_at', 'desc')->get();
     }
 
     public function add(Array $data)

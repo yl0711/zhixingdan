@@ -43,7 +43,7 @@ class DocumentsController extends AdminBaseController
     {
         $name = $request->input('name', '');
         $cate1 = $request->input('cate1', 0);
-        $status = $request->input('status', 1);
+        $status = $request->input('status', 0);
         // 列表类型, list-我创建的, review-我审核的
         $type = $request->input('type', 'list');
 
@@ -232,13 +232,13 @@ class DocumentsController extends AdminBaseController
         }
 
         try {
-            $document = $this->documentsManage->getOneById($id)->toArray()[0];
+            $document = $this->documentsManage->getOneById($doc_id)->toArray()[0];
         } catch (Exception $e) {
             abort($e->getCode(), $e->getMessage());
         }
-
         if ('POST' == $request->method()) {
-            return $this->doReview($request);
+            $result = $this->doReview($request);
+            echo "<script>parent.docmentsReviewCallback({$result})</script>";
         } else {
             return view('admin.document.module.reviewInfo', compact('id', 'doc_id', 'document'));
         }
@@ -442,7 +442,6 @@ class DocumentsController extends AdminBaseController
     /**
      * @Authorization 下载
      */
-    /*
     public function download($id)
     {
         try {
@@ -505,11 +504,13 @@ class DocumentsController extends AdminBaseController
                 }
             }
         }
+        //return view('admin.document.download', compact('document', 'costList', 'docCost', 'attach_list'));
 
-        $html = View::make('admin.document.show', compact('document', 'costList', 'docCost', 'attach_list'));
-        //return $html;
-        return PDF::loadHTML($html, 'UTF-8')->download('document.pdf');
-    }*/
+        $html = View::make('admin.document.download', compact('document', 'costList', 'docCost', 'attach_list'));
+        return $html;
+        //return PDF::loadHTML($html, 'UTF-8')->download('document.pdf');
+
+    }
 
     /**
      * @Authorization 设置成本构成
@@ -562,6 +563,83 @@ class DocumentsController extends AdminBaseController
 
     }
 
+    /**
+     * @Authorization 复制
+     */
+    public function copy(Request $request, $id)
+    {
+        if ('POST' == $request->method()) {
+            return $this->doAdd($request);
+        } else {
+            try {
+                $document = $this->documentsManage->getOneById($id)->toArray()[0];
+            } catch (Exception $e) {
+                abort($e->getCode(), $e->getMessage());
+            }
+            $doc_cate1 = explode(',', trim($document['cate1'], ','));
+
+            $issign_selected = ['', ''];
+            $issign_selected[$document['issign']] = 'selected="selected"';
+
+            $category = $this->categoryModel->getAll();
+            $gongzuoleibie = [];
+            foreach ($category as $value) {
+                $value['checked'] = '';
+                if ($value['type'] == 1) {
+                    if (in_array($value['id'], $doc_cate1)) {
+                        $value['checked'] = 'checked="checked"';
+                    }
+                    $gongzuoleibie[$value['id']] = $value;
+                }
+            }
+
+            $userList = $this->adminUserManage->getAllUser();
+            if ($userList) {
+                foreach ($userList as $value) {
+                    if ($value['id'] == $document['pm_id']) {
+                        $value['pm_selected'] = 'selected="selected"';
+                    } else {
+                        $value['pm_selected'] = '';
+                    }
+                    if ($value['id'] == $document['author_id']) {
+                        $value['author_selected'] = 'selected="selected"';
+                    } else {
+                        $value['author_selected'] = '';
+                    }
+                }
+            } else {
+                $userList = [];
+            }
+
+            $costList_data = $this->costManage->getBaseAll()->toArray();
+            if ($costList_data) {
+                foreach ($costList_data as $value) {
+                    $costList[$value['id']] = $value;
+                }
+            } else {
+                $costList = [];
+            }
+            $docCost = $this->costManage->getDocStructureById($id)->toArray();
+            $attach_ids = $attach_list = [];
+            foreach ($docCost as $item) {
+                if ($item['attach_id']) {
+                    $attach_ids[] = $item['attach_id'];
+                }
+            }
+
+            if ($attach_ids) {
+                $attachment = AttachmentModel::whereIn('id', $attach_ids)->get();
+                if ($attachment->count()) {
+                    foreach ($attachment as $item) {
+                        $attach_list[$item['id']] = $item['path'];
+                    }
+                }
+            }
+
+            return view('admin.document.copy', compact('document', 'costList', 'docCost', 'userList', 'attach_list', 'issign_selected', 'gongzuoleibie'));
+        }
+    }
+
     private function doAdd(Request $request)
     {
         try {
@@ -579,8 +657,8 @@ class DocumentsController extends AdminBaseController
     {
         try {
             $data = $request->except(['s']);
-            $this->documentsManage->modify($data);
-            $this->documentsManage->addDocReview($data['id']);
+            $id = $this->documentsManage->modify($data);
+            $this->documentsManage->addDocReview($id);
             return json_encode(['status'=>'success']);
         } catch (\Exception $e) {
             return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
@@ -591,8 +669,12 @@ class DocumentsController extends AdminBaseController
     {
         $id = intval($request->input('id', 0));
         $doc_id = intval($request->input('doc_id', 0));
-        $review_type = $request->input('review_type', 1);
+        $review_type = $request->input('review_type', 0);
         $reiew_intro = $request->input('reiew_intro', '');
+
+        if (2 != $review_type && -2 != $review_type) {
+            return json_encode(['status'=>'error', 'code'=>400, 'info'=>'没有选择审批状态类型']);
+        }
         try {
             $this->documentsManage->modifyDocReview($id, $doc_id, $review_type, $this->admin_user['id'], $reiew_intro);
 
