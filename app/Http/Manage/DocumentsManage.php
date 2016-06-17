@@ -72,10 +72,10 @@ class DocumentsManage
     {
         $this->check_submit_data($request);
 
-        $cost_select = $request['cost_select'];
-        $cost_intro = $request['cost_intro'];
-        $cost_money = $request['cost_money'];
-        $cost_attach = $request['cost_attach'];
+        $cost_select = isset($request['cost_select']) ? $request['cost_select'] : [];
+        $cost_intro = isset($request['cost_intro']) ? $request['cost_intro'] : [];
+        $cost_money = isset($request['cost_money']) ? $request['cost_money'] : [];
+        $cost_attach = isset($request['cost_attach']) ? $request['cost_attach'] : [];
         $request['cate1'] = ',' . implode(',', $request['cate1']) . ',';
 
         unset($request['cost_select'], $request['cost_intro'], $request['cost_money'], $request['cost_attach']);
@@ -83,35 +83,37 @@ class DocumentsManage
         try {
             $id = $this->documentModel->add($request);
             $cost_num = 0;
-            foreach ($cost_select as $key=>$value) {
-                if (0 == $value) continue;
+            if ($cost_select) {
+                foreach ($cost_select as $key=>$value) {
+                    if (0 == $value) continue;
 
-                $cost = $this->costManage->getBaseOneById($value)->toArray()[0];
-                if ($cost['review_user']) {
-                    $review_user = $cost['review_user'];
-                    $review = 0;
-                } else {
-                    $review_user = 0;
-                    $review = 1;
-                }
-                $data = [
-                    'document_id' => $id,
-                    'cost_id' => $value,
-                    'attach_id' => $cost_attach[$key],
-                    'money' => $cost_money[$key],
-                    'intro' => $cost_intro[$key],
-                    'review' => $review,
-                    'review_user' => $review_user
-                ];
-                if ($cost_money[$key] > 0) $cost_num += $cost_money[$key];
-                $document_cost_id = $this->costManage->addDocStructure($data);
-
-                if ($cost_attach[$key]) {
-                    $this->attachmentModel->modify($cost_attach[$key], [
-                        'document_cost_id' => $document_cost_id,
+                    $cost = $this->costManage->getBaseOneById($value)->toArray()[0];
+                    if ($cost['review_user']) {
+                        $review_user = $cost['review_user'];
+                        $review = 0;
+                    } else {
+                        $review_user = 0;
+                        $review = 1;
+                    }
+                    $data = [
                         'document_id' => $id,
                         'cost_id' => $value,
-                    ]);
+                        'attach_id' => $cost_attach[$key],
+                        'money' => $cost_money[$key],
+                        'intro' => $cost_intro[$key],
+                        'review' => $review,
+                        'review_user' => $review_user
+                    ];
+                    if ($cost_money[$key] > 0) $cost_num += $cost_money[$key];
+                    $document_cost_id = $this->costManage->addDocStructure($data);
+
+                    if ($cost_attach[$key]) {
+                        $this->attachmentModel->modify($cost_attach[$key], [
+                            'document_cost_id' => $document_cost_id,
+                            'document_id' => $id,
+                            'cost_id' => $value,
+                        ]);
+                    }
                 }
             }
 
