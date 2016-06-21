@@ -188,12 +188,12 @@ function check_submit_data() {
 		$('#project_name').focus();
 		return false;
 	}
-	if (0 == $('#starttime').val().trim().length || '0000-00-00' == $('#starttime').val().trim().length) {
+	if (0 == $('#starttime').val().trim().length || '0000-00-00' == $('#starttime').val().trim()) {
 		alert('请设置项目开始日期');
 		$('#starttime').focus();
 		return false;
 	}
-	if (0 == $('#endtime').val().trim().length || '0000-00-00' == $('#endtime').val().trim().length) {
+	if (0 == $('#endtime').val().trim().length || '0000-00-00' == $('#endtime').val().trim()) {
 		alert('请设置项目结束日期');
 		$('#endtime').focus();
 		return false;
@@ -221,7 +221,7 @@ function check_submit_data() {
 		alert('请选择项目对接人');
 		return false;
 	}
-	if (0 == $('#moneytime').val().trim().length || '0000-00-00' == $('#moneytime').val().trim().length) {
+	if (0 == $('#moneytime').val().trim().length || '0000-00-00' == $('#moneytime').val().trim()) {
 		alert('请设置项目回款日期');
 		$('#moneytime').focus();
 		return false;
