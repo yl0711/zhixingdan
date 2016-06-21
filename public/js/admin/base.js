@@ -277,7 +277,10 @@ var loginView = {
 * */
 
 
-function modalView(view, big, title='标题'){
+function modalView(view, big, title){
+	if ('' == title) {
+		title = '标题';
+	}
 	var myModal = document.getElementById("myModal");
 	if(! myModal ){
 		myModal = "" ;

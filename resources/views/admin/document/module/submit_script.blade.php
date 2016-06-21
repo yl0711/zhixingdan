@@ -127,7 +127,7 @@ function docmentsCostCallback(data) {
 		html += '</tr>';
 		$('#cost-list').append(html);
 		del_cost_data();
-		modalView('hide');
+		modalView('hide', true, '');
 	}
 }
 
