@@ -112,8 +112,9 @@ class AdminUserController extends AdminBaseController
             }
 
             $superadmin_checked = ['checked="checked"', ''];
+            $superwatch_checked = ['checked="checked"', ''];
 
-            return view('admin.admin_user.add', compact('user', 'group', 'department', 'area', 'superadmin_checked'));
+            return view('admin.admin_user.add', compact('user', 'group', 'department', 'area', 'superadmin_checked', 'superwatch_checked'));
         }
     }
 
@@ -138,9 +139,10 @@ class AdminUserController extends AdminBaseController
             }
 
             $superadmin_checked = ['', ''];
-            if (1 == $this->admin_user['superadmin']) {
-                $superadmin_checked[$user['superadmin']] = 'checked="checked"';
-            }
+            $superadmin_checked[$user['superadmin']] = 'checked="checked"';
+
+            $superwatch_checked = ['', ''];
+            $superwatch_checked[$user['superwatch']] = 'checked="checked"';
 
             $group = $this->adminUserManage->getUserGroupAll();
             foreach ($group as $value)
@@ -177,7 +179,7 @@ class AdminUserController extends AdminBaseController
                 }
             }
 
-            return view('admin.admin_user.modify', compact('user', 'group', 'department', 'area', 'superadmin_checked'));
+            return view('admin.admin_user.modify', compact('user', 'group', 'department', 'area', 'superadmin_checked', 'superwatch_checked'));
         }
     }
 

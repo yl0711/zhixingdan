@@ -19,7 +19,9 @@ $(function() {
 					'group_id':$('#group_id').val(),
 					'department_id':$('#department_id').val(),
 					'parent_user':$('#parent_user').val(),
-					'area_id':area_id
+					'area_id':area_id,
+					'superadmin':$('input:radio[name=superadmin]:checked').val(),
+					'superwatch':$('input:radio[name=superwatch]:checked').val()
 				},
 				async:false,
 				success:function($data) {

@@ -15,6 +15,8 @@ Route::group(['namespace'=>'Admin'], function() {
     Route::post('login', ['as'=>'login', 'uses'=>'AuthController@dologin']);
     Route::get('logout', ['as'=>'logout', 'uses'=>'AuthController@logout']);
 
+    Route::match(['get', 'post'], 'documents/reviewCancel/{id}', ['uses'=>'DocumentsController@reviewCancel'])->where('id', '[0-9]+');
+
     // 需要进行用户身份验证
     Route::group(['middleware'=>['adminauth', 'adminAccessLog']], function() {
 
@@ -112,7 +114,7 @@ Route::group(['namespace'=>'Admin'], function() {
             Route::get('reviewlog/{id}', ['uses'=>'DocumentsController@reviewLog'])->where('id', '[0-9]+');
 
             Route::get('download/{id}', ['uses'=>'DocumentsController@download'], function () {
-                return (new Response($content, $status))->header('Content-Type', 'text/html; charset=GBK');
+                return (new Response($content, $status))->header('Content-Type', 'text/html; charset=utf-8');
             })->where('id', '[0-9]+');
         });
 

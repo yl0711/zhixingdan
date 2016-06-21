@@ -11,27 +11,31 @@
 				<table class ="prodict_edit">
 					<tbody >
 						<tr>
-							<td class="tr"> <span style="color: #FF0000;">*</span> 项目分类 :</td>
+							<td class="tr"> 执行单号 :</td>
+							<td class="tl">{{$document['identifier']}}</td>
+						</tr>
+						<tr>
+							<td class="tr"> 项目分类 :</td>
 							<td class="tl">{{$document['cate1_name']}}</td>
 						</tr>
 						<tr>
-							<td class="tr"> <span style="color: #FF0000;">*</span> 客户名称 :</td>
+							<td class="tr"> 客户名称 :</td>
 							<td class="tl">{{$document['company_name']}}</td>
 						</tr>
 						<tr>
-							<td class="tr"> <span style="color: #FF0000;">*</span> 项目名称 :</td>
+							<td class="tr"> 项目名称 :</td>
 							<td class="tl">{{$document['project_name']}}</td>
 						</tr>
 						<tr>
-							<td class="tr"> <span style="color: #FF0000;">*</span> 项目开始日期 :</td>
+							<td class="tr"> 项目开始日期 :</td>
 							<td class="tl">{{$document['starttime']}}</td>
 						</tr>
 						<tr>
-							<td class="tr"> <span style="color: #FF0000;">*</span> 项目结束日期 :</td>
+							<td class="tr"> 项目结束日期 :</td>
 							<td class="tl">{{$document['endtime']}}</td>
 						</tr>
 						<tr>
-							<td class="tr"> <span style="color: #FF0000;">*</span> 项目负责人 :</td>
+							<td class="tr"> 项目负责人 :</td>
 							<td class="tl">{{$document['pm']}}</td>
 						</tr>
 						<tr>
@@ -39,15 +43,15 @@
 							<td class="tl">@if($document['issign']==1) 已签 @else 未签 @endif</td>
 						</tr>
 						<tr>
-							<td class="tr"> <span style="color: #FF0000;">*</span> 金额 :</td>
+							<td class="tr"> 金额 :</td>
 							<td class="tl">{{$document['money']}}</td>
 						</tr>
 						<tr>
-							<td class="tr"> <span style="color: #FF0000;">*</span> 项目对接人 :</td>
+							<td class="tr"> 项目对接人 :</td>
 							<td class="tl">{{$document['author']}}</td>
 						</tr>
 						<tr>
-							<td class="tr"> <span style="color: #FF0000;">*</span> 回款日期 :</td>
+							<td class="tr"> 回款日期 :</td>
 							<td class="tl">{{$document['moneytime']}}</td>
 						</tr>
 						<tr>
@@ -83,6 +87,11 @@
 						<tr>
 							<th colspan = "2" >
 								<button type="button" id="download" class="btn btn-success">下载</button>
+							@if (isset($admin_user['superadmin']) && 1 == $admin_user['superadmin'])
+								@if (2 != $document['status'] && -2 != $document['status'])
+								<button type="button" id="cancel" class="btn btn-danger">拒绝</button>
+								@endif
+							@endif
 							</th>
 						</tr>
 						
@@ -99,5 +108,19 @@ $(function() {
 	$('#download').click(function() {
 		window.location.href="{{url('documents/download')}}/{{$document['id']}}";
 	});
+	
+	$('#cancel').click(function() {
+		modalView('show' ,true, '拒绝原因');
+		$('.modal-body').load("{{url('documents/reviewCancel')}}/{{$document['id']}}");
+	});
 });
+
+function docmentsReviewCancelCallback(data) {
+	if (data.status == 'error') {
+		alert(data.info);
+	} else {
+		alert('已拒绝此执行单');
+		window.location.href = '{{url("documents/show")}}/{{$document["id"]}}';
+	}
+}
 </script>

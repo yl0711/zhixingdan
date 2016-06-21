@@ -15,6 +15,7 @@ use App\Http\Manage\DocumentsManage;
 use App\Http\Manage\UploadManage;
 use App\Http\Model\liuchengdan\AttachmentModel;
 use App\Http\Model\liuchengdan\CategoryModel;
+use App\Http\Model\liuchengdan\DocumentReviewModel;
 use App\Http\Model\liuchengdan\DocumentsModel;
 use Illuminate\Http\Request;
 use Exception;
@@ -47,8 +48,13 @@ class DocumentsController extends AdminBaseController
         // 列表类型, list-我创建的, review-我审核的
         $type = $request->input('type', 'list');
 
-        $branch_ids = $this->userManage->getBranchUser($this->admin_user['id']);
-        array_push($branch_ids, $this->admin_user['id']);
+        // 超级管理员和超级观察者用户可以查看所有执行单, 其他用户只能查看自己和其下属创建的执行单
+        if (!$this->admin_user['superadmin'] && !$this->admin_user['superwatch']) {
+            $branch_ids = $this->userManage->getBranchUser($this->admin_user['id']);
+            array_push($branch_ids, $this->admin_user['id']);
+        } else {
+            $branch_ids = [];
+        }
 
         $document = $this->documentsManage->getList($name, $cate1, $status, $branch_ids);
 
@@ -508,7 +514,7 @@ class DocumentsController extends AdminBaseController
 
         $html = View::make('admin.document.download', compact('document', 'costList', 'docCost', 'attach_list'));
         return $html;
-        //return PDF::loadHTML($html, 'UTF-8')->download('document.pdf');
+        //return PDF::loadHTML($html, 'utf-8')->download('document.pdf');
 
     }
 
@@ -637,6 +643,75 @@ class DocumentsController extends AdminBaseController
             }
 
             return view('admin.document.copy', compact('document', 'costList', 'docCost', 'userList', 'attach_list', 'issign_selected', 'gongzuoleibie'));
+        }
+    }
+
+    /**
+     * 直接拒绝执行单
+     *
+     * @param Request $request
+     * @param $id
+     */
+    public function reviewCancel(Request $request, $id)
+    {
+        try {
+            $document = $this->documentsManage->getOneById($id)->toArray()[0];
+        } catch (Exception $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
+
+        if ('POST' == $request->method()) {
+            $result = $this->doReviewCancel($request);
+            echo "<script>parent.docmentsReviewCancelCallback({$result})</script>";
+        } else {
+            return view('admin.document.module.reviewCancelInfo', compact('id'));
+        }
+    }
+
+    private function doReviewCancel(Request $request)
+    {
+        try {
+            $data = $request->except(['s']);
+            $id = $data['id'];
+            $intro = $data['intro'];
+
+            /*
+             * 审批表里有这个人, 直接更新此条记录, 如果没有此人则插入一条新的显示在最上面
+             */
+            $review = DocumentReviewModel::where(['document_id'=>$id, 'review_uid'=>$this->admin_user['id'], 'status'=>1])->get()->toArray();
+            if ($review) {
+                $reviewid = $review[0]['id'];
+            } else {
+                $reviewid = 0;
+            }
+            if ($reviewid) {
+                $this->documentsManage->modifyDocReview($reviewid, $id, -2, $this->admin_user['id'], $intro, 1);
+            } else {
+                $list = DocumentReviewModel::where(['document_id'=>$id, 'status'=>1])->orderBy('level', 'desc')->get()->toArray();
+                $addData = [
+                    'document_id' => $id,
+                    'level' => 1,
+                    'review_uid' => $this->admin_user['id'],
+                    'department_id' => $this->admin_user['department_id'],
+                    'group_id' => $this->admin_user['group_id'],
+                    'cost_id' => 0,
+                    'intro' => $intro,
+                    'isAdmin' => 1,
+                    'status' => -2,
+                    'real_review_uid' => $this->admin_user['id'],
+                    'real_department_id' => $this->admin_user['department_id'],
+                    'real_group_id' => $this->admin_user['group_id'],
+                    'review_at' => date('Y-m-d H:i:s', config('global.REQUEST_TIME'))
+                ];
+                if ($list) {
+                    $addData['level'] = $list[0]['level'];
+                }
+                DocumentReviewModel::create($addData);
+            }
+
+            return json_encode(['status'=>'success']);
+        } catch (\Exception $e) {
+            return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
         }
     }
 

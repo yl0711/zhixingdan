@@ -22,7 +22,7 @@ class DocumentReviewModel extends BaseModel
 
     public function getListByDocID($docID)
     {
-        return self::where('document_id', $docID)->orderBy('level')->get();
+        return self::where('document_id', $docID)->orderBy('level')->orderBy('isAdmin', 'desc')->get();
     }
 
     public function getListByUserID($userID)

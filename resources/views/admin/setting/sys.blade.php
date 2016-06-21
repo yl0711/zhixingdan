@@ -27,6 +27,12 @@
 								<input type="text" id="ceo_check_value" name="ceo_check_value" value="@if(isset($setting['ceo_check_value']) && $setting['ceo_check_value']){{$setting['ceo_check_value']}}@endif" /> %
 							</td>
 						</tr>
+						<tr id = "data_ceo_user">
+							<td class= "_id" >指定审批CEO用户ID</td>
+							<td style="text-align: left;" class= "_name">
+								<input type="text" id="ceo_userid" name="ceo_userid" value="@if(isset($setting['ceo_userid']) && $setting['ceo_userid']){{$setting['ceo_userid']}}@endif" />
+							</td>
+						</tr>
 						<tr><td colspan="2"><input type="button" id="submit" value="提交" /></td></tr>
 					</tbody>
 				</table>
@@ -47,7 +53,8 @@ $(function() {
 			data:{
 				'email_user':$('#email_user').val(),
 				'email_pwd':$('#email_pwd').val(),
-				'ceo_check_value':$('#ceo_check_value').val()
+				'ceo_check_value':$('#ceo_check_value').val(),
+				'ceo_userid':$('#ceo_userid').val()
 			},
 			async:false,
 			success:function($data) {

@@ -69,24 +69,24 @@
 							</td>
 							<td class= "_name">{{$userList[$item['created_uid']]['name']}}</td>
 							<td class= "_name">@if(2 == $item['status'])
-								已审批
+								<span style="color: #0000FF;">已审批</span>
 							@elseif (-2 == $item['status'])
-								已拒绝
+								<span style="color: #FF0000;">已拒绝</span>
 							@else
 								待审批
 							@endif</td>
 							<td class= "_name">{{$item['money']}}</td>
 							<td align="center">
-								<a target="{{$item['id']}}" class="btn_show">预览</a>
+								<a target="{{$item['id']}}" class="btn_show color9">预览</a>
 							@if(-2 == $item['status'])
 							<!-- 被拒绝的情况下可以复制重建 -->
-								<a target="{{$item['id']}}" class="btn_copy">复制</span>
+								<a target="{{$item['id']}}" class="btn_copy color2">复制</span>
 							@endif
 							@if(1 == $item['status'])
 							<!-- 未审核过可以修改 -->
-								<a target="{{$item['id']}}" class="btn_modify">修改</span>
+								<a target="{{$item['id']}}" class="btn_modify color3">修改</span>
 							@endif
-								<a target="{{$item['id']}}" class="btn_process">流程</span>
+								<a target="{{$item['id']}}" class="btn_process color1">流程</span>
 								<a target="{{$item['id']}}" class="btn_history">修改记录</span>
 							</td>
 						</tr>
@@ -112,27 +112,27 @@ $(function() {
 		window.location.href="{{url('documents/add')}}";
 	});
 	
-	$('a[class="btn_modify"]').click(function() {
+	$('a[class^="btn_modify"]').click(function() {
 		window.location.href="{{url('documents/modify')}}/" + $(this).attr('target');
 	});
 	
-	$('a[class="btn_copy"]').click(function() {
+	$('a[class^="btn_copy"]').click(function() {
 		window.location.href="{{url('documents/copy')}}/" + $(this).attr('target');
 	});
 	
-	$('a[class="btn_process"]').click(function() {
+	$('a[class^="btn_process"]').click(function() {
 		window.location.href="{{url('documents/process')}}/" + $(this).attr('target');
 	});
 	
-	$('a[class="btn_show"]').click(function() {
+	$('a[class^="btn_show"]').click(function() {
 		window.location.href="{{url('documents/show')}}/" + $(this).attr('target');
 	});
 	
-	$('a[class="btn_history"]').click(function() {
+	$('a[class^="btn_history"]').click(function() {
 		window.location.href="{{url('documents/history')}}/" + $(this).attr('target');
 	});
 	
-	$('a[class="btn_review_log"]').click(function() {
+	$('a[class^="btn_review_log"]').click(function() {
 		window.location.href="{{url('documents/reviewlog')}}/" + $(this).attr('target');
 	});
 	

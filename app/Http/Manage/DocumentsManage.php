@@ -15,6 +15,7 @@ use App\Http\Model\liuchengdan\DocumentModifyLogModel;
 use App\Http\Model\liuchengdan\DocumentReviewModel;
 use App\Http\Model\liuchengdan\DocumentsModel;
 use App\Http\Model\liuchengdan\GroupModel;
+use App\Http\Model\liuchengdan\SettingModel;
 use App\Http\Model\liuchengdan\UserModel;
 use Exception;
 
@@ -308,6 +309,46 @@ class DocumentsManage
                 ];
             }
         }
+        // 获取需要CEO审核的成本比例
+        $ceo_check_value = SettingModel::where(['type'=>'sys', 'setting_key'=>'ceo_check_value'])->get()->toArray();
+        if ($ceo_check_value) {
+            $ceo_check_value = $ceo_check_value[0]['setting_value'];
+        } else {
+            $ceo_check_value = 0;
+        }
+        // 获取系统指定的CEO账号ID (可能有多个属于CEO用户组的用户)
+        $ceo_userid = SettingModel::where(['type'=>'sys', 'setting_key'=>'ceo_userid'])->get()->toArray();
+        if ($ceo_userid) {
+            $ceo_userid = $ceo_userid[0]['setting_value'];
+        } else {
+            $ceo_userid = 0;
+        }
+        // 获取指定CEO账号用户信息
+        if ($ceo_userid) {
+            $ceo_user = UserModel::where(['id'=>$ceo_userid, 'status'=>1])->get()->toArray();
+            if ($ceo_user) {
+                $ceo_user = $ceo_user[0];
+            } else {
+                $ceo_userid = 0;
+            }
+        }
+        // 有指定CEO审批比例, 且CEO用户存在, 且执行单成本比例达到设置标准, 把CEO用户加入到审批的最后一步
+        if ($ceo_check_value > 0 && intval($doc['cost_num']) > 0 && $ceo_userid > 0) {
+            $cost_num = intval($doc['cost_num']);
+            $money = intval($doc['money']);
+            $check_value = ($cost_num / $money) * 100;
+            if ($check_value >= $ceo_check_value) {
+                $level++;
+                $review_user[] = [
+                    'document_id' => $docId,
+                    'level' => $level,
+                    'review_uid' => $ceo_user['id'],
+                    'department_id' => $ceo_user['department_id'],
+                    'group_id' => $ceo_user['group_id'],
+                    'cost_id' => 0,
+                ];
+            }
+        }
         // 入库
         if ($review_user) {
             foreach ($review_user as $value) {
@@ -317,7 +358,7 @@ class DocumentsManage
         return;
     }
 
-    public function modifyDocReview($id, $docId, $review_type, $uid, $intro)
+    public function modifyDocReview($id, $docId, $review_type, $uid, $intro, $isAdmin=0)
     {
         try {
             $updateArr = [];
@@ -326,8 +367,9 @@ class DocumentsManage
             }
             $updateArr['status'] = $review_type;
             $updateArr['intro'] = $intro;
-            $updateArr['review_at'] = date('Y-m-d H:i:s', time());
+            $updateArr['review_at'] = date('Y-m-d H:i:s', config('global.REQUEST_TIME'));
             $updateArr['real_review_uid'] = $uid;
+            $updateArr['isAdmin'] = $isAdmin;
             $result = DocumentReviewModel::where('id', $id)->where('document_id', $docId)->update($updateArr);
 
             if ($result) {

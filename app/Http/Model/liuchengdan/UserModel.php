@@ -130,7 +130,7 @@ class UserModel extends BaseModel implements AuthenticatableContract, Authorizab
 
     private function filter($data)
     {
-        $filter = ['name'=>'', 'password'=>'', 'email'=>'','remember_token'=>'','area_id'=>'','department_id'=>'', 'group_id'=>'','authority'=>'','parent_user'=>'','superadmin'=>'', 'status'=>''];
+        $filter = ['name'=>'', 'password'=>'', 'email'=>'','remember_token'=>'','area_id'=>'','department_id'=>'', 'group_id'=>'','authority'=>'','parent_user'=>'','superadmin'=>'','superwatch'=>'', 'status'=>''];
         foreach ($data as $key=>$value) {
             if (!isset($filter[$key])) {
                 unset($data[$key]);
