@@ -32,13 +32,14 @@
 							@if(2 == $item['status'])
 								已审批
 							@elseif (-2 == $item['status'])
-								已拒绝
+								<span style="color: #ff0000">已拒绝</span>
 							@elseif (0 != $item['status'])
 								待审批
 							@endif
 							</td>
 							<td class= "_name">{{$item['review_at']}}</td>
 							<td >
+						@if(-1!=$document['status'] && -2!=$document['status'])
 							@if(1 == $item['status'])
 								@if($item['review_uid'] == $admin_user['id'])
 								<!-- 当前待审的阶段：我是审批人，这里是审核功能 -->
@@ -48,7 +49,10 @@
 								<!-- 当前待审的阶段：我是发布人，这里是催单功能 -->
 								<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_mail btn btn-info">催促</button>
 								@endif
+							@elseif(2 == $item['status'] && $item['cost_id'])
+									<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_cancel btn btn-info">驳回</button>
 							@endif
+						@endif
 							</td>
 						</tr>
 						@endforeach
@@ -88,6 +92,13 @@ $(function() {
 	});
 	
 	$('button[class^="review_ok"]').click(function() {
+		if ($(this).attr('target') && $(this).attr('doc_id')) {
+			modalView('show' ,true, '审批');
+			$('.modal-body').load("{{url('documents/review')}}/?id=" + $(this).attr('target') + '&doc_id=' + $(this).attr('doc_id') + '&review_type=2');
+		} else {
+			alert('参数异常');return false;
+		}
+		/*
 		this_obj = $(this);
 		if (confirm('是否要通过此审批')) {
 			$.ajax({
@@ -108,10 +119,17 @@ $(function() {
 					}
 				}
 			});	
-		}
+		}*/
 	});
 	
 	$('button[class^="review_cancel"]').click(function() {
+		if ($(this).attr('target') && $(this).attr('doc_id')) {
+			modalView('show' ,true, '审批');
+			$('.modal-body').load("{{url('documents/review')}}/?id=" + $(this).attr('target') + '&doc_id=' + $(this).attr('doc_id') + '&review_type=-2');
+		} else {
+			alert('参数异常');return false;
+		}
+		/*
 		this_obj = $(this);
 		if (confirm('是否要拒绝此审批')) {
 			$.ajax({
@@ -132,7 +150,17 @@ $(function() {
 					}
 				}
 			});	
-		}
+		}*/
+
 	});
 });
+
+function docmentsReviewCallback(data) {
+	if (data.status == 'error') {
+		alert(data.info);
+	} else {
+		alert('完成审批');
+		window.location.href = '{{url("documents/process")}}/{{$id}}';
+	}
+}
 </script>

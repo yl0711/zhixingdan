@@ -17,10 +17,10 @@ class ComposerStaticInitc72a21d8110359039021ac0118ddc829
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -1895,6 +1895,8 @@ class ComposerStaticInitc72a21d8110359039021ac0118ddc829
         'League\\Flysystem\\PluginInterface' => __DIR__ . '/..' . '/league/flysystem/src/PluginInterface.php',
         'League\\Flysystem\\Plugin\\AbstractPlugin' => __DIR__ . '/..' . '/league/flysystem/src/Plugin/AbstractPlugin.php',
         'League\\Flysystem\\Plugin\\EmptyDir' => __DIR__ . '/..' . '/league/flysystem/src/Plugin/EmptyDir.php',
+        'League\\Flysystem\\Plugin\\ForcedCopy' => __DIR__ . '/..' . '/league/flysystem/src/Plugin/ForcedCopy.php',
+        'League\\Flysystem\\Plugin\\ForcedRename' => __DIR__ . '/..' . '/league/flysystem/src/Plugin/ForcedRename.php',
         'League\\Flysystem\\Plugin\\GetWithMetadata' => __DIR__ . '/..' . '/league/flysystem/src/Plugin/GetWithMetadata.php',
         'League\\Flysystem\\Plugin\\ListFiles' => __DIR__ . '/..' . '/league/flysystem/src/Plugin/ListFiles.php',
         'League\\Flysystem\\Plugin\\ListPaths' => __DIR__ . '/..' . '/league/flysystem/src/Plugin/ListPaths.php',
@@ -2863,6 +2865,7 @@ class ComposerStaticInitc72a21d8110359039021ac0118ddc829
         'PhpSpec\\Process\\ReRunner\\PcntlReRunner' => __DIR__ . '/..' . '/phpspec/phpspec/src/PhpSpec/Process/ReRunner/PcntlReRunner.php',
         'PhpSpec\\Process\\ReRunner\\PhpExecutableReRunner' => __DIR__ . '/..' . '/phpspec/phpspec/src/PhpSpec/Process/ReRunner/PhpExecutableReRunner.php',
         'PhpSpec\\Process\\ReRunner\\PlatformSpecificReRunner' => __DIR__ . '/..' . '/phpspec/phpspec/src/PhpSpec/Process/ReRunner/PlatformSpecificReRunner.php',
+        'PhpSpec\\Process\\ReRunner\\ProcOpenReRunner' => __DIR__ . '/..' . '/phpspec/phpspec/src/PhpSpec/Process/ReRunner/ProcOpenReRunner.php',
         'PhpSpec\\Process\\ReRunner\\WindowsPassthruReRunner' => __DIR__ . '/..' . '/phpspec/phpspec/src/PhpSpec/Process/ReRunner/WindowsPassthruReRunner.php',
         'PhpSpec\\Process\\Shutdown\\Shutdown' => __DIR__ . '/..' . '/phpspec/phpspec/src/PhpSpec/Process/Shutdown/Shutdown.php',
         'PhpSpec\\Process\\Shutdown\\ShutdownActionInterface' => __DIR__ . '/..' . '/phpspec/phpspec/src/PhpSpec/Process/Shutdown/ShutdownActionInterface.php',

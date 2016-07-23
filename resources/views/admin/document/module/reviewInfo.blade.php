@@ -6,10 +6,18 @@
 		<tr>
 			<td class="tr"> 审批结果 :</td>
 			<td class="tl">
+			@if(2==$review_type)
+				<input type="radio" id="review_type_1" name="review_type" value="2" checked="checked" />
+				<label for="review_type_1">通过</label>
+			@elseif(-2==$review_type)
+				<input type="radio" id="review_type_0" name="review_type" value="-2" checked="checked" />
+				<label for="review_type_0">拒绝</label>
+			@else
 				<input type="radio" id="review_type_1" name="review_type" value="2" />
 				<label for="review_type_1">通过</label>
 				<input type="radio" id="review_type_0" name="review_type" value="-2" />
 				<label for="review_type_0">拒绝</label>
+			@endif
 			</td>
 		</tr>
 		<tr>

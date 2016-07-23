@@ -233,20 +233,27 @@ class DocumentsController extends AdminBaseController
     {
         $id = intval($request->input('id', 0));
         $doc_id = intval($request->input('doc_id', 0));
+        $type = intval($request->input('type', ''));
+        $review_type = intval($request->input('review_type', 0));
         if (!$id || !$doc_id) {
             abort('400', '参数错误');
         }
-
         try {
             $document = $this->documentsManage->getOneById($doc_id)->toArray()[0];
         } catch (Exception $e) {
             abort($e->getCode(), $e->getMessage());
         }
+        if ('mail' == $type){
+            /**
+             * @TODO 需要定义邮件格式
+             */
+        }
+
         if ('POST' == $request->method()) {
             $result = $this->doReview($request);
             echo "<script>parent.docmentsReviewCallback({$result})</script>";
         } else {
-            return view('admin.document.module.reviewInfo', compact('id', 'doc_id', 'document'));
+            return view('admin.document.module.reviewInfo', compact('id', 'doc_id', 'document', 'review_type'));
         }
     }
 
@@ -313,7 +320,7 @@ class DocumentsController extends AdminBaseController
             $costlist[$item['id']] = $item;
         }
 
-        return view('admin.document.process', compact('document', 'review', 'department', 'user', 'group', 'costlist'));
+        return view('admin.document.process', compact('id', 'document', 'review', 'department', 'user', 'group', 'costlist'));
     }
 
     /**

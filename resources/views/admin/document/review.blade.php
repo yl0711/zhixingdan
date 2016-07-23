@@ -8,7 +8,7 @@
 			</div>
 			<div class="table-con" style="text-align: left; padding-top: 5px; padding-left: 10px; padding-bottom: 5px; font-size: 15px;">
 				<span><a href="{{url('documents/index')}}">我创建的</a></span>
-				<span><a href="{{url('documents/review')}}" style="color: #0000FF;">我审批的</a></span>
+				<span><a href="{{url('documents/myreview')}}" style="color: #0000FF;">我审批的</a></span>
 			</div>
 			<div class="search-box">
 				<span>&nbsp;</span>

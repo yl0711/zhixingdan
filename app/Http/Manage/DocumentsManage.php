@@ -174,7 +174,7 @@ class DocumentsManage
         foreach ($return['review'] as $key=>$item) {
             $item->review_uid && $review_uid[] = $item->review_uid;
             if (-2 == $pre_status) {
-                $return['review'][$key]['status'] = 0;
+                //$return['review'][$key]['status'] = 0;
                 continue;
             }
             if (-2 == $item['status']) {
@@ -380,13 +380,32 @@ class DocumentsManage
                     $count = DocumentReviewModel::where(['document_id'=>$docId, 'status'=>1])->count();
                     if (0 == $count) {
                         // 完成所有审批流程, 生成单号
-                        $docData = DocumentsModel::where('id', $docId)->get()->toArray()[0];
+                        if ($docData = DocumentsModel::where('id', $docId)->get()->toArray()){
+                            $docData = $docData[0];
+                        } else {
+                            throw new Exception('出现错误, 执行单不存在', 400);
+                        }
+
                         $createdTime = date('Ymd', strtotime($docData['created_at']));
+                        if ($userData = UserModel::where('id', $docData['created_uid'])->get()->toArray()){
+                            $userData = $userData[0];
+                        } else {
+                            throw new Exception('出现错误, 执行单创建人不存在', 400);
+                        }
 
-                        $userData = UserModel::where('id', $docData['created_uid'])->get()->toArray()[0];
+                        if ($departmentData = DepartmentModel::where('id', $userData['department_id'])->get()->toArray()) {
+                            $departmentData = $departmentData[0];
+                        } else {
+                            throw new Exception('出现错误, 执行单创建人所在部门不存在', 400);
+                        }
 
-                        $departmentData = DepartmentModel::where('id', $userData['department_id'])->get()->toArray()[0];
-                        $areaData = AreaModel::where('id', $userData['area_id'])->get()->toArray()[0];
+                        $userData['area_id'] = explode(',', trim($userData['area_id'], ','));
+                        if ($areaData = AreaModel::whereIn('id', $userData['area_id'])->get()->toArray()){
+                            $areaData = $areaData[0];
+                        } else {
+                            throw new Exception('出现错误, 执行单创建人所在区域不存在', 400);
+                        }
+
                         $identifier = zhixingdan_code($departmentData['alias'], $createdTime, $docId, $areaData['alias']);
 
                         DocumentsModel::where('id', $docId)->update(['identifier'=>$identifier, 'status'=>2]);
