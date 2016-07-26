@@ -61,8 +61,10 @@
 								<a target="{{$item['id']}}" doc_id = "{{$item['doc']['id']}}" class="btn_show">预览</a>
 							@if(1 == $item['status'])
 								@if(2 == $item['pre_status'])
-								<button target="{{$item['id']}}" doc_id = "{{$item['doc']['id']}}" type="button" class="review btn btn-info">审批</button>
+								<button target="{{$item['id']}}" doc_id = "{{$item['doc']['id']}}" type="button" class="review_all btn btn-info">审批</button>
 								@endif
+							@elseif(2 == $item['status'] && $item['cost_id'])
+								<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_cancel btn btn-info">驳回</button>
 							@endif
 							</td>
 						</tr>
@@ -84,8 +86,17 @@ $(function() {
 	$('a[class="btn_show"]').click(function() {
 		window.location.href="{{url('documents/show')}}/" + $(this).attr('doc_id');
 	});
+
+	$('button[class^="review_cancel"]').click(function() {
+		if ($(this).attr('target') && $(this).attr('doc_id')) {
+			modalView('show' ,true, '审批');
+			$('.modal-body').load("{{url('documents/review')}}/?id=" + $(this).attr('target') + '&doc_id=' + $(this).attr('doc_id') + '&review_type=-2');
+		} else {
+			alert('参数异常');return false;
+		}
+	});
 	
-	$('button[class^="review"]').on('click',function(){
+	$('button[class^="review_all"]').on('click',function(){
 		if ($(this).attr('target') && $(this).attr('doc_id')) {
 			modalView('show' ,true, '审批');
 			$('.modal-body').load("{{url('documents/review')}}/?id=" + $(this).attr('target') + '&doc_id=' + $(this).attr('doc_id'));

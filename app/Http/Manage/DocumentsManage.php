@@ -43,9 +43,9 @@ class DocumentsManage
      * @param int $status
      * @return mixed
      */
-    public function getList($name='', $cate1=0, $status=0, $uids=[])
+    public function getList($name='', $cate1=0, $status=0, $uids=[], $page='')
     {
-        return $this->documentModel->getList($name, $cate1, $status, $uids);
+        return $this->documentModel->getList($name, $cate1, $status, $uids, $page);
     }
 
     public function getAll()

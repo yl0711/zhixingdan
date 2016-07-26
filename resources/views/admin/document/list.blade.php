@@ -34,6 +34,7 @@
 					<input type="text"  action = "{{url('documents/index')}}/?name={{$name}}&status={{$status}}&cate1＝{{$cate1}}" class = "pageSize" name = "pageSize"  value="{{$pageSize}}" >
 				</form>	
 				<div class="fr top-r">
+					<i class="add-ico" id = "btn_export_admin_documents" >导出 </i>
 				@if ($admin_user['department_id'])
 					<i class="add-ico" id = "btn_add_admin_documents" >添加执行单 </i>
 				@endif
@@ -110,6 +111,10 @@
 $(function() {
 	$('#btn_add_admin_documents').click(function() {
 		window.location.href="{{url('documents/add')}}";
+	});
+
+	$('#btn_export_admin_documents').click(function(){
+		window.location.href="{{url('documents/export')}}/?name={{$name}}&cate1={{$cate1}}&status={{$status}}";
 	});
 	
 	$('a[class^="btn_modify"]').click(function() {

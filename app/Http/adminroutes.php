@@ -112,6 +112,7 @@ Route::group(['namespace'=>'Admin'], function() {
             Route::get('show/{id}', ['uses'=>'DocumentsController@show'])->where('id', '[0-9]+');
             Route::get('history/{id}', ['uses'=>'DocumentsController@history'])->where('id', '[0-9]+');
             Route::get('reviewlog/{id}', ['uses'=>'DocumentsController@reviewLog'])->where('id', '[0-9]+');
+            Route::get('export', ['uses'=>'DocumentsController@export']);
 
             Route::get('download/{id}', ['uses'=>'DocumentsController@download'], function () {
                 return (new Response($content, $status))->header('Content-Type', 'text/html; charset=utf-8');

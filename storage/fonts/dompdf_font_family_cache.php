@@ -98,4 +98,10 @@
   'SimSun' => array(
     'normal' => DOMPDF_DIR . '/lib/fonts/normal',
   ),
+  'DroidSans' => array(
+     'bold' => DOMPDF_DIR . '/lib/fonts/DroidSansFallback',
+      'bold_italic' => DOMPDF_DIR . '/lib/fonts/DroidSansFallback',
+      'italic' => DOMPDF_DIR . '/lib/fonts/DroidSansFallback',
+      'normal' => DOMPDF_DIR . '/lib/fonts/DroidSansFallback',
+  ),
 ) ?>

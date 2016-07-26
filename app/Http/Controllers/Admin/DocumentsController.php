@@ -12,16 +12,21 @@ use App\Http\Controllers\AdminBaseController;
 use App\Http\Manage\AdminUserManage;
 use App\Http\Manage\CostManage;
 use App\Http\Manage\DocumentsManage;
+use App\Http\Manage\MailManage;
 use App\Http\Manage\UploadManage;
+use App\Http\Model\liuchengdan\AreaModel;
 use App\Http\Model\liuchengdan\AttachmentModel;
+use App\Http\Model\liuchengdan\BaseCostStructureModel;
 use App\Http\Model\liuchengdan\CategoryModel;
+use App\Http\Model\liuchengdan\DocumentCostStructureModel;
 use App\Http\Model\liuchengdan\DocumentReviewModel;
 use App\Http\Model\liuchengdan\DocumentsModel;
 use Illuminate\Http\Request;
 use Exception;
 use View;
-use PDF;
 use Mail;
+use PDF;
+use Dompdf\Dompdf;
 
 class DocumentsController extends AdminBaseController
 {
@@ -91,6 +96,114 @@ class DocumentsController extends AdminBaseController
         }
 
         return view('admin.document.list', compact('name', 'cate1', 'status', 'type', 'gongzuoleibie', 'document', 'userList'));
+    }
+
+    /**
+     * @Authorization 导出
+     *
+     * @param Request $request
+     * @param $id
+     */
+    public function export(Request $request){
+        $name = $request->input('name', '');
+        $cate1 = $request->input('cate1', 0);
+        $status = $request->input('status', 0);
+
+        $data = BaseCostStructureModel::where('status', 1)->get()->toArray();
+        foreach ($data as $item) {
+            $baseCost[$item['id']] = $item['name'];
+        }
+
+        $data = AreaModel::where('status', 1)->get()->toArray();
+        foreach ($data as $item) {
+            $area[$item['id']] = $item['name'];
+        }
+
+        $category = $this->categoryModel->getAll();
+        $gongzuoleibie = [];
+        foreach ($category as $value) {
+            $value['selected'] = '';
+            if ($value['type'] == 1) {
+                if ($value['id'] == $cate1) {
+                    $value['selected'] = 'selected="selected"';
+                }
+                $gongzuoleibie[$value['id']] = $value;
+            }
+        }
+
+        $data = $this->adminUserManage->getAllUser();
+        foreach ($data as $item) {
+            $userarea = explode(',', trim($item['area_id'], ','));
+            if ($userarea) $userarea = $userarea[0];
+            $item['area'] = $area[$userarea];
+            $userList[$item['id']] = $item;
+        }
+
+        $document = $this->documentsManage->getList($name, $cate1, $status, [], 'all')->toArray();
+
+        $head = ['序号','执行单编号','项目名称','客户名称','项目分类','金额','项目负责人','成本预算','成本占比','项目开始时间','项目结束时间','区域','登记日期','回款计划'];
+        foreach ($baseCost as $item){
+            $head[] = $item;
+        }
+        $fp = fopen(storage_path() . '/image/file/' . date('YmdHis') . '.csv', 'wb+');
+        fputcsv($fp, array_map(function($v){
+            return mb_convert_encoding($v, "GBK", "UTF-8");
+        }, $head));
+
+        $i = 1;
+        foreach ($document as $item){
+            $dcData = [];
+            $dc = DocumentCostStructureModel::where('document_id', $item['id'])->get()->toArray();
+            foreach ($dc as $dcItem){
+                $dcData[$dcItem['cost_id']] = $dcItem['money'];
+            }
+            $cate1 = '';
+            if ($item['cate1']) {
+                $tmp_id = explode(',', trim($item['cate1'], ','));
+                $tpm_arr = [];
+                foreach ($tmp_id as $id) {
+                    $tpm_arr[] = $gongzuoleibie[$id]['name'];
+                }
+                if ($tpm_arr) {
+                    $cate1 = implode('; ', $tpm_arr);
+                }
+            }
+
+            $csvData = [
+                $i,
+                $item['identifier'],
+                $item['project_name'],
+                $item['company_name'],
+                $cate1,
+                $item['money'],
+                $userList[$item['pm_id']]['name'],
+                $item['cost_num'],
+                $item['money'] ? round(($item['cost_num']/$item['money'])*10000)/10000 : 0,
+                $item['starttime'],
+                $item['endtime'],
+                $userList[$item['pm_id']]['area'],
+                date('Y-m-d', strtotime($item['created_at'])),
+                $item['moneytime'],
+            ];
+            if ($dcData) {
+                foreach ($baseCost as $bcKey=>$bcItem){
+                    if (isset($dcData[$bcKey])){
+                        $csvData[] = $dcData[$bcKey];
+                    } else {
+                        $csvData[] = '';
+                    }
+                }
+            }
+
+            fputcsv($fp, array_map(function($v){
+                return mb_convert_encoding($v, "GBK", "UTF-8");
+            }, $csvData));
+
+            $i++;
+        }
+        fclose($fp);
+
+        header('Location: http://img.smart.inmyshow.com/file/'.date('YmdHis').'.csv');
     }
 
     /**
@@ -235,6 +348,14 @@ class DocumentsController extends AdminBaseController
         $doc_id = intval($request->input('doc_id', 0));
         $type = intval($request->input('type', ''));
         $review_type = intval($request->input('review_type', 0));
+
+        if ('mail' == $type){
+            /**
+             * @TODO 需要定义邮件格式
+             */
+            return $this->reviewMail($request);
+        }
+
         if (!$id || !$doc_id) {
             abort('400', '参数错误');
         }
@@ -242,11 +363,6 @@ class DocumentsController extends AdminBaseController
             $document = $this->documentsManage->getOneById($doc_id)->toArray()[0];
         } catch (Exception $e) {
             abort($e->getCode(), $e->getMessage());
-        }
-        if ('mail' == $type){
-            /**
-             * @TODO 需要定义邮件格式
-             */
         }
 
         if ('POST' == $request->method()) {
@@ -517,11 +633,20 @@ class DocumentsController extends AdminBaseController
                 }
             }
         }
-        //return view('admin.document.download', compact('document', 'costList', 'docCost', 'attach_list'));
 
         $html = View::make('admin.document.download', compact('document', 'costList', 'docCost', 'attach_list'));
+
+        //$dompdf = new DOMPDF();
+        //$dompdf->load_html($html, 'UTF-8');
+        //$dompdf->setPaper('A4', 'landscape');
+        //$dompdf->render();
+        //$dompdf->stream('test_pdf.pdf');
+
+        //return view('admin.document.download', compact('document', 'costList', 'docCost', 'attach_list'));
+
+
         return $html;
-        //return PDF::loadHTML($html, 'utf-8')->download('document.pdf');
+        //return PDF::loadHTML($html, 'UTF-8')->download('document.pdf');
 
     }
 
@@ -772,78 +897,57 @@ class DocumentsController extends AdminBaseController
      */
     private function reviewMail(Request $request)
     {
-        $data = ['email'=>config('mail.from.address'), 'name'=>config('mail.from.name')];
-
+        $id = intval($request->input('id', 0));
+        $doc_id = intval($request->input('doc_id', 0));
+        if (!$id || !$doc_id) {
+            abort('400', '参数错误');
+        }
         try {
-            $document = $this->documentsManage->getOneById($request->input('doc_id'))->toArray()[0];
+            $document = $this->documentsManage->getOneById($doc_id)->toArray()[0];
         } catch (Exception $e) {
             abort($e->getCode(), $e->getMessage());
         }
-        $document['cate1_name'] = '';
-        $document['pm'] = '';
-        $document['author'] = '';
+        try {
+            $reviewInfo = DocumentReviewModel::where(['id'=>$id, 'document_id'=>$doc_id])->get()->toArray()[0];
+        } catch (Exception $e) {
+            abort(400, '当前审批不存在');
+        }
+        $reviewuid = $reviewInfo['review_uid'];
+        try {
+            $reviewuser = $this->userManage->getUserById($reviewuid)->toArray()[0];
+        } catch (Exception $e) {
+            abort(400, '当前审批用户不存在');
+        }
 
-        $doc_cate1 = explode(',', trim($document['cate1'], ','));
+        $reviewuser['email'] = '252064657@qq.com';
+        if (!$reviewuser['email']){
+            abort(400, '用户没有邮箱');
+        }
+        $cost_money = ($document['money'] ? (round($document['cost_num']/$document['money']*10000)/10000) : 0);
+        $data['email'] = $reviewuser['email'];
+        $data['name'] = $reviewuser['name'];
+        $data['subject'] = $reviewuser['name'].' 您好! 您有一封待审核的执行单, 请尽快处理。';
+        //$data['body'] = $reviewuser['name'].' 您好!<br /><br />您有一封待审核的执行单, 请尽快处理。<br /><br />项目名称: '.$document['project_name'].'<br />项目金额: '.$document['money'].'<br />成本预算: '.$document['cost_num'].'<br />成本占比: '.($document['money'] ? (round($document['cost_num']/$document['money']*10000)/10000) : 0).'<br /><br /><a href="" target="_blank">点此链接进入审批页面</a>';
 
-        $category = $this->categoryModel->getAll();
-        $gongzuoleibie = [];
-        foreach ($category as $value) {
-            if ($value['type'] == 1) {
-                if (in_array($value['id'], $doc_cate1)) {
-                    $gongzuoleibie[] = $value['name'];
-                }
+        try {
+            $flag = Mail::send('email.document_review_mail', [
+                'name'=>$reviewuser['name'],
+                'project_name'=>$document['project_name'],
+                'money'=>$document['money'],
+                'cost_num'=>$document['cost_num'],
+                'cost_money'=>$cost_money
+            ], function($message) use($data) {
+                $message->from(config('mail.from.address'), config('mail.from.name'));
+                $message->to($data['email'], $data['name']);
+                $message->subject($data['subject']);
+            });
+            if($flag){
+                echo '发送邮件成功，请查收！';
+            }else{
+                echo '发送邮件失败，请重试！';
             }
+        } catch (Exception $e) {
+            var_dump($e->getMessage());
         }
-        if ($gongzuoleibie) {
-            $document['cate1_name'] = implode(', ', $gongzuoleibie);
-        }
-
-        $userList = $this->adminUserManage->getAllUser();
-        if ($userList) {
-            foreach ($userList as $value) {
-                if ($value['id'] == $document['pm_id']) {
-                    $document['pm'] = $value['name'];
-                }
-                if ($value['id'] == $document['author_id']) {
-                    $document['author'] = $value['name'];
-                }
-            }
-        }
-
-        $costList_data = $this->costManage->getBaseAll()->toArray();
-        if ($costList_data) {
-            foreach ($costList_data as $value) {
-                $costList[$value['id']] = $value;
-            }
-        } else {
-            $costList = [];
-        }
-        $docCost = $this->costManage->getDocStructureById($request->input('id'))->toArray();
-        $attach_ids = $attach_list = [];
-        foreach ($docCost as $item) {
-            if ($item['attach_id']) {
-                $attach_ids[] = $item['attach_id'];
-            }
-        }
-
-        if ($attach_ids) {
-            $attachment = AttachmentModel::whereIn('id', $attach_ids)->get();
-            if ($attachment->count()) {
-                foreach ($attachment as $item) {
-                    $attach_list[$item['id']] = $item['path'];
-                }
-            }
-        }
-
-        $data['document'] = $document;
-        $data['costList'] = $costList;
-        $data['docCost'] = $docCost;
-        $data['attach_list'] = $attach_list;
-        $data['activationcode'] = '123456';
-
-        Mail::send('email.document_review_mail', $data, function($message) use($data)
-        {
-            $message->to($data['email'], $data['name'])->subject('欢迎注册我们的网站，请激活您的账号！');
-        });
     }
 }
