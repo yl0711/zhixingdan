@@ -21,7 +21,6 @@ use App\Http\Model\liuchengdan\CategoryModel;
 use App\Http\Model\liuchengdan\DocumentCostStructureModel;
 use App\Http\Model\liuchengdan\DocumentReviewModel;
 use App\Http\Model\liuchengdan\DocumentsModel;
-use App\Libraries\Tcpdf;
 use Illuminate\Http\Request;
 use Exception;
 use View;
@@ -931,6 +930,27 @@ class DocumentsController extends AdminBaseController
         $data['name'] = $reviewuser['name'];
         $data['subject'] = $reviewuser['name'].' 您好! 您有一封待审核的执行单, 请尽快处理。';
 
+        $setting = SettingModel::where(['type'=>'sys', 'status'=>1])->get()->toArray();
+        foreach ($setting as $item){
+            switch ($item['setting_key']){
+                case 'email_user':
+                    Config::set('mail.from.address', $item['setting_value']);
+                    break;
+                case 'email_pwd':
+                    Config::set('mail.password', $item['setting_value']);
+                    break;
+                case 'email_host':
+                    Config::set('mail.host', $item['setting_value']);
+                    break;
+                case 'email_port':
+                    Config::set('mail.port', $item['setting_value']);
+                    break;
+                case 'email_name':
+                    Config::set('mail.from.name', $item['setting_value']);
+                    break;
+            }
+        }
+        $reviewuser['name']='252064657@qq.com';
         try {
             $flag = Mail::send('email.document_review_mail', [
                 'name'=>$reviewuser['name'],
