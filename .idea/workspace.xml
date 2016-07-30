@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9c2e4c6-5970-4a71-800c-a818b05b986f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/setting/sys.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/setting/sys.blade.php" />
     </list>
     <ignored path="zhixingdan.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,8 +26,8 @@
       <file leaf-file-name="mail.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/mail.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="56" column="23" selection-start-line="56" selection-start-column="16" selection-end-line="56" selection-end-column="23" />
+            <state relative-caret-position="435">
+              <caret line="82" column="13" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -38,8 +36,8 @@
       <file leaf-file-name="DocumentsController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="952" column="45" selection-start-line="952" selection-start-column="45" selection-end-line="952" selection-end-column="45" />
+            <state relative-caret-position="121">
+              <caret line="937" column="46" selection-start-line="937" selection-start-column="46" selection-end-line="937" selection-end-column="46" />
               <folding>
                 <element signature="e#128#173#0#PHP" expanded="true" />
               </folding>
@@ -567,12 +565,12 @@
       <workItem from="1469669086202" duration="42000" />
       <workItem from="1469711259611" duration="4028000" />
       <workItem from="1469755369051" duration="8000" />
-      <workItem from="1469852868180" duration="5272000" />
+      <workItem from="1469852868180" duration="5386000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="136355000" />
+    <option name="totallyTimeSpent" value="136469000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -954,16 +952,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/mail.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="56" column="23" selection-start-line="56" selection-start-column="16" selection-end-line="56" selection-end-column="23" />
+        <state relative-caret-position="435">
+          <caret line="82" column="13" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="952" column="45" selection-start-line="952" selection-start-column="45" selection-end-line="952" selection-end-column="45" />
+        <state relative-caret-position="121">
+          <caret line="937" column="46" selection-start-line="937" selection-start-column="46" selection-end-line="937" selection-end-column="46" />
           <folding>
             <element signature="e#128#173#0#PHP" expanded="true" />
           </folding>
