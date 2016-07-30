@@ -280,21 +280,21 @@
         },
         {
             "name": "comodojo/exceptions",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/comodojo/exceptions.git",
-                "reference": "4f6ac344305b59a88d28970f995739ef14e20998"
+                "reference": "5eb2c462b04a08e109865429fbdb4e36cce358cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://packagist.phpcomposer.com/files/comodojo/exceptions/4f6ac344305b59a88d28970f995739ef14e20998.zip",
-                "reference": "4f6ac344305b59a88d28970f995739ef14e20998",
+                "url": "https://packagist.phpcomposer.com/files/comodojo/exceptions/5eb2c462b04a08e109865429fbdb4e36cce358cf.zip",
+                "reference": "5eb2c462b04a08e109865429fbdb4e36cce358cf",
                 "shasum": ""
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0",
-                "scrutinizer/ocular": "~1.1"
+                "phpunit/phpunit": "^4.0|^5.0",
+                "scrutinizer/ocular": "^1.0"
             },
             "type": "library",
             "autoload": {
@@ -323,7 +323,7 @@
                 "comodojo",
                 "exception"
             ],
-            "time": "2016-01-31 18:50:38"
+            "time": "2016-07-27 23:42:58"
         },
         {
             "name": "comodojo/zip",

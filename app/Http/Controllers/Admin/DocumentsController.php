@@ -21,12 +21,12 @@ use App\Http\Model\liuchengdan\CategoryModel;
 use App\Http\Model\liuchengdan\DocumentCostStructureModel;
 use App\Http\Model\liuchengdan\DocumentReviewModel;
 use App\Http\Model\liuchengdan\DocumentsModel;
+use App\Libraries\Tcpdf;
 use Illuminate\Http\Request;
 use Exception;
 use View;
 use Mail;
 use PDF;
-use Dompdf\Dompdf;
 
 class DocumentsController extends AdminBaseController
 {
@@ -636,6 +636,10 @@ class DocumentsController extends AdminBaseController
 
         $html = View::make('admin.document.download', compact('document', 'costList', 'docCost', 'attach_list'));
 
+        //PDF::writeHTML($html);
+
+        //PDF::Output('hello_world.pdf');
+
         //$dompdf = new DOMPDF();
         //$dompdf->load_html($html, 'UTF-8');
         //$dompdf->setPaper('A4', 'landscape');
@@ -645,8 +649,8 @@ class DocumentsController extends AdminBaseController
         //return view('admin.document.download', compact('document', 'costList', 'docCost', 'attach_list'));
 
 
-        return $html;
-        //return PDF::loadHTML($html, 'UTF-8')->download('document.pdf');
+        //return $html;
+        return PDF::loadHTML($html)->stream('document.pdf');
 
     }
 

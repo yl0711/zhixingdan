@@ -162,6 +162,8 @@ return [
          */
         Barryvdh\DomPDF\ServiceProvider::class,
 
+        //Elibyy\TCPDF\ServiceProvider::class,
+
     ],
 
     /*
@@ -218,6 +220,8 @@ return [
          * laravel-dompdf
          */
         'PDF' => Barryvdh\DomPDF\Facade::class,
+
+        //'PDF' => Elibyy\TCPDF\Facades\TCPdf::class,
     ],
 
 ];
