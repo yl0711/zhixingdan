@@ -950,39 +950,52 @@ class DocumentsController extends AdminBaseController
                 case 'email_name':
                     Config::set('mail.from.name', $item['setting_value']);
                     break;
+                case 'email_open':
+                    $email_open = $item['setting_value'];
+                    break;
             }
         }
-        $data['email']='252064657@qq.com';
-        try {
-            $flag = Mail::send('email.document_review_mail', [
-                'name'=>$reviewuser['name'],
-                'project_name'=>$document['project_name'],
-                'money'=>$document['money'],
-                'cost_num'=>$document['cost_num'],
-                'cost_money'=>$cost_money,
-                'doc_id'=>$doc_id,
-            ], function($message) use($data) {
-                $message->from(config('mail.from.address'), config('mail.from.name'));
-                $message->to($data['email'], $data['name']);
-                $message->subject($data['subject']);
-            });
+        if (isset($email_open) && $email_open){
+            $email_open = 1;
+        }else {
+            $email_open = 0;
+        }
 
-            $id = DocumentMailModel::create([
-                'doc_id'=>$doc_id,
-                'review_id'=>$id,
-                'from_user_id'=>$this->admin_user['id'],
-                'to_user_id'=>$reviewInfo['review_uid'],
-                'intro'=>'',
-            ]);
+        if ($email_open){
+            $data['email']='252064657@qq.com';
+            try {
+                $flag = Mail::send('email.document_review_mail', [
+                    'name' => $reviewuser['name'],
+                    'project_name' => $document['project_name'],
+                    'money' => $document['money'],
+                    'cost_num' => $document['cost_num'],
+                    'cost_money' => $cost_money,
+                    'doc_id' => $doc_id,
+                ], function ($message) use ($data) {
+                    $message->from(config('mail.from.address'), config('mail.from.name'));
+                    $message->to($data['email'], $data['name']);
+                    $message->subject($data['subject']);
+                });
 
-            if($flag){
-                DocumentMailModel::where('id', $id)->update(['status'=>1]);
-                return json_encode(['status'=>'success', 'info'=>'邮件已发出, 请等待对方审批!']);
-            }else{
-                return json_encode(['status'=>'success', 'info'=>'邮件已发送失败']);
+                $id = DocumentMailModel::create([
+                    'doc_id' => $doc_id,
+                    'review_id' => $id,
+                    'from_user_id' => $this->admin_user['id'],
+                    'to_user_id' => $reviewInfo['review_uid'],
+                    'intro' => '',
+                ]);
+
+                if ($flag) {
+                    DocumentMailModel::where('id', $id)->update(['status' => 1]);
+                    return json_encode(['status' => 'success', 'info' => '审批完成, 邮件已发出, 请等待对方审批!']);
+                } else {
+                    return json_encode(['status' => 'success', 'info' => '审批完成, 邮件已发送失败']);
+                }
+            } catch (Exception $e) {
+                return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
             }
-        } catch (Exception $e) {
-            return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        } else {
+            return json_encode(['status' => 'success', 'info' => '审批完成,']);
         }
     }
 }

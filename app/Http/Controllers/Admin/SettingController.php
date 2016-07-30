@@ -25,12 +25,21 @@ class SettingController extends AdminBaseController
     {
         $setting = [];
         $data = SettingModel::where(['type'=>'sys', 'status'=>1])->get()->toArray();
+        $setting['email_open'][0] = '';
+        $setting['email_open'][1] = '';
+
         if ($data) {
             foreach ($data as $item) {
-                $setting[$item['setting_key']] = $item['setting_value'];
+                if (!strcasecmp($item['setting_key'], 'email_open')){
+                    if (isset($item['setting_value']) && 1!=$item['setting_value']){
+                        $item['setting_value']=0;
+                    }
+                    $setting[$item['setting_key']][$item['setting_value']] = 'checked="checked"';
+                } else {
+                    $setting[$item['setting_key']] = $item['setting_value'];
+                }
             }
         }
-
         return view('admin.setting.sys', compact('setting'));
     }
 
