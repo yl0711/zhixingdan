@@ -12,13 +12,13 @@ use App\Http\Controllers\AdminBaseController;
 use App\Http\Manage\AdminUserManage;
 use App\Http\Manage\CostManage;
 use App\Http\Manage\DocumentsManage;
-use App\Http\Manage\MailManage;
 use App\Http\Manage\UploadManage;
 use App\Http\Model\liuchengdan\AreaModel;
 use App\Http\Model\liuchengdan\AttachmentModel;
 use App\Http\Model\liuchengdan\BaseCostStructureModel;
 use App\Http\Model\liuchengdan\CategoryModel;
 use App\Http\Model\liuchengdan\DocumentCostStructureModel;
+use App\Http\Model\liuchengdan\DocumentMailModel;
 use App\Http\Model\liuchengdan\DocumentReviewModel;
 use App\Http\Model\liuchengdan\DocumentsModel;
 use App\Http\Model\liuchengdan\SettingModel;
@@ -350,13 +350,12 @@ class DocumentsController extends AdminBaseController
         $type = intval($request->input('type', ''));
         $review_type = intval($request->input('review_type', 0));
 
-        if ('mail' == $type){
+        if (!strcasecmp($type, 'mail')){
             /**
              * @TODO 需要定义邮件格式
              */
             return $this->reviewMail($request);
         }
-
         if (!$id || !$doc_id) {
             abort('400', '参数错误');
         }
@@ -967,13 +966,23 @@ class DocumentsController extends AdminBaseController
                 $message->to($data['email'], $data['name']);
                 $message->subject($data['subject']);
             });
+
+            $id = DocumentMailModel::create([
+                'doc_id'=>$doc_id,
+                'review_id'=>$id,
+                'from_user_id'=>$this->admin_user['id'],
+                'to_user_id'=>$reviewInfo['review_uid'],
+                'intro'=>'',
+            ]);
+
             if($flag){
-                echo '发送邮件成功，请查收！';
+                DocumentMailModel::where('id', $id)->update(['status'=>1]);
+                return json_encode(['status'=>'success', 'info'=>'邮件已发出, 请等待对方审批!']);
             }else{
-                echo '发送邮件失败，请重试！';
+                return json_encode(['status'=>'success', 'info'=>'邮件已发送失败']);
             }
         } catch (Exception $e) {
-            var_dump($e->getMessage());
+            return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
         }
     }
 }

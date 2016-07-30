@@ -123,7 +123,7 @@ function docmentsCostCallback(data) {
 		} else {
 			html += '<td>无<input type="hidden" id="select_cost_attach[]" name="select_cost_attach[]" value="" /></td>';
 		}
-		html += '<td name="delcost">删除</td>';
+		html += '<td name="delcost" style="cursor: pointer">删除</td>';
 		html += '</tr>';
 		$('#cost-list').append(html);
 		del_cost_data();
