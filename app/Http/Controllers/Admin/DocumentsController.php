@@ -21,6 +21,7 @@ use App\Http\Model\liuchengdan\CategoryModel;
 use App\Http\Model\liuchengdan\DocumentCostStructureModel;
 use App\Http\Model\liuchengdan\DocumentReviewModel;
 use App\Http\Model\liuchengdan\DocumentsModel;
+use App\Http\Model\liuchengdan\SettingModel;
 use Illuminate\Http\Request;
 use Exception;
 use View;
