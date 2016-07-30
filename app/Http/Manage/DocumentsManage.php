@@ -409,35 +409,43 @@ class DocumentsManage
                                 case 'email_name':
                                     Config::set('mail.from.name', $item['setting_value']);
                                     break;
+                                case 'email_open':
+                                    $email_open = $item['setting_value'];
+                                    break;
                             }
                         }
-                        // 拒绝后给创建人发邮件通知
-                        $data['email'] = $user['email'];
-                        $data['name'] = $user['name'];
-                        $data['subject'] = $user['name'].' 您好! 您有一封执行单被拒绝了';
-                        $data['email']='252064657@qq.com';
-
-                        $id = DocumentMailModel::create([
-                            'doc_id'=>$docId,
-                            'review_id'=>$id,
-                            'from_user_id'=>$uid,
-                            'to_user_id'=>$docData['created_uid'],
-                            'intro'=>'审批驳回',
-                        ]);
-
-                        $flag = Mail::send('email.document_review_cancel_mail', [
-                            'name'=>$user['name'],
-                            'project_name'=>$docData['project_name'],
-                            'doc_id'=>$docId,
-                        ], function($message) use($data) {
-                            $message->from(config('mail.from.address'), config('mail.from.name'));
-                            $message->to($data['email'], $data['name']);
-                            $message->subject($data['subject']);
-                        });
-                        if ($flag){
-                            DocumentMailModel::where('id', $id)->update(['status'=>1]);
+                        if (isset($email_open) && $email_open){
+                            $email_open = 1;
+                        }else {
+                            $email_open = 0;
                         }
+                        if ($email_open){
+                            // 拒绝后给创建人发邮件通知
+                            $data['email'] = $user['email'];
+                            $data['name'] = $user['name'];
+                            $data['subject'] = $user['name'].' 您好! 您有一封执行单被拒绝了';
+                            $data['email']='252064657@qq.com';
 
+                            $id = DocumentMailModel::create([
+                                'doc_id'=>$docId,
+                                'review_id'=>$id,
+                                'from_user_id'=>$uid,
+                                'to_user_id'=>$docData['created_uid'],
+                                'intro'=>'审批驳回',
+                            ]);
+                            $flag = Mail::send('email.document_review_cancel_mail', [
+                                'name'=>$user['name'],
+                                'project_name'=>$docData['project_name'],
+                                'doc_id'=>$docId,
+                            ], function($message) use($data) {
+                                $message->from(config('mail.from.address'), config('mail.from.name'));
+                                $message->to($data['email'], $data['name']);
+                                $message->subject($data['subject']);
+                            });
+                            if ($flag){
+                                DocumentMailModel::where('id', $id)->update(['status'=>1]);
+                            }
+                        }
                     }
                 } else {
                     $count = DocumentReviewModel::where(['document_id'=>$docId, 'status'=>1])->count();

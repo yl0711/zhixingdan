@@ -10,6 +10,13 @@
 				<table>
 					<tbody id= "dataListTable"　>
 						<tr id = "data_email_host">
+							<td class= "_id" >是否发送邮件通知</td>
+							<td style="text-align: left;" class= "_name">
+								<input type="radio" id="email_open_1" name="email_open" value="1" {{$setting['email_open'][1]}}><label for="email_open_1">是</label>
+								<input type="radio" id="email_open_0" name="email_open" value="0" {{$setting['email_open'][0]}}><label for="email_open_0">否</label>
+							</td>
+						</tr>
+						<tr id = "data_email_host">
 							<td class= "_id" >系统邮箱服务器地址</td>
 							<td style="text-align: left;" class= "_name">
 								<input type="text" id="email_host" name="email_host" style="width: 300px;" value="@if(isset($setting['email_host']) && $setting['email_host']){{$setting['email_host']}}@endif" />
@@ -74,6 +81,7 @@ $(function() {
 				'email_user':$('#email_user').val(),
 				'email_pwd':$('#email_pwd').val(),
 				'email_name':$('#email_name').val(),
+				'email_open':$('input:radio[name=email_open]:checked').val(),
 				'ceo_check_value':$('#ceo_check_value').val(),
 				'ceo_userid':$('#ceo_userid').val()
 			},
