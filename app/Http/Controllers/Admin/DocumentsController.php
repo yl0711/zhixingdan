@@ -27,6 +27,7 @@ use Exception;
 use View;
 use Mail;
 use PDF;
+use Config;
 
 class DocumentsController extends AdminBaseController
 {
