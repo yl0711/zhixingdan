@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9c2e4c6-5970-4a71-800c-a818b05b986f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/SettingController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/SettingController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php" afterPath="$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/setting/sys.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/setting/sys.blade.php" />
     </list>
     <ignored path="zhixingdan.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DocumentsController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DocumentsController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="975" column="33" selection-start-line="975" selection-start-column="33" selection-end-line="975" selection-end-column="47" />
+            <state relative-caret-position="199">
+              <caret line="963" column="25" selection-start-line="963" selection-start-column="25" selection-end-line="963" selection-end-column="25" />
               <folding>
                 <element signature="e#128#173#0#PHP" expanded="true" />
               </folding>
@@ -39,11 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DocumentsManage.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DocumentsManage.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
-              <caret line="435" column="46" selection-start-line="435" selection-start-column="36" selection-end-line="435" selection-end-column="46" />
+            <state relative-caret-position="316">
+              <caret line="425" column="80" selection-start-line="425" selection-start-column="80" selection-end-line="425" selection-end-column="80" />
               <folding />
             </state>
           </provider>
@@ -138,8 +135,8 @@
         <option value="$PROJECT_DIR$/resources/views/admin/document/module/submit_form.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/SettingController.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/setting/sys.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" />
         <option value="$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php" />
       </list>
     </option>
   </component>
@@ -709,12 +706,12 @@
       <workItem from="1469669086202" duration="42000" />
       <workItem from="1469711259611" duration="4028000" />
       <workItem from="1469755369051" duration="8000" />
-      <workItem from="1469852868180" duration="13011000" />
+      <workItem from="1469852868180" duration="13138000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144094000" />
+    <option name="totallyTimeSpent" value="144221000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -727,10 +724,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="812" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22031474" sideWeight="0.50715744" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23541667" sideWeight="0.48689654" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23541667" sideWeight="0.48689654" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827586" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921812" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1104,21 +1101,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="975" column="33" selection-start-line="975" selection-start-column="33" selection-end-line="975" selection-end-column="47" />
-          <folding>
-            <element signature="e#128#173#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="316">
+          <caret line="425" column="80" selection-start-line="425" selection-start-column="80" selection-end-line="425" selection-end-column="80" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Manage/DocumentsManage.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="435" column="46" selection-start-line="435" selection-start-column="36" selection-end-line="435" selection-end-column="46" />
-          <folding />
+        <state relative-caret-position="199">
+          <caret line="963" column="25" selection-start-line="963" selection-start-column="25" selection-end-line="963" selection-end-column="25" />
+          <folding>
+            <element signature="e#128#173#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

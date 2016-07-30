@@ -424,7 +424,6 @@ class DocumentsManage
                             $data['email'] = $user['email'];
                             $data['name'] = $user['name'];
                             $data['subject'] = $user['name'].' 您好! 您有一封执行单被拒绝了';
-                            $data['email']='252064657@qq.com';
 
                             $id = DocumentMailModel::create([
                                 'doc_id'=>$docId,

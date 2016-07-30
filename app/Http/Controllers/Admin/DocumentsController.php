@@ -962,7 +962,6 @@ class DocumentsController extends AdminBaseController
         }
 
         if ($email_open){
-            $data['email']='252064657@qq.com';
             try {
                 $flag = Mail::send('email.document_review_mail', [
                     'name' => $reviewuser['name'],
