@@ -935,6 +935,7 @@ class DocumentsController extends AdminBaseController
             switch ($item['setting_key']){
                 case 'email_user':
                     Config::set('mail.from.address', $item['setting_value']);
+                    Config::set('mail.username', $item['setting_value']);
                     break;
                 case 'email_pwd':
                     Config::set('mail.password', $item['setting_value']);
