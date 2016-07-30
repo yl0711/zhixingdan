@@ -87,11 +87,6 @@
 						<tr>
 							<th colspan = "2" >
 								<button type="button" id="download" class="btn btn-success">下载</button>
-							@if (isset($admin_user['superadmin']) && 1 == $admin_user['superadmin'])
-								@if (2 != $document['status'] && -2 != $document['status'])
-								<button type="button" id="cancel" class="btn btn-danger">拒绝</button>
-								@endif
-							@endif
 							</th>
 						</tr>
 						
@@ -108,11 +103,7 @@ $(function() {
 	$('#download').click(function() {
 		window.location.href="{{url('documents/download')}}/{{$document['id']}}";
 	});
-	
-	$('#cancel').click(function() {
-		modalView('show' ,true, '拒绝原因');
-		$('.modal-body').load("{{url('documents/reviewCancel')}}/{{$document['id']}}");
-	});
+
 });
 
 function docmentsReviewCancelCallback(data) {

@@ -41,7 +41,7 @@
 							<td >
 						@if(-1!=$document['status'] && -2!=$document['status'])
 							@if(1 == $item['status'])
-								@if($item['review_uid'] == $admin_user['id'])
+								@if($item['review_uid'] == $admin_user['id'] || $admin_user['superadmin'])
 								<!-- 当前待审的阶段：我是审批人，这里是审核功能 -->
 								<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_ok btn btn-info">通过</button>
 								<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_cancel btn btn-info">拒绝</button>
@@ -49,7 +49,7 @@
 								<!-- 当前待审的阶段：我是发布人，这里是催单功能 -->
 								<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_mail btn btn-info">催促</button>
 								@endif
-							@elseif(2 == $item['status'] && $item['cost_id'])
+							@elseif(2 == $item['status'] && $item['cost_id'] && ($admin_user['superadmin'] || $item['review_uid'] == $admin_user['id']))
 									<button target="{{$item['id']}}" doc_id = "{{$item['document_id']}}" type="button" class="review_cancel btn btn-info">驳回</button>
 							@endif
 						@endif

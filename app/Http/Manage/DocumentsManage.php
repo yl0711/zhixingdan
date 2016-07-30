@@ -11,6 +11,7 @@ namespace App\Http\Manage;
 use App\Http\Model\liuchengdan\AreaModel;
 use App\Http\Model\liuchengdan\AttachmentModel;
 use App\Http\Model\liuchengdan\DepartmentModel;
+use App\Http\Model\liuchengdan\DocumentMailModel;
 use App\Http\Model\liuchengdan\DocumentModifyLogModel;
 use App\Http\Model\liuchengdan\DocumentReviewModel;
 use App\Http\Model\liuchengdan\DocumentsModel;
@@ -18,6 +19,8 @@ use App\Http\Model\liuchengdan\GroupModel;
 use App\Http\Model\liuchengdan\SettingModel;
 use App\Http\Model\liuchengdan\UserModel;
 use Exception;
+use Config;
+use Mail;
 
 class DocumentsManage
 {
@@ -372,20 +375,74 @@ class DocumentsManage
             $updateArr['isAdmin'] = $isAdmin;
             $result = DocumentReviewModel::where('id', $id)->where('document_id', $docId)->update($updateArr);
 
+            if ($docData = DocumentsModel::where('id', $docId)->get()->toArray()){
+                $docData = $docData[0];
+            } else {
+                throw new Exception('出现错误, 执行单不存在', 400);
+            }
+
             if ($result) {
                 // 被拒绝需要修改执行单状态
                 if (-2 == $review_type) {
                     DocumentsModel::where('id', $docId)->update(['status'=>$review_type]);
+
+                    $user = UserModel::where('id', $docData['created_uid'])->get()->toArray();
+                    if ($user) $user = $user[0];
+
+                    if ($user) {
+                        $setting = SettingModel::where(['type'=>'sys', 'status'=>1])->get()->toArray();
+                        foreach ($setting as $item){
+                            switch ($item['setting_key']){
+                                case 'email_user':
+                                    Config::set('mail.from.address', $item['setting_value']);
+                                    Config::set('mail.username', $item['setting_value']);
+                                    break;
+                                case 'email_pwd':
+                                    Config::set('mail.password', $item['setting_value']);
+                                    break;
+                                case 'email_host':
+                                    Config::set('mail.host', $item['setting_value']);
+                                    break;
+                                case 'email_port':
+                                    Config::set('mail.port', $item['setting_value']);
+                                    break;
+                                case 'email_name':
+                                    Config::set('mail.from.name', $item['setting_value']);
+                                    break;
+                            }
+                        }
+                        // 拒绝后给创建人发邮件通知
+                        $data['email'] = $user['email'];
+                        $data['name'] = $user['name'];
+                        $data['subject'] = $user['name'].' 您好! 您有一封执行单被拒绝了';
+                        $data['email']='252064657@qq.com';
+
+                        $id = DocumentMailModel::create([
+                            'doc_id'=>$docId,
+                            'review_id'=>$id,
+                            'from_user_id'=>$uid,
+                            'to_user_id'=>$docData['created_uid'],
+                            'intro'=>'审批驳回',
+                        ]);
+
+                        $flag = Mail::send('email.document_review_cancel_mail', [
+                            'name'=>$user['name'],
+                            'project_name'=>$docData['project_name'],
+                            'doc_id'=>$docId,
+                        ], function($message) use($data) {
+                            $message->from(config('mail.from.address'), config('mail.from.name'));
+                            $message->to($data['email'], $data['name']);
+                            $message->subject($data['subject']);
+                        });
+                        if ($flag){
+                            DocumentMailModel::where('id', $id)->update(['status'=>1]);
+                        }
+
+                    }
                 } else {
                     $count = DocumentReviewModel::where(['document_id'=>$docId, 'status'=>1])->count();
                     if (0 == $count) {
                         // 完成所有审批流程, 生成单号
-                        if ($docData = DocumentsModel::where('id', $docId)->get()->toArray()){
-                            $docData = $docData[0];
-                        } else {
-                            throw new Exception('出现错误, 执行单不存在', 400);
-                        }
-
                         $createdTime = date('Ymd', strtotime($docData['created_at']));
                         if ($userData = UserModel::where('id', $docData['created_uid'])->get()->toArray()){
                             $userData = $userData[0];

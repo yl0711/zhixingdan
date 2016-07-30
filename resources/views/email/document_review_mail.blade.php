@@ -15,7 +15,7 @@
         成本预算: {{$cost_num}}
         成本占比: {{$cost_money}}
 
-        <a href="{{url('documents/show')}}/{{$doc_id}}" target="_blank">点此链接进入审批页面</a>
+        <a href="{{url('documents/process')}}/{{$doc_id}}" target="_blank">点此链接进入审批页面</a>
 </pre>
 </body>
 </html>
