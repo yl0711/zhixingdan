@@ -11,7 +11,7 @@
 				<table class ="prodict_edit">
 					<tbody >
 						<tr>
-							<td class="tr"> 执行单号 :</td>
+							<td class="tr" width="150px"> 执行单号 :</td>
 							<td class="tl">{{$document['identifier']}}</td>
 						</tr>
 						<tr>
