@@ -953,7 +953,7 @@ class DocumentsController extends AdminBaseController
                     break;
             }
         }
-        $reviewuser['name']='252064657@qq.com';
+        $data['email']='252064657@qq.com';
         try {
             $flag = Mail::send('email.document_review_mail', [
                 'name'=>$reviewuser['name'],
