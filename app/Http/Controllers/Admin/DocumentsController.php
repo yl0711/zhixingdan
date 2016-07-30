@@ -923,7 +923,6 @@ class DocumentsController extends AdminBaseController
             abort(400, '当前审批用户不存在');
         }
 
-        $reviewuser['email'] = '252064657@qq.com';
         if (!$reviewuser['email']){
             abort(400, '用户没有邮箱');
         }
@@ -931,7 +930,6 @@ class DocumentsController extends AdminBaseController
         $data['email'] = $reviewuser['email'];
         $data['name'] = $reviewuser['name'];
         $data['subject'] = $reviewuser['name'].' 您好! 您有一封待审核的执行单, 请尽快处理。';
-        //$data['body'] = $reviewuser['name'].' 您好!<br /><br />您有一封待审核的执行单, 请尽快处理。<br /><br />项目名称: '.$document['project_name'].'<br />项目金额: '.$document['money'].'<br />成本预算: '.$document['cost_num'].'<br />成本占比: '.($document['money'] ? (round($document['cost_num']/$document['money']*10000)/10000) : 0).'<br /><br /><a href="" target="_blank">点此链接进入审批页面</a>';
 
         try {
             $flag = Mail::send('email.document_review_mail', [
@@ -939,7 +937,8 @@ class DocumentsController extends AdminBaseController
                 'project_name'=>$document['project_name'],
                 'money'=>$document['money'],
                 'cost_num'=>$document['cost_num'],
-                'cost_money'=>$cost_money
+                'cost_money'=>$cost_money,
+                'doc_id'=>$doc_id,
             ], function($message) use($data) {
                 $message->from(config('mail.from.address'), config('mail.from.name'));
                 $message->to($data['email'], $data['name']);

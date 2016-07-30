@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.163.com'),
+    'host' => env('MAIL_HOST', 'mail.inmyshow.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -41,7 +41,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+    'port' => env('MAIL_PORT', 25),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'y_l0711@163.com', 'name' => 'yanglei'],
+    'from' => ['address' => 'yaoyixuan@inmyshow.com', 'name' => '姚倩'],
 
     /*
     |--------------------------------------------------------------------------
@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' => env('MAIL_ENCRYPTION', ''),
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME', 'y_l0711@163.com'),
+    'username' => env('MAIL_USERNAME', 'yaoyixuan@inmyshow.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'password' => env('MAIL_PASSWORD', 'YANGlei0711'),
+    'password' => env('MAIL_PASSWORD', '112233'),
 
     /*
     |--------------------------------------------------------------------------
