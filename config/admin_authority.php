@@ -13,6 +13,7 @@ return [
         '用户组管理' => 'App\\Http\\Controllers\\Admin\\AdminUserGroupController',
         '用户管理' => 'App\\Http\\Controllers\\Admin\\AdminUserController',
         '区域管理' => 'App\\Http\\Controllers\\Admin\\AdminAreaController',
+        '修改密码' => 'App\\Http\\Controllers\\Admin\\PasswordController',
     ],
     '权限管理' => [
         '权限管理' => 'App\\Http\\Controllers\\Admin\\AdminAuthorityController',

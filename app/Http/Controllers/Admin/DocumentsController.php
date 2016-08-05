@@ -453,6 +453,8 @@ class DocumentsController extends AdminBaseController
         $document['pm'] = '';
         $document['author'] = '';
 
+        $document['cost_scale'] = round(($document['cost_num'] / $document['money']) * 100);
+
         $doc_cate1 = explode(',', trim($document['cate1'], ','));
 
         $category = $this->categoryModel->getAll();

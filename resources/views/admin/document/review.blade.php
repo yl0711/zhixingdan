@@ -30,7 +30,7 @@
 							<th style="width: 10%;">项目名称</th>
 							<th style="width: 10%;">客户名称</th>
 							<th style="width: 10%;">项目周期</th>
-							<th style="width: 8%;">负责人</th>
+							<th style="width: 8%;">创建人</th>
 							<th style="width: 10%;">金额</th>
 							<th style="width: 10%;">状态</th>
 							<th >操作</th>
@@ -48,7 +48,7 @@
 							<td class= "_name">
 								{{$item['doc']['starttime']}}<br />至<br />{{$item['doc']['endtime']}}
 							</td>
-							<td class= "_name">{{$userList[$item['doc']['pm_id']]['name']}}</td>
+							<td class= "_name">{{$userList[$item['doc']['created_uid']]['name']}}</td>
 							<td class= "_name">{{$item['doc']['money']}}</td>
 							<td class= "_name">@if(2 == $item['status'])
 								已审批

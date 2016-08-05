@@ -80,10 +80,13 @@
 							</td>
 						</tr>
 						<tr>
+							<td class="tr"> 成本占比 :</td>
+							<td class="tl">{{$document['cost_scale']}}</td>
+						</tr>
+						<tr>
 							<td class="tr"> 项目KPI指标 :</td>
 							<td class="tl">{{$document['kpi']}}</td>
 						</tr>
-						
 						<tr>
 							<th colspan = "2" >
 								<button type="button" id="download" class="btn btn-success">下载</button>

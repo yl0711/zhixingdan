@@ -84,6 +84,15 @@ class DocumentsManage
 
         unset($request['cost_select'], $request['cost_intro'], $request['cost_money'], $request['cost_attach']);
 
+        $cost_num = 0;
+        foreach ($cost_select as $key=>$value) {
+            if (0 == $value) continue;
+            if ($cost_money[$key] > 0) $cost_num += $cost_money[$key];
+        }
+        if ($request['money'] < $cost_num){
+            throw new Exception('项目金额需要大于成本总额', 400);
+        }
+
         try {
             $id = $this->documentModel->add($request);
             $cost_num = 0;
@@ -470,9 +479,11 @@ class DocumentsManage
                             throw new Exception('出现错误, 执行单创建人所在区域不存在', 400);
                         }
 
-                        $identifier = zhixingdan_code($departmentData['alias'], $createdTime, $docId, $areaData['alias']);
+                        $nowCreateId = DocumentsModel::max('create_id');
+                        $nowCreateId++;
+                        $identifier = zhixingdan_code($departmentData['alias'], $createdTime, $nowCreateId, $areaData['alias']);
 
-                        DocumentsModel::where('id', $docId)->update(['identifier'=>$identifier, 'status'=>2]);
+                        DocumentsModel::where('id', $docId)->update(['identifier'=>$identifier, 'nowCreateId'=>$nowCreateId, 'status'=>2]);
                     }
                 }
             }
