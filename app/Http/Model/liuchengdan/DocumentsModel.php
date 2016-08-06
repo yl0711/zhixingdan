@@ -45,6 +45,26 @@ class DocumentsModel extends BaseModel
         }
     }
 
+    public function getSumMoney($name='', $cate1=0, $status=0, $uids=[])
+    {
+        $query = self::where([]);
+        if (!empty($name)) {
+            $query = $query->where('name', 'like', '%'.$name.'%');
+        }
+        if (0 < $cate1) {
+            $query = $query->where('cate1', 'like', '%,' . $cate1 . ',%');
+        }
+        if (0 != $status) {
+            $query = $query->where('status', $status);
+        } else {
+            $query = $query->where('status', '!=', '-1');
+        }
+        if (!empty($uids)) {
+            $query = $query->whereIn('created_uid', $uids);
+        }
+        return $query->sum('money');
+    }
+
     public function getAll($status=1)
     {
         $query = self::orderBy('id', 'asc');

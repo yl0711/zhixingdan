@@ -81,7 +81,7 @@
 						</tr>
 						<tr>
 							<td class="tr"> 成本占比 :</td>
-							<td class="tl">{{$document['cost_scale']}}</td>
+							<td class="tl">{{$document['cost_scale']}}%</td>
 						</tr>
 						<tr>
 							<td class="tr"> 项目KPI指标 :</td>

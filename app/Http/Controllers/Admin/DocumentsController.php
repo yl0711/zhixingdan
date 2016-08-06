@@ -63,6 +63,7 @@ class DocumentsController extends AdminBaseController
         }
 
         $document = $this->documentsManage->getList($name, $cate1, $status, $branch_ids);
+        $documentMoney = $this->documentsManage->getSumMoney($name, $cate1, $status, $branch_ids);
 
         $category = $this->categoryModel->getAll();
         $gongzuoleibie = [];
@@ -96,7 +97,7 @@ class DocumentsController extends AdminBaseController
             }
         }
 
-        return view('admin.document.list', compact('name', 'cate1', 'status', 'type', 'gongzuoleibie', 'document', 'userList'));
+        return view('admin.document.list', compact('name', 'cate1', 'status', 'type', 'gongzuoleibie', 'document', 'userList', 'documentMoney'));
     }
 
     /**

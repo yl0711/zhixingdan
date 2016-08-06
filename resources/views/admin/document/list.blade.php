@@ -34,6 +34,7 @@
 					<input type="text"  action = "{{url('documents/index')}}/?name={{$name}}&status={{$status}}&cate1＝{{$cate1}}" class = "pageSize" name = "pageSize"  value="{{$pageSize}}" >
 				</form>	
 				<div class="fr top-r">
+					<i style="margin-right: 20px;">合计: {{$documentMoney}}</i>
 					<i class="add-ico" id = "btn_export_admin_documents" >导出 </i>
 				@if ($admin_user['department_id'])
 					<i class="add-ico" id = "btn_add_admin_documents" >添加执行单 </i>

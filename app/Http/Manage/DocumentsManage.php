@@ -51,6 +51,12 @@ class DocumentsManage
         return $this->documentModel->getList($name, $cate1, $status, $uids, $page);
     }
 
+
+    public function getSumMoney($name='', $cate1=0, $status=0, $uids=[])
+    {
+        return $this->documentModel->getSumMoney($name, $cate1, $status, $uids);
+    }
+
     public function getAll()
     {
         return $this->documentModel->getAll();
