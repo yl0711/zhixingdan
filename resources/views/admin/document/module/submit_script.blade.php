@@ -65,6 +65,7 @@ $(function() {
 				data:{
 					@if ($page_type=='modify')
 					'id':{{$document['id']}},
+                    'identifier':'{{$document['identifier']}}',
 					@endif
 					@if ($page_type=='modify')
 					'created_uid':{{$document['created_uid']}},

@@ -11,6 +11,7 @@
 					<thead>
 						<tr>
 							<th style="width: 5%;">ID</th>
+							<th style="width: 10%;">编号</th>
 							<th style="width: 15%;">分类</th>
 							<th style="width: 10%;">项目名称</th>
 							<th style="width: 10%;">客户名称</th>
@@ -27,6 +28,7 @@
 						@foreach($history as $item)
 						<tr id = "data_{{$item['id']}}" data-id = "{{$item['id']}}" >
 							<td class= "_id" >{{$item['id']}}</td>
+							<td class= "_name">{{$item['identifier']}}</td>
 							<td class= "_name">{{$item['cate1']}}</td>
 							<td class= "_name">{{$item['project_name']}}</td>
 							<td class= "_name">{{$item['company_name']}}</td>
@@ -39,11 +41,12 @@
 							<td class= "_name">{{$item['modify_at']}}</td>
 							<td align="center">
 								<a target="{{$item['id']}}" class="btn_show">预览</a>
+								<a target="{{$item['id']}}" class="btn_process">流程</a>
 							</td>
 						</tr>
 						@endforeach
 					@else
-						<tr><td colspan="10">无数据</td></tr>
+						<tr><td colspan="11">无数据</td></tr>
 					@endif
 					</tbody>
 				</table>

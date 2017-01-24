@@ -70,6 +70,13 @@ Route::group(['namespace'=>'Admin'], function() {
             Route::post('group/{gid?}', ['uses'=>'AdminAuthorityController@groupAuthority']);
         });
 
+        //密码管理
+        Route::group(['prefix' => 'pass'], function() {
+            Route::get('index', ['uses' => 'PasswordController@index']);
+
+            Route::post('modify', ['uses' => 'PasswordController@modify']);
+        });
+
         //供应商管理
         Route::group(['prefix' => 'company'], function() {
             Route::match(['get', 'post'], 'index', ['uses'=>'CompanyController@index']);

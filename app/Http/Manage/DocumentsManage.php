@@ -51,6 +51,12 @@ class DocumentsManage
         return $this->documentModel->getList($name, $cate1, $status, $uids, $page);
     }
 
+
+    public function getSumMoney($name='', $cate1=0, $status=0, $uids=[])
+    {
+        return $this->documentModel->getSumMoney($name, $cate1, $status, $uids);
+    }
+
     public function getAll()
     {
         return $this->documentModel->getAll();
@@ -83,6 +89,15 @@ class DocumentsManage
         $request['cate1'] = ',' . implode(',', $request['cate1']) . ',';
 
         unset($request['cost_select'], $request['cost_intro'], $request['cost_money'], $request['cost_attach']);
+
+        $cost_num = 0;
+        foreach ($cost_select as $key=>$value) {
+            if (0 == $value) continue;
+            if ($cost_money[$key] > 0) $cost_num += $cost_money[$key];
+        }
+        if ($request['money'] < $cost_num){
+            throw new Exception('项目金额需要大于成本总额', 400);
+        }
 
         try {
             $id = $this->documentModel->add($request);
@@ -149,7 +164,7 @@ class DocumentsManage
         try {
             $id = $this->add($request);
             // 旧执行单设为作废
-            $this->documentModel->modify($old_id, ['status' => -1, 'modify_at' => date('Y-m-d H:i:s', time())]);
+            $this->documentModel->modify($old_id, ['status' => -1, 'modify_uid' => $request['modify_uid'], 'modify_at' => date('Y-m-d H:i:s', time())]);
             // 修改记录中关联到此执行单的都重新关联到新的
             $this->docModifyLogModel->modify(['new_id' => $old_id], ['new_id' => $id]);
             // 添加新的修改记录
@@ -470,9 +485,16 @@ class DocumentsManage
                             throw new Exception('出现错误, 执行单创建人所在区域不存在', 400);
                         }
 
-                        $identifier = zhixingdan_code($departmentData['alias'], $createdTime, $docId, $areaData['alias']);
+                        $updateData = ['status'=>2];
+                        if (!$docData['identifier']){
+                            $nowCreateId = DocumentsModel::max('create_id');
+                            $nowCreateId++;
+                            $identifier = zhixingdan_code($departmentData['alias'], $createdTime, $nowCreateId, $areaData['alias']);
+                            $updateData['identifier'] = $identifier;
+                            $updateData['nowCreateId'] = $nowCreateId;
+                        }
 
-                        DocumentsModel::where('id', $docId)->update(['identifier'=>$identifier, 'status'=>2]);
+                        DocumentsModel::where('id', $docId)->update($updateData);
                     }
                 }
             }
