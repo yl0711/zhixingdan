@@ -90,6 +90,7 @@
 						<tr>
 							<th colspan = "2" >
 								<button type="button" id="download" class="btn btn-success">下载</button>
+								<button type="button" class="btn btn-success" onclick="window.history.back();">返回</button>
 							</th>
 						</tr>
 						

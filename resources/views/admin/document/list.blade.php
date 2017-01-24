@@ -82,14 +82,15 @@
 								<a target="{{$item['id']}}" class="btn_show color9">预览</a>
 							@if(-2 == $item['status'])
 							<!-- 被拒绝的情况下可以复制重建 -->
-								<a target="{{$item['id']}}" class="btn_copy color2">复制</span>
+								<!--<a target="{{$item['id']}}" class="btn_copy color2">复制</a>-->
+								<a target="{{$item['id']}}" class="btn_modify color3">修改</a>
 							@endif
 							@if(1 == $item['status'])
 							<!-- 未审核过可以修改 -->
-								<a target="{{$item['id']}}" class="btn_modify color3">修改</span>
+								<a target="{{$item['id']}}" class="btn_modify color3">修改</a>
 							@endif
-								<a target="{{$item['id']}}" class="btn_process color1">流程</span>
-								<a target="{{$item['id']}}" class="btn_history">修改记录</span>
+								<a target="{{$item['id']}}" class="btn_process color1">流程</a>
+								<a target="{{$item['id']}}" class="btn_history">修改记录</a>
 							</td>
 						</tr>
 						@endforeach

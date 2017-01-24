@@ -164,7 +164,7 @@ class DocumentsManage
         try {
             $id = $this->add($request);
             // 旧执行单设为作废
-            $this->documentModel->modify($old_id, ['status' => -1, 'modify_at' => date('Y-m-d H:i:s', time())]);
+            $this->documentModel->modify($old_id, ['status' => -1, 'modify_uid' => $request['modify_uid'], 'modify_at' => date('Y-m-d H:i:s', time())]);
             // 修改记录中关联到此执行单的都重新关联到新的
             $this->docModifyLogModel->modify(['new_id' => $old_id], ['new_id' => $id]);
             // 添加新的修改记录
@@ -485,11 +485,16 @@ class DocumentsManage
                             throw new Exception('出现错误, 执行单创建人所在区域不存在', 400);
                         }
 
-                        $nowCreateId = DocumentsModel::max('create_id');
-                        $nowCreateId++;
-                        $identifier = zhixingdan_code($departmentData['alias'], $createdTime, $nowCreateId, $areaData['alias']);
+                        $updateData = ['status'=>2];
+                        if (!$docData['identifier']){
+                            $nowCreateId = DocumentsModel::max('create_id');
+                            $nowCreateId++;
+                            $identifier = zhixingdan_code($departmentData['alias'], $createdTime, $nowCreateId, $areaData['alias']);
+                            $updateData['identifier'] = $identifier;
+                            $updateData['create_id'] = $nowCreateId;
+                        }
 
-                        DocumentsModel::where('id', $docId)->update(['identifier'=>$identifier, 'nowCreateId'=>$nowCreateId, 'status'=>2]);
+                        DocumentsModel::where('id', $docId)->update($updateData);
                     }
                 }
             }

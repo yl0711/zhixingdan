@@ -1,5 +1,11 @@
 <table class ="prodict_edit">
 	<tbody >
+		@if(isset($document) && $document['identifier'])
+		<tr>
+			<td class="tr"> 执行单号 :</td>
+			<td class="tl">{{$document['identifier']}}</td>
+		</tr>
+		@endif
 		<tr>
 			<td class="tr"> <span style="color: #FF0000;">*</span> 项目分类 :</td>
 			<td class="tl">
