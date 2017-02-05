@@ -491,7 +491,7 @@ class DocumentsManage
                             $nowCreateId++;
                             $identifier = zhixingdan_code($departmentData['alias'], $createdTime, $nowCreateId, $areaData['alias']);
                             $updateData['identifier'] = $identifier;
-                            $updateData['nowCreateId'] = $nowCreateId;
+                            $updateData['create_id'] = $nowCreateId;
                         }
 
                         DocumentsModel::where('id', $docId)->update($updateData);
