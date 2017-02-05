@@ -285,8 +285,12 @@ class AdminUserController extends AdminBaseController
 
     private function doModify(Request $request, $id)
     {
-        $data = $request->except(['s']);
-        $this->adminUserManage->modifyUser($data);
-        return json_encode(['status'=>'success', 'data'=>['id'=>$id]]);
+        try {
+            $data = $request->except(['s']);
+            $this->adminUserManage->modifyUser($data);
+            return json_encode(['status'=>'success', 'data'=>['id'=>$id]]);
+        } catch (\Exception $e){
+            return json_encode(['status'=>'error', 'info'=>$e->getMessage()]);
+        }
     }
 }

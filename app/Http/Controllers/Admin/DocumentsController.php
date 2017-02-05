@@ -348,10 +348,10 @@ class DocumentsController extends AdminBaseController
     {
         $id = intval($request->input('id', 0));
         $doc_id = intval($request->input('doc_id', 0));
-        $type = intval($request->input('type', ''));
+        $type = $request->input('type', '');
         $review_type = intval($request->input('review_type', 0));
 
-        if (!strcasecmp($type, 'mail')){
+        if (0 == strcasecmp($type, 'mail')){
             /**
              * @TODO 需要定义邮件格式
              */
@@ -368,7 +368,7 @@ class DocumentsController extends AdminBaseController
 
         if ('POST' == $request->method()) {
             $result = $this->doReview($request);
-            echo "<script>parent.docmentsReviewCallback({$result})</script>";
+            echo "<script>docmentsReviewCallback({$result})</script>";
         } else {
             return view('admin.document.module.reviewInfo', compact('id', 'doc_id', 'document', 'review_type'));
         }
