@@ -368,7 +368,7 @@ class DocumentsController extends AdminBaseController
 
         if ('POST' == $request->method()) {
             $result = $this->doReview($request);
-            echo "<script>docmentsReviewCallback({$result})</script>";
+            echo "<script>parent.docmentsReviewCallback({$result})</script>";
         } else {
             return view('admin.document.module.reviewInfo', compact('id', 'doc_id', 'document', 'review_type'));
         }
